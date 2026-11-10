@@ -15,7 +15,7 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | banner-label/ | CUkbIG.png | Banner, label, pita 8 warna (41) |
 | ikon-item/ | BX4smE.png | Ikon item: zirah, rune, bom, toko, dll. (46) |
 | ikon-gem-medali/ | zbp8uP.png | Gem, medali, hati, petir, dll. (46) |
-| hud/ | X5pZMc.png (D5j9sH.png = duplikat persis) | Lencana level, bar, slot, kartu, joystick, tombol skill, panel mata uang (44) |
+| hud/ | X5pZMc.png (D5j9sH.png = duplikat persis) | Lencana level, bar, slot, kartu, joystick, tombol skill, panel mata uang, ikon di bawah slot (49) |
 | glyph-putih/ | 2pd8ma.png | 360 ikon glyph putih (UI, panah, media, mata uang, dll.) |
 
 ## penerapan/ (43) — contoh layar
