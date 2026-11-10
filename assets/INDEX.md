@@ -17,6 +17,7 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | ikon-gem-medali/ | zbp8uP.png | Gem, medali, hati, petir, dll. (46) |
 | hud/ | X5pZMc.png (D5j9sH.png = duplikat persis) | Lencana level, bar, slot, kartu, joystick, tombol skill, panel mata uang, ikon di bawah slot (49) |
 | glyph-putih/ | 2pd8ma.png | 360 ikon glyph putih (UI, panah, media, mata uang, dll.) |
+| panel-dialog/ | (dipotong dari layar penerapan) | Elemen UI yang tidak ada di sheet komponen; teks dihapus, latar transparan |
 
 ## penerapan/ (43) — contoh layar
 
