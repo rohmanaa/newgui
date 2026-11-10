@@ -17,7 +17,9 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | ikon-gem-medali/ | zbp8uP.png | Gem, medali, hati, petir, dll. (46) |
 | hud/ | X5pZMc.png (D5j9sH.png = duplikat persis) | Lencana level, bar, slot, kartu, joystick, tombol skill, panel mata uang, ikon di bawah slot (49) |
 | glyph-putih/ | 2pd8ma.png | 360 ikon glyph putih (UI, panah, media, mata uang, dll.) |
-| panel-dialog/ | (dipotong dari layar penerapan) | Elemen UI yang tidak ada di sheet komponen; teks dihapus, latar transparan |
+| panel-dialog/ | layar penerapan | Bingkai dialog (polos & dengan bar judul), kotak dialog NPC, baris ranking (teks dihapus) |
+| bendera/ | layar penerapan (m6GSCw) | 12 bendera panji bahasa |
+| ikon-layar/ | layar penerapan (OLGF1N) | Ikon tab Serangan, Monster Kill, Boss Kill (teks dihapus) |
 | ikon-equipment/ | (dipotong dari layar penerapan fcuBiA dan 2wuCGF) | 34 ikon equipment unik: kapak, palu, ramuan, guci, cincin, daun, kristal, dll. Angka dan titik notifikasi dihapus, varian rarity yang identik dilewati |
 | bendera-bahasa/ | (dipotong dari layar penerapan m6GSCw) | 12 bendera panji menu bahasa (Inggris, Jerman, Prancis, Spanyol, Korea, Cina, Taiwan, Jepang, Portugal, Rusia, India, Turki). Tanda centang pilihan pada bendera Inggris dihapus dan area di bawahnya direkonstruksi |
 | ikon-kelas-hero/ | (dipotong dari layar penerapan +JzO2R) | 10 tombol bulat ikon kelas hero (pejuang terpilih, ahli sihir, gladiator, penyihir gelap, paladin, pemanah, penyihir, ranger, pendeta, assassin), teks nama dihapus |
