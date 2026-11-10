@@ -2,20 +2,21 @@
 
 Total 53 gambar PNG, nama file asli tidak diubah.
 
-## komponen/ (10) — bahan aset
+## komponen/ — bahan aset, dipotong per komponen (webp transparan)
 
-| File | Isi |
-|---|---|
-| 2pd8ma.png | Sheet ikon glyph putih (ratusan ikon kecil) |
-| BX4smE.png | Ikon item: toko, helm, peti, kunci, trofi, senjata, ramuan, dll. |
-| zbp8uP.png | Ikon: gem, medali, hati, petir, clover, celengan, dll. |
-| CUkbIG.png | Banner/ribbon dan label, 7 warna |
-| MrHvLu.png | Tombol teks/ikon, toggle, slider, tab, input teks |
-| X5pZMc.png | Komponen HUD: badge level, progress bar, slot, joystick, tombol skill |
-| D5j9sH.png | Komponen HUD (versi dengan latar lain) |
-| ZzeZYM.png | Ilustrasi paket Gem |
-| _fLy_W.png | Ilustrasi paket Gold |
-| xLrpM6.png | Ilustrasi paket Chest (Wooden sampai Legendary) |
+Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transparan (warna komponen tidak diubah).
+
+| Folder | Sheet asli | Isi |
+|---|---|---|
+| paket-gem/ | ZzeZYM.png | Ilustrasi paket Gem (9) |
+| paket-gold/ | _fLy_W.png | Ilustrasi paket Gold (9) |
+| paket-chest/ | xLrpM6.png | Peti kayu sampai legendaris (13) |
+| tombol-dan-kontrol/ | MrHvLu.png | Tombol, toggle, slider, checkbox, tab, input (28) |
+| banner-label/ | CUkbIG.png | Banner, label, pita 8 warna (41) |
+| ikon-item/ | BX4smE.png | Ikon item: zirah, rune, bom, toko, dll. (46) |
+| ikon-gem-medali/ | zbp8uP.png | Gem, medali, hati, petir, dll. (46) |
+| hud/ | X5pZMc.png (D5j9sH.png = duplikat persis) | Lencana level, bar, slot, kartu, joystick, tombol skill, panel mata uang (44) |
+| glyph-putih/ | 2pd8ma.png | 360 ikon glyph putih (UI, panah, media, mata uang, dll.) |
 
 ## penerapan/ (43) — contoh layar
 
