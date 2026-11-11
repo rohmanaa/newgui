@@ -360,10 +360,10 @@ Semua halaman, CSS, JS, dan aset GUI berada di `game/`. Buka lewat server statis
 |---|---|
 | `index.html` → `splash.html` | Loading, login/daftar (simulasi di localStorage) |
 | `lobby.html`, `mode.html`, `room.html` | Menu, pilih mode, game room |
-| `gameplay.html` | Papan ular tangga (World 100 / Nether 120), lawan Computer atau 2–4 pemain lokal |
+| `karakter.html` | Pilih hero (10 karakter), dipakai lewat `js/heroes.js` |
 | `settings.html` | Grafik, suara, getar, suasana |
 | `css/` | `common.css` + satu CSS per halaman |
-| `js/` | `game-core.js` (aturan murni, bisa dites di Node) + satu JS per halaman |
+| `js/` | `heroes.js` (daftar hero) + satu JS per halaman |
 | `assets/` | Kit komponen UI |
 
-Belum dibuat: Layar Siap (kartu urutan), power-up, fase Boss (Ender Dragon / Wither), multiplayer online (butuh Supabase), serta halaman koleksi, toko, tambang, misi, profil, leaderboard, teman.
+Belum dibuat: gameplay (tombol START/Quick Start sementara menampilkan toast "Gameplay segera hadir"), Layar Siap (kartu urutan), power-up, fase Boss (Ender Dragon / Wither), multiplayer online (butuh Supabase), serta halaman koleksi, toko, tambang, misi, profil, leaderboard, teman.

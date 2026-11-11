@@ -179,7 +179,7 @@ $('#ready').onclick=()=>{const me=players.find(p=>p.me);me.ready=!me.ready;draw(
 $('#start').onclick=()=>{
   const c=check();if(!c.ok){toast(c.why);return}
   const cfg=`mode=${MODE==='vsc'?'cpu':players.length}&theme=${mapId}&format=${FORMAT}`;
-  toast('Memulai…');setTimeout(()=>nav('gameplay.html?'+cfg),400);
+  toast('Memulai…');setTimeout(()=>toast('Gameplay segera hadir'),400);
 };
 function leave(){
   if(window.__gameRunning){toast('GAME_IN_PROGRESS');return}

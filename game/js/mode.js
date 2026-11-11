@@ -96,7 +96,7 @@ function ranked(cfg){
   timers.push(setTimeout(()=>{
     $('#mt').textContent='LAWAN DITEMUKAN!';$('#spin').style.display='none';
     $('#mplayers').innerHTML=['Kamu',...Array.from({length:cfg.count-1},(_,i)=>'Lawan '+(i+1))].map(n=>`<div>${n}</div>`).join('');
-    timers.push(setTimeout(()=>{modal.classList.remove('on');nav(`gameplay.html?mode=${cfg.count}&theme=${cfg.map}`)},1100));
+    timers.push(setTimeout(()=>{modal.classList.remove('on');toast('Gameplay segera hadir')},1100));
   },2400));
 }
 $('#mcancel').onclick=()=>{timers.forEach(clearTimeout);timers=[];$('#modal').classList.remove('on')};
