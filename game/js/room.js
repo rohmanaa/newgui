@@ -37,8 +37,8 @@ const POWERS=[
  ['Ice Crystal','ikon-gem-medali/berlian-biru'],['Blaze Core','ikon-gem-medali/petir-emas'],['Trident','ikon-gem-medali/panah-tombak'],['Dragon Crystal','ikon-gem-medali/berlian-merah'],['Nether Star','ikon-item/bintang']
 ];
 const KEYS={skin:'SKIN',frame:'FRAME',dice:'DADU',fx:'EFEK'};
-/* ikon slot DADU & EFEK di room = ikon tile Dadu & Efek di lobby */
-const CATICON={dice:'new-icon/dadu',fx:'ikon-gem-medali/kristal-api'};
+/* ikon slot FRAME, DADU & EFEK di room = ikon tile Dadu & Efek di lobby */
+const CATICON={frame:'new-icon/frame',dice:'new-icon/dadu',fx:'ikon-gem-medali/kristal-api'};
 const sel={skin:0,frame:0,dice:0,fx:0};let loadout=[];
 const MAP={world:{n:'WORLD',goal:'Ender Dragon di Block 100',end:100,c:['#6cc4ff','#c8ecff','#78cc4e','#58a33a','#8d6038']},
            nether:{n:'NETHER',goal:'Wither di Block 120',end:120,c:['#4a0d12','#a1301a','#a33a3a','#7a2828','#4b2020']}};
