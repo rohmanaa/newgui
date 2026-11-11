@@ -22,3 +22,9 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 /* overlay transisi: di luar #stage (yang di-scale) supaya menutupi SELURUH layar, bukan hanya kontainer */
 #fade{position:fixed!important;left:0!important;top:0!important;right:0!important;bottom:0!important;width:auto!important;height:auto!important;z-index:9999!important;background:#000;opacity:0;pointer-events:none;transition:opacity .35s}
 #fade.on{opacity:1;pointer-events:all}
+
+/* Latar modal PENUH layar: overlay modal hanya menutupi #stage (1920x1080 yang diskalakan), sehingga di layar dengan rasio lain
+   tepi kiri/kanan atau atas/bawah tetap terang. Overlay ini berada di bawah #wrap dan menggelapkan seluruh viewport selama modal terbuka (alpha lebih tinggi agar sama gelap dengan area #stage yang kena dua lapis). */
+#wrap{z-index:1}
+body:has(.modal.on,#modal.on,#confirm.on,#lang.on,#dlg.on,#authmodal.on,#md.on)::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:rgba(10,8,30,.93)}
+body:has(#ad.on)::after{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background:rgba(0,0,0,.92)}
