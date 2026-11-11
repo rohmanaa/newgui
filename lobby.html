@@ -137,7 +137,7 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 .sidecard img{height:130px;width:auto;object-fit:contain;filter:drop-shadow(0 5px 4px rgba(0,0,0,.45))}
 .sidecard .tag{position:absolute;left:34px;top:-8px;z-index:2;padding:2px 12px;font:400 22px var(--font-title);background:#f48a12;border-radius:8px;border:2px solid #7a3c00;
   text-shadow:0 2px 0 rgba(90,40,0,.7)}
-.sidecard .tm{font-weight:800;font-size:22px;margin-top:6px;color:#f2eefc;text-shadow:0 2px 0 rgba(0,0,0,.6)}
+.sidecard .tm{font-weight:800;font-size:22px;margin-top:6px;text-align:center;line-height:1.15;color:#f2eefc;text-shadow:0 2px 0 rgba(0,0,0,.6)}
 
 /* ---------- tombol MULAI ---------- */
 #go{position:absolute;right:30px;bottom:28px;width:470px;height:166px;transition:transform .1s;animation:pulse 2.2s ease-in-out infinite}
@@ -156,6 +156,27 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 #toast.on{opacity:1;transform:translate(-50%,0)}
 #fade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .35s;z-index:60}
 #fade.on{opacity:1;pointer-events:all}
+
+/* ---------- polish: vignette, animasi masuk, kilau ---------- */
+#vig{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(10,20,60,.28) 0,transparent 20%,transparent 70%,rgba(10,10,50,.45) 100%)}
+.spark{position:absolute;width:10px;height:10px;background:#fff;opacity:0;transform:rotate(45deg);animation:tw 4s ease-in-out infinite;box-shadow:0 0 12px #fff}
+@keyframes tw{0%,100%{opacity:0;scale:.4}50%{opacity:.9;scale:1}}
+#profile,#quest,#koleksi{animation:inL .6s cubic-bezier(.2,.9,.2,1) both}
+#quest{animation-delay:.08s}#koleksi{animation-delay:.16s}
+.cur,.round{animation:inT .6s cubic-bezier(.2,.9,.2,1) both}
+#cur-co{animation-delay:.07s}#b-mail{animation-delay:.14s}#b-lead{animation-delay:.18s}#b-set{animation-delay:.22s}
+#nav .tile{animation:inB .6s cubic-bezier(.2,.9,.2,1) both}
+#nav .tile:nth-child(2){animation-delay:.07s}#nav .tile:nth-child(3){animation-delay:.14s}#nav .tile:nth-child(4){animation-delay:.21s}
+#side{animation:inR .6s .2s cubic-bezier(.2,.9,.2,1) both}
+@keyframes inL{from{opacity:0;transform:translateX(-80px)}}
+@keyframes inT{from{opacity:0;transform:translateY(-60px)}}
+@keyframes inB{from{opacity:0;transform:translateY(80px)}}
+@keyframes inR{from{opacity:0;transform:translateX(120px)}}
+#go::after{content:"";position:absolute;inset:14px 20px;overflow:hidden;border-radius:10px;pointer-events:none;
+  background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);background-size:250% 100%;background-position:150% 0;animation:shine 3.2s 1s infinite}
+@keyframes shine{to{background-position:-50% 0}}
+.sidecard .tm b{color:#ffd45a}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
@@ -170,6 +191,7 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
   <div class="cloud" style="top:760px;animation-duration:110s;animation-delay:-10s"><i style="left:0;top:26px;width:130px;height:30px"></i><i style="left:24px;top:2px;width:80px;height:30px"></i></div>
   <div class="cloud" style="top:150px;animation-duration:150s;animation-delay:-60s"><i style="left:0;top:30px;width:180px;height:36px"></i><i style="left:36px;top:6px;width:100px;height:36px"></i></div>
 
+  <div id="vig"></div>
   <svg id="world" viewBox="0 0 1920 1080" aria-label="Pulau melayang dengan karakter pemain">
     <ellipse cx="960" cy="1010" rx="260" ry="34" fill="rgba(20,60,110,.18)"/>
     <g id="island"></g>
@@ -231,7 +253,7 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
   <div id="side">
     <div class="sidecard" data-act="hadiahGratis" role="button">
       <span class="tag">GRATIS</span>
-      <img src="assets/komponen/ikon-gem-medali/televisi.webp" alt=""><div class="tm">Hadiah gratis</div>
+      <img src="assets/komponen/ikon-gem-medali/televisi.webp" alt=""><div class="tm">Hadiah gratis<br><b id="fgT">2j 59m</b></div>
     </div>
   </div>
 
@@ -397,6 +419,13 @@ hero.addEventListener('click',()=>{
   setTimeout(()=>{hero.classList.remove(a);busy=false},a==='jump'?560:720);
   document.getElementById('hint').style.display='none';
 });
+
+/* ---- kilau + hitung mundur hadiah gratis ---- */
+{const st=document.getElementById('stage');
+ for(let i=0;i<14;i++){const e=document.createElement('i');e.className='spark';
+  e.style.left=(560+Math.random()*800)+'px';e.style.top=(300+Math.random()*520)+'px';e.style.animationDelay=(Math.random()*4)+'s';
+  e.style.scale=.5+Math.random();st.insertBefore(e,document.getElementById('hint'))}
+ let sec=2*3600+59*60;setInterval(()=>{sec=Math.max(0,sec-1);document.getElementById('fgT').textContent=Math.floor(sec/3600)+'j '+String(Math.floor(sec%3600/60)).padStart(2,'0')+'m'},1000)}
 </script>
 </body>
 </html>
