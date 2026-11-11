@@ -349,3 +349,21 @@ Iron/Diamond/Netherite Sword (serang musuh dekat, mundur 2/3/5), Wooden Shield (
 6. **Dua halaman, satu tampilan:** `hadiah-misi.html` menggabungkan isi `dailyreward.html` dan `misi.html`; kode UI-nya diduplikasi di ketiga file.
 7. **Pola duplikasi kode:** `frame.html`, `dadu.html`, `efek.html`, `powerup.html` hampir identik (hanya `PAGE` dan renderer preview berbeda). Kandidat untuk dijadikan satu komponen bersama bila ingin merapikan.
 8. **Repo pindah:** remote lama `rohmanaa/ular-tangga` masih bisa di-push lewat redirect, tetapi alamat baru adalah `rohmanaa/dragonroll`.
+
+---
+
+## Struktur folder `game/` (GUI baru)
+
+Semua halaman, CSS, JS, dan aset GUI berada di `game/`. Buka lewat server statis (mis. `cd game && python3 -m http.server`) lalu `index.html`.
+
+| File | Isi |
+|---|---|
+| `index.html` → `splash.html` | Loading, login/daftar (simulasi di localStorage) |
+| `lobby.html`, `mode.html`, `room.html` | Menu, pilih mode, game room |
+| `gameplay.html` | Papan ular tangga (World 100 / Nether 120), lawan Computer atau 2–4 pemain lokal |
+| `settings.html` | Grafik, suara, getar, suasana |
+| `css/` | `common.css` + satu CSS per halaman |
+| `js/` | `game-core.js` (aturan murni, bisa dites di Node) + satu JS per halaman |
+| `assets/` | Kit komponen UI |
+
+Belum dibuat: Layar Siap (kartu urutan), power-up, fase Boss (Ender Dragon / Wither), multiplayer online (butuh Supabase), serta halaman koleksi, toko, tambang, misi, profil, leaderboard, teman.

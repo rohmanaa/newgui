@@ -1,0 +1,16 @@
+#stage{background:radial-gradient(circle at 50% 40%,#5b3bc4 0%,#2b1a70 55%,#0e0b1c 100%)}
+#logo{position:absolute;left:50%;top:80px;transform:translateX(-50%);width:760px;animation:pop .9s cubic-bezier(.3,1.4,.5,1)}
+@keyframes pop{from{transform:translateX(-50%) scale(.3);opacity:0}}
+#loadbox{position:absolute;left:50%;bottom:120px;transform:translateX(-50%);width:900px;text-align:center}
+#bar{height:34px;border-radius:99px;background:#1b1631;border:5px solid #4c4468;overflow:hidden}
+#fill{display:block;height:100%;width:0;background:linear-gradient(180deg,#ffd76a,#f39a12);transition:width .15s}
+#lbl{margin-top:14px;font-size:34px}
+#loginbtn{position:absolute;left:50%;bottom:110px;transform:translateX(-50%);width:420px;font-size:56px}
+#loginbtn[hidden]{display:none}
+#authmodal{position:absolute;inset:0;background:rgba(10,6,30,.75);display:none;place-items:center;z-index:50}
+#authmodal.on{display:grid}
+.box{width:720px;padding:34px;background:var(--panel);border:5px solid var(--panel-line);border-radius:28px;display:flex;flex-direction:column;gap:18px}
+.tabs{display:flex;gap:12px}.tabs button{flex:1;padding:12px;border-radius:14px;background:#3a3158;font-size:34px}.tabs button.on{background:linear-gradient(180deg,#8e6df0,#5b3bc4)}
+.box input{font:800 28px var(--font-body);padding:16px 20px;border-radius:14px;border:4px solid #4c4468;background:#1b1631;color:#fff;user-select:text}
+#err{min-height:30px;color:#ff8a8a;font-weight:800;font-size:24px}
+.row{display:flex;gap:16px}.row .gbtn{flex:1;font-size:34px}

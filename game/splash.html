@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dragon Roll</title>
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/splash.css">
+</head>
+<body>
+<div id="wrap"><div id="stage">
+  <img id="logo" src="assets/komponen/logo/logo-fantasy-rpg.webp" alt="Dragon Roll">
+  <div id="loadbox"><div id="bar"><i id="fill"></i></div><div id="lbl" class="t-title">Memuat game… 0%</div></div>
+  <button id="loginbtn" class="gbtn green t-title" hidden>LOGIN</button>
+  <div id="authmodal"><div class="box">
+    <div class="tabs"><button id="tabup" class="t-title on">DAFTAR</button><button id="tabin" class="t-title">MASUK</button></div>
+    <input id="user" maxlength="16" placeholder="Username (3–16: huruf, angka, _)" autocomplete="off">
+    <input id="pass" type="password" placeholder="Password (min. 6 karakter)">
+    <div id="err"></div>
+    <div class="row"><button id="cancel" class="gbtn red t-title">BATAL</button><button id="ok" class="gbtn green t-title">OK</button></div>
+  </div></div>
+  <div id="fade"></div>
+</div></div>
+<script src="js/splash.js"></script>
+</body></html>
