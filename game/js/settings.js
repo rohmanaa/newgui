@@ -1,7 +1,7 @@
 /* settings.html (README bagian 6): disimpan ke localStorage 'dragonroll:pref:*' (di proyek utama: PlayerData + PrefsSync). */
 const $=s=>document.querySelector(s);
 function fit(){$('#stage').style.transform=`scale(${Math.min(innerWidth/1920,innerHeight/1080)})`}addEventListener('resize',fit);fit();
-const DEF={graphics:'high',musicVol:'30',sfxVol:'100',musicOn:'1',sfxOn:'1',vibrate:'1',theme:'system',lang:'id'};
+const DEF={graphics:'high',musicVol:'30',sfxVol:'100',musicOn:'1',sfxOn:'1',vibrate:'1',theme:'system',lang:'en'};
 const get=k=>{try{return localStorage.getItem('dragonroll:pref:'+k)??DEF[k]}catch(e){return DEF[k]}};
 const set=(k,v)=>{try{localStorage.setItem('dragonroll:pref:'+k,v)}catch(e){}};
 document.querySelectorAll('.seg').forEach(s=>{
@@ -31,8 +31,8 @@ $('#cf-ok').onclick=()=>{closeCf();try{localStorage.removeItem('dragonroll:auth'
 /* bahasa: pilihan disimpan di pref 'lang' (teks game belum diterjemahkan; hanya menyimpan pilihan) */
 const BF='assets/komponen/bendera-bahasa/';
 const LANGS=[
-  {id:'id',name:'Indonesia',flag:null},
   {id:'en',name:'English',flag:BF+'bendera-inggris.webp'},
+  {id:'id',name:'Indonesia',flag:null},
   {id:'de',name:'Deutsch',flag:BF+'bendera-jerman.webp'},
   {id:'fr',name:'Français',flag:BF+'bendera-prancis.webp'},
   {id:'es',name:'Español',flag:BF+'bendera-spanyol.webp'},
