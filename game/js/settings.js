@@ -13,4 +13,17 @@ document.querySelectorAll('.tg').forEach(t=>{const k=t.dataset.k,draw=()=>t.clas
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)}
 const nav=u=>{$('#fade').classList.add('on');setTimeout(()=>location.href=u,330)};
 $('#back').onclick=()=>nav('lobby.html');
-$('#logout').onclick=()=>{localStorage.removeItem('dragonroll:auth');nav('splash.html')};
+/* ikon mengikuti status toggle */
+const IC='assets/komponen/';
+function icons(){
+  $('#ic-sfx').src=IC+(get('sfxOn')==='1'?'ikon-pengaturan/ikon-speaker.webp':'glyph-putih/speaker-mati.webp');
+  $('#ic-music').src=IC+(get('musicOn')==='1'?'glyph-putih/nada.webp':'ikon-pengaturan/ikon-musik-mati.webp');
+}
+document.querySelectorAll('.tg').forEach(t=>t.addEventListener('click',icons));icons();
+/* keluar akun: wajib konfirmasi */
+const cf=$('#confirm'),openCf=()=>cf.classList.add('on'),closeCf=()=>cf.classList.remove('on');
+$('#logout').onclick=openCf;
+$('#cf-no').onclick=closeCf;
+cf.addEventListener('click',e=>{if(e.target===cf)closeCf()});
+addEventListener('keydown',e=>{if(e.key==='Escape')closeCf()});
+$('#cf-ok').onclick=()=>{closeCf();try{localStorage.removeItem('dragonroll:auth')}catch(e){}nav('splash.html')};

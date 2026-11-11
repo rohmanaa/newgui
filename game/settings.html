@@ -12,16 +12,37 @@
 </head>
 <body class="sub">
 <div id="wrap"><div id="stage">
-  <div id="sun"></div><div id="vig"></div>
-  <button id="back" aria-label="Kembali"><img src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""><svg viewBox="0 0 24 24" fill="#fff"><path d="M15 4L7 12l8 8V4z"/></svg></button>
+  <button id="back" aria-label="Kembali"><img src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""></button>
   <div id="title" class="ttl">PENGATURAN</div>
-  <section class="panel" id="pg"><h3>GRAFIK</h3><div class="seg" data-k="graphics"><button data-v="high">Tinggi</button><button data-v="low">Rendah</button></div></section>
-  <section class="panel" id="ps"><h3>SUARA</h3>
-    <label><em>Musik</em><input type="range" id="musicVol" min="0" max="100"><span id="musicVolV"></span><button class="tg" data-k="musicOn"></button></label>
-    <label><em>Efek suara</em><input type="range" id="sfxVol" min="0" max="100"><span id="sfxVolV"></span><button class="tg" data-k="sfxOn"></button></label>
-    <label><em>Getar</em><span class="sp"></span><button class="tg" data-k="vibrate"></button></label></section>
-  <section class="panel" id="pt"><h3>SUASANA</h3><div class="seg" data-k="theme"><button data-v="day">Siang</button><button data-v="night">Malam</button><button data-v="system">Sistem</button></div></section>
-  <button class="btn" id="logout"><img src="assets/komponen/tombol-dan-kontrol/tombol-merah-polos.webp" alt=""><span>KELUAR AKUN</span></button>
+
+  <!-- kolom kiri: suara & getar (mengikuti orsWF1) -->
+  <section id="rows">
+    <div class="row"><img class="ic" id="ic-sfx" src="assets/komponen/ikon-pengaturan/ikon-speaker.webp" alt=""><em>Efek suara</em>
+      <input type="range" id="sfxVol" min="0" max="100"><span class="val" id="sfxVolV"></span><button class="tg" data-k="sfxOn" aria-label="Efek suara"></button></div>
+    <div class="row"><img class="ic" id="ic-music" src="assets/komponen/ikon-pengaturan/ikon-musik-mati.webp" alt=""><em>Musik</em>
+      <input type="range" id="musicVol" min="0" max="100"><span class="val" id="musicVolV"></span><button class="tg" data-k="musicOn" aria-label="Musik"></button></div>
+    <div class="row"><img class="ic" src="assets/komponen/ikon-pengaturan/ikon-getar.webp" alt=""><em>Getar</em>
+      <span class="sp"></span><button class="tg" data-k="vibrate" aria-label="Getar"></button></div>
+  </section>
+
+  <!-- kolom kanan: pilihan -->
+  <section id="opts">
+    <div class="grp"><div class="cap">GRAFIK</div><div class="seg" data-k="graphics"><button data-v="high">Tinggi</button><button data-v="low">Rendah</button></div></div>
+    <div class="grp"><div class="cap">SUASANA</div><div class="seg" data-k="theme"><button data-v="day">Siang</button><button data-v="night">Malam</button><button data-v="system">Sistem</button></div></div>
+  </section>
+
+  <div id="line"></div>
+  <button class="btn" id="logout"><img src="assets/komponen/tombol-dan-kontrol/tombol-abu-polos.webp" alt=""><span>KELUAR AKUN</span></button>
+
+  <!-- konfirmasi keluar -->
+  <div id="confirm" role="dialog" aria-modal="true" aria-labelledby="cf-t"><div id="cbox">
+    <div id="cf-t" class="ttl">KELUAR AKUN?</div>
+    <div id="cf-s">Kamu perlu masuk lagi untuk bermain.</div>
+    <div class="cbtns">
+      <button class="btn" id="cf-no"><img src="assets/komponen/tombol-dan-kontrol/tombol-abu-polos.webp" alt=""><span>BATAL</span></button>
+      <button class="btn" id="cf-ok"><img src="assets/komponen/tombol-dan-kontrol/tombol-merah-polos.webp" alt=""><span>KELUAR</span></button>
+    </div>
+  </div></div>
   <div id="toast"></div>
 </div></div>
 <div id="fade"></div>
