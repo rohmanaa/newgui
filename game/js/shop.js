@@ -17,9 +17,9 @@ const nav=u=>{$('#fade').classList.add('on');setTimeout(()=>location.href=u,330)
 
 /* ---- data ---- */
 const COINS=[
-  {t:'Koin Kecil',coin:500,em:10,img:'paket-gold/gold-koin-sedikit.webp'},
-  {t:'Tumpukan Koin',coin:2500,em:40,img:'paket-gold/gold-tumpukan.webp'},
-  {t:'Kantong Koin',coin:10000,em:120,img:'paket-gold/gold-kantong.webp',best:true}];
+  {t:'Koin Kecil',coin:500,em:10,img:'paket-gold/gold-koin-sedikit.webp',g:'#ffd04a'},
+  {t:'Tumpukan Koin',coin:2500,em:40,img:'paket-gold/gold-tumpukan.webp',g:'#ffb02a'},
+  {t:'Kantong Koin',coin:10000,em:120,img:'paket-gold/gold-kantong.webp',g:'#ff8f1f',best:true}];
 const AD_REWARD=5,AD_SECONDS=3;
 const Q=new URLSearchParams(location.search);
 const TABS=['chest','coin','emerald'];
@@ -104,9 +104,9 @@ setInterval(()=>{const e=$('#free-t');if(e){const l=freeLeft();if(l===0)render()
 function render(hl){
   document.querySelectorAll('.tabb').forEach(b=>b.classList.toggle('on',b.dataset.k===tab));
   if(tab==='coin'){
-    $('#cards').innerHTML=COINS.map((p,i)=>`<div class="card${hl?' hl':''}">
+    $('#cards').innerHTML=COINS.map((p,i)=>`<div class="card fx${hl?' hl':''}" style="--g:${p.g}">
       ${p.best?`<img class="rib" src="${IC}banner-label/pita-badge-biru.webp" alt=""><span class="rt">BEST</span>`:''}
-      <div class="nm">${p.t}</div><div class="pic"><img src="${IC}${p.img}" alt=""></div>
+      <div class="nm">${p.t}</div><div class="pic"><i class="glow"></i><img src="${IC}${p.img}" alt=""><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div>
       <div class="amt">${fmt(p.coin)} Coin</div>
       <button class="btn buy" data-i="${i}"><img src="${IC}tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span><img src="${IC}ikon-gem-medali/berlian-hijau.webp" alt="">${p.em}</span></button></div>`).join('');
   }else if(tab==='chest'){
@@ -114,14 +114,14 @@ function render(hl){
     $('#cards').innerHTML=CHESTS.map((c,i)=>{
       const gem=`<button class="btn buy blue" data-c="${i}"><img src="${IC}tombol-dan-kontrol/tombol-biru-polos.webp" alt=""><span><img src="${IC}ikon-gem-medali/berlian-hijau.webp" alt="">${fmt(c.price)}</span></button>`;
       const ad=c.ad?`<button class="btn buy ad${fl>0?' dis':''}" data-ad="${i}"><img src="${IC}tombol-dan-kontrol/tombol-kuning-polos.webp" alt=""><span><img src="${IC}ikon-gem-medali/televisi.webp" alt="">${fl>0?`<small id="free-t">${hm(fl)}</small>`:'Open'}</span></button>`:'';
-      return `<div class="card chest${c.ad?' two':''}" style="--g:${c.g}">
+      return `<div class="card chest fx${c.ad?' two':''}" style="--g:${c.g}">
       ${c.tag?`<img class="rib" src="${IC}banner-label/pita-badge-${c.tagc}.webp" alt=""><span class="rt">${c.tag}</span>`:''}
       <div class="nm">${c.t}</div><div class="pic"><i class="glow"></i><img src="${IC}${c.img}" alt=""><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div>
       <div class="amt sm"><small>Aksesori + ${fmt(c.coin[0])}–${fmt(c.coin[1])} Coin</small></div>
       <div class="brow">${ad}${gem}</div></div>`}).join('');
   }else{
-    $('#cards').innerHTML=`<div class="card">
-      <div class="nm">Tonton Iklan</div><div class="pic"><img src="${IC}ikon-gem-medali/televisi.webp" alt="" style="max-height:230px"></div>
+    $('#cards').innerHTML=`<div class="card fx" style="--g:#38e070">
+      <div class="nm">Tonton Iklan</div><div class="pic"><i class="glow"></i><img src="${IC}ikon-gem-medali/televisi.webp" alt="" style="max-height:230px"><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div>
       <div class="amt">+${AD_REWARD} Emerald<small>Iklan simulasi (${AD_SECONDS} detik)</small></div>
       <button class="btn buy" id="watch"><img src="${IC}tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span>TONTON</span></button></div>`;
   }

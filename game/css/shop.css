@@ -20,6 +20,8 @@
 .card:nth-child(2){animation-delay:.07s}.card:nth-child(3){animation-delay:.14s}
 @keyframes inU{from{opacity:0;transform:translateY(40px)}}
 .card.hl{animation:glow 1.1s ease-in-out 2}
+.card.fx.hl{animation:glowfx 1.1s ease-in-out 2}
+@keyframes glowfx{0%,100%{filter:drop-shadow(0 -4px 16px color-mix(in srgb,var(--g) 55%,transparent))}50%{filter:drop-shadow(0 -4px 34px color-mix(in srgb,var(--g) 95%,transparent))}}
 @keyframes glow{50%{filter:drop-shadow(0 0 22px rgba(255,210,90,.95))}}
 .card .rib{position:absolute;left:50%;top:-16px;width:300px;height:auto;transform:translateX(-50%)}
 .card .rt{position:absolute;left:50%;top:-6px;transform:translateX(-50%);width:300px;text-align:center;font:400 30px/1 var(--font-title);text-shadow:0 2px 0 rgba(0,0,0,.6)}
@@ -66,9 +68,9 @@
 .buy.ad small{font:800 26px var(--font-body)}
 .buy.dis{filter:grayscale(.85) brightness(.8)}
 /* efek cahaya peti (ala 8eYSQP): aura warna di belakang peti, pendar di tepi atas kartu, kilau berkedip */
-.card.chest{filter:drop-shadow(0 -4px 16px color-mix(in srgb,var(--g) 55%,transparent))}
-.card.chest .pic{position:relative}
-.card.chest .pic img:not(.x){position:relative;z-index:1;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--g) 70%,transparent)) drop-shadow(0 10px 10px rgba(0,0,0,.5));animation:flt 3.2s ease-in-out infinite}
+.card.fx{filter:drop-shadow(0 -4px 16px color-mix(in srgb,var(--g) 55%,transparent))}
+.card.fx .pic{position:relative}
+.card.fx .pic img{position:relative;z-index:1;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--g) 70%,transparent)) drop-shadow(0 10px 10px rgba(0,0,0,.5));animation:flt 3.2s ease-in-out infinite}
 .glow{position:absolute;left:50%;top:50%;width:420px;height:420px;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
   background:radial-gradient(circle,color-mix(in srgb,var(--g) 62%,transparent) 0%,color-mix(in srgb,var(--g) 26%,transparent) 38%,transparent 68%);animation:pls 2.6s ease-in-out infinite}
 @keyframes pls{50%{opacity:.55;transform:translate(-50%,-50%) scale(1.12)}}
