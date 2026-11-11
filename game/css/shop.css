@@ -65,6 +65,18 @@
 .buy.ad span img{width:48px}
 .buy.ad small{font:800 26px var(--font-body)}
 .buy.dis{filter:grayscale(.85) brightness(.8)}
+/* efek cahaya peti (ala 8eYSQP): aura warna di belakang peti, pendar di tepi atas kartu, kilau berkedip */
+.card.chest{filter:drop-shadow(0 -4px 16px color-mix(in srgb,var(--g) 55%,transparent))}
+.card.chest .pic{position:relative}
+.card.chest .pic img:not(.x){position:relative;z-index:1;filter:drop-shadow(0 0 18px color-mix(in srgb,var(--g) 70%,transparent)) drop-shadow(0 10px 10px rgba(0,0,0,.5));animation:flt 3.2s ease-in-out infinite}
+.glow{position:absolute;left:50%;top:50%;width:420px;height:420px;transform:translate(-50%,-50%);border-radius:50%;pointer-events:none;
+  background:radial-gradient(circle,color-mix(in srgb,var(--g) 62%,transparent) 0%,color-mix(in srgb,var(--g) 26%,transparent) 38%,transparent 68%);animation:pls 2.6s ease-in-out infinite}
+@keyframes pls{50%{opacity:.55;transform:translate(-50%,-50%) scale(1.12)}}
+@keyframes flt{50%{transform:translateY(-8px)}}
+.spk{position:absolute;z-index:2;width:22px;height:22px;pointer-events:none;opacity:0;animation:tw 2.4s ease-in-out infinite;
+  background:radial-gradient(circle,#fff 0 22%,transparent 24%),linear-gradient(#fff,#fff) center/3px 100% no-repeat,linear-gradient(#fff,#fff) center/100% 3px no-repeat;filter:drop-shadow(0 0 6px var(--g))}
+.spk.s1{left:22%;top:20%}.spk.s2{right:20%;top:34%;animation-delay:.8s;width:16px;height:16px}.spk.s3{left:30%;bottom:16%;animation-delay:1.5s;width:18px;height:18px}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.4) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
 /* hasil buka chest */
 #rw{position:absolute;inset:0;z-index:72;display:none;place-items:center;background:rgba(10,8,30,.8)}
 #rw.on{display:grid}

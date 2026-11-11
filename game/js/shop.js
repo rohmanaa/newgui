@@ -22,8 +22,8 @@ const COINS=[
   {t:'Kantong Koin',coin:10000,em:120,img:'paket-gold/gold-kantong.webp',best:true}];
 const AD_REWARD=5,AD_SECONDS=3;
 const Q=new URLSearchParams(location.search);
-const TABS=['coin','emerald','chest'];
-let tab=Q.get('coin')==='1'?'coin':(TABS.includes(Q.get('tab'))?Q.get('tab'):'coin');
+const TABS=['chest','coin','emerald'];
+let tab=Q.get('coin')==='1'?'coin':(TABS.includes(Q.get('tab'))?Q.get('tab'):'chest');
 
 
 /* ---- CHEST: dapat aksesori karakter (koleksi) + Coin. Kepemilikan tiruan di localStorage (di proyek utama: ItemCatalog + server).
@@ -53,10 +53,10 @@ const ACC=[
 ];
 /* w = bobot peluang [Biasa,Langka,Epik,Legendaris]; coin = hadiah uang acak [min,maks] */
 const CHESTS=[
-  {id:'kayu',t:'Peti Kayu',img:'paket-chest/peti-kayu.webp',price:20,w:[70,25,5,0],coin:[200,600],ad:true,tag:'POPULAR',tagc:'merah'},
-  {id:'perak',t:'Peti Perak',img:'paket-chest/peti-perak.webp',price:60,w:[40,45,14,1],coin:[600,1500]},
-  {id:'emas',t:'Peti Emas',img:'paket-chest/peti-emas.webp',price:100,w:[10,50,32,8],coin:[1500,4000],tag:'BEST',tagc:'biru'},
-  {id:'legend',t:'Peti Legendaris',img:'paket-chest/peti-legendaris.webp',price:200,w:[0,30,55,15],coin:[4000,9000]}
+  {id:'kayu',t:'Peti Kayu',img:'paket-chest/peti-kayu.webp',price:20,w:[70,25,5,0],coin:[200,600],g:'#ff3b2f',ad:true,tag:'POPULAR',tagc:'merah'},
+  {id:'perak',t:'Peti Perak',img:'paket-chest/peti-perak.webp',price:60,w:[40,45,14,1],coin:[600,1500],g:'#3aa0ff'},
+  {id:'emas',t:'Peti Emas',img:'paket-chest/peti-emas.webp',price:100,w:[10,50,32,8],coin:[1500,4000],g:'#38e070',tag:'BEST',tagc:'biru'},
+  {id:'legend',t:'Peti Legendaris',img:'paket-chest/peti-legendaris.webp',price:200,w:[0,30,55,15],coin:[4000,9000],g:'#ffa526'}
 ];
 const owned=()=>{const a=rd(OWN_K);return Array.isArray(a)?a:[]};
 const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
@@ -114,9 +114,9 @@ function render(hl){
     $('#cards').innerHTML=CHESTS.map((c,i)=>{
       const gem=`<button class="btn buy blue" data-c="${i}"><img src="${IC}tombol-dan-kontrol/tombol-biru-polos.webp" alt=""><span><img src="${IC}ikon-gem-medali/berlian-hijau.webp" alt="">${fmt(c.price)}</span></button>`;
       const ad=c.ad?`<button class="btn buy ad${fl>0?' dis':''}" data-ad="${i}"><img src="${IC}tombol-dan-kontrol/tombol-kuning-polos.webp" alt=""><span><img src="${IC}ikon-gem-medali/televisi.webp" alt="">${fl>0?`<small id="free-t">${hm(fl)}</small>`:'Open'}</span></button>`:'';
-      return `<div class="card chest${c.ad?' two':''}">
+      return `<div class="card chest${c.ad?' two':''}" style="--g:${c.g}">
       ${c.tag?`<img class="rib" src="${IC}banner-label/pita-badge-${c.tagc}.webp" alt=""><span class="rt">${c.tag}</span>`:''}
-      <div class="nm">${c.t}</div><div class="pic"><img src="${IC}${c.img}" alt=""></div>
+      <div class="nm">${c.t}</div><div class="pic"><i class="glow"></i><img src="${IC}${c.img}" alt=""><i class="spk s1"></i><i class="spk s2"></i><i class="spk s3"></i></div>
       <div class="amt sm"><small>Aksesori + ${fmt(c.coin[0])}–${fmt(c.coin[1])} Coin</small></div>
       <div class="brow">${ad}${gem}</div></div>`}).join('');
   }else{
