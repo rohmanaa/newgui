@@ -21,6 +21,8 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | bendera/ | layar penerapan (m6GSCw) | 12 bendera panji bahasa |
 | emblem/ | layar penerapan (CyJ1Oe, afbky9) | Lencana level-up bersayap (teks dihapus), roda roulette kosong, bingkai sorot, penunjuk, tombol SPIN (teks dihapus) |
 | logo/ | layar splash (3cG3Cj) | Logo "FANTASY RPG" utuh + kata FANTASY / RPG terpisah, pita merah kosong (teks "MOBILE GUI KIT" dihapus), bingkai bar loading kosong + isi biru (teks dihapus), transparan |
+| slot-equipment/ | layar Guide (2wuCGF) | Bingkai slot item 7 varian (coklat, merah, ungu, biru, hijau, terkunci, terpilih), ikon di dalamnya dihapus |
+| ikon-navigasi/ | layar Guide (2wuCGF) | Ikon tab (pedang, perisai, sepatu, cincin), garis bawah tab emas, titik notifikasi, panah kembali, ikon home |
 | ikon-layar/ | layar penerapan (OLGF1N) | Ikon tab Serangan, Monster Kill, Boss Kill (teks dihapus) |
 | ikon-equipment/ | (dipotong dari layar penerapan fcuBiA dan 2wuCGF) | 34 ikon equipment unik: kapak, palu, ramuan, guci, cincin, daun, kristal, dll. Angka dan titik notifikasi dihapus, varian rarity yang identik dilewati |
 | bendera-bahasa/ | (dipotong dari layar penerapan m6GSCw) | 12 bendera panji menu bahasa (Inggris, Jerman, Prancis, Spanyol, Korea, Cina, Taiwan, Jepang, Portugal, Rusia, India, Turki). Tanda centang pilihan pada bendera Inggris dihapus dan area di bawahnya direkonstruksi |
