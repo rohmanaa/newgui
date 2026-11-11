@@ -44,7 +44,7 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 #hero.spin .bob{animation:spin .7s ease-in-out}
 @keyframes jump{0%{transform:translateY(0)}40%{transform:translateY(-120px)}100%{transform:translateY(0)}}
 @keyframes spin{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
-#hint{position:absolute;left:50%;top:222px;transform:translateX(-50%);padding:8px 20px;border-radius:99px;
+#hint{position:absolute;left:50%;top:290px;transform:translateX(-50%);padding:8px 20px;border-radius:99px;
   background:rgba(20,16,44,.55);font-weight:800;font-size:22px;opacity:.9;pointer-events:none;animation:hint 2.4s ease-in-out infinite}
 @keyframes hint{0%,100%{opacity:.35}50%{opacity:.95}}
 
@@ -93,9 +93,9 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 #b-mail{left:1612px}
 #b-lead{left:1712px}
 #b-set{left:1812px}
-.dot{position:absolute;right:-2px;top:-2px;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff7b8b,#e8334a 55%,#b0182d);
-  border:3px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.4);font:800 17px/24px var(--font-body);text-align:center;z-index:5}
-.dot.sm{width:26px;height:26px;font-size:0}
+.dot{position:absolute;right:-6px;top:-6px;width:34px;height:34px;border-radius:9px;transform:rotate(45deg);background:radial-gradient(circle at 35% 30%,#ff7b8b,#e8334a 55%,#b0182d);
+  border:3px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.4);font:800 17px/28px var(--font-body);text-align:center;z-index:5}.dot>*{display:block}
+.dot.sm{width:26px;height:26px;border-radius:7px;font-size:0}
 
 /* ---------- panel kartu / tile ---------- */
 .panel{position:absolute;background:var(--panel);border-radius:22px;border:4px solid var(--panel-line);
@@ -103,7 +103,13 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 .panel>h3{position:absolute;left:50%;top:-22px;transform:translateX(-50%);margin:0;padding:3px 28px 6px;font:400 28px var(--font-title);
   background:linear-gradient(180deg,#8e6df0,#5b3bc4);border-radius:12px;border:3px solid #2b1a70;white-space:nowrap;
   text-shadow:0 2px 0 rgba(20,5,70,.7)}
-#koleksi{left:22px;top:236px;width:636px;height:170px;padding:34px 12px 10px;display:flex;gap:10px;justify-content:center}
+#quest{left:22px;top:176px;width:636px;height:74px;display:flex;align-items:center;gap:16px;padding:0 20px;cursor:pointer}
+#quest img{height:56px;width:auto}
+#quest .q1{font:400 28px var(--font-title);text-shadow:0 2px 0 rgba(0,0,0,.6)}
+#quest .q2{font-weight:800;font-size:20px;color:#d7d1f2}
+#quest .qb{margin-left:auto;width:150px;height:22px;border-radius:8px;background:#1b1631;border:3px solid #4c4468;overflow:hidden}
+#quest .qb i{display:block;height:100%;width:33%;background:linear-gradient(180deg,#ffd76a,#f39a12)}
+#koleksi{left:22px;top:292px;width:636px;height:170px;padding:34px 12px 10px;display:flex;gap:10px;justify-content:center}
 .tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
   border-radius:16px;background:linear-gradient(180deg,rgba(78,68,112,.95),rgba(52,44,82,.95));border:3px solid #7d75a6;
   box-shadow:inset 0 2px 0 rgba(255,255,255,.18),inset 0 -6px 12px rgba(0,0,0,.28),0 5px 0 rgba(20,12,45,.55);
@@ -116,10 +122,10 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 .tile .lb{font:400 24px/1 var(--font-title);padding:0 4px 9px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.65)}
 .small{width:114px;height:122px}
 .small .lb{font-size:22px}
-.big{width:208px;height:182px}
-.big .lb{font-size:32px;padding-bottom:12px}
-.big .ico img{max-width:68%}
-#nav{position:absolute;left:22px;top:880px;display:flex;gap:16px}
+.big{width:200px;height:150px;margin-top:34px;background:linear-gradient(180deg,#6b6296,#4b4272);border:4px solid #8d85b8;border-radius:14px}
+.big .lb{font-size:32px;padding-bottom:8px;position:relative;z-index:1}
+.big .ico{position:absolute;left:0;right:0;top:-40px;height:110px}.big .ico img{max-width:none;max-height:112px;width:auto}.big .ico img.glyph{max-height:80px;margin-top:18px}
+#nav{position:absolute;left:22px;top:880px;align-items:flex-end;display:flex;gap:16px}
 .tile.locked{filter:saturate(.35) brightness(.8)}
 
 /* ---------- panel kanan: hadiah gratis & event ---------- */
@@ -195,7 +201,7 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
   <!-- ===== MAIL, LEADERBOARD, SETTINGS ===== -->
   <button class="round" id="b-mail" data-act="mail" aria-label="Mail">
     <img class="bg" src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""><img class="ic" src="assets/komponen/ikon-item/surat-segel.webp" alt="">
-    <span class="dot" id="mailDot">1</span>
+    <span class="dot sm" id="mailDot"></span>
   </button>
   <button class="round" id="b-lead" data-act="leaderboard" aria-label="Leaderboard">
     <img class="bg" src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""><img class="ic" src="assets/komponen/ikon-item/podium.webp" alt="">
@@ -203,6 +209,13 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
   <button class="round" id="b-set" data-act="settings" aria-label="Pengaturan">
     <img class="bg" src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""><img class="ic" src="assets/komponen/ikon-item/gir.webp" alt="">
   </button>
+
+  <!-- ===== misi harian ===== -->
+  <div class="panel" id="quest" data-act="hadiahMisi" role="button">
+    <img src="assets/komponen/ikon-item/gulungan-misi.webp" alt="">
+    <div><div class="q1">Misi Harian</div><div class="q2">Raih 3 kemenangan &middot; 1/3</div></div>
+    <div class="qb"><i></i></div>
+  </div>
 
   <!-- ===== grup koleksi ===== -->
   <div class="panel" id="koleksi">
@@ -226,7 +239,7 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
   <div id="nav">
     <button class="tile big" data-act="toko"><div class="ico"><img src="assets/komponen/ikon-item/toko.webp" alt=""></div><div class="lb">TOKO</div></button>
     <button class="tile big" data-act="teman"><div class="ico"><img class="glyph" src="assets/komponen/glyph-putih/grup-pengguna.webp" alt="" style="max-width:56%"></div><div class="lb">TEMAN</div><span class="dot sm" id="friendDot" hidden></span></button>
-    <button class="tile big" data-act="hadiahMisi"><div class="ico"><img src="assets/komponen/ikon-item/gulungan-misi.webp" alt=""></div><div class="lb" style="font-size:25px">HADIAH &amp; MISI</div><span class="dot" id="questDot">2</span></button>
+    <button class="tile big" data-act="hadiahMisi"><div class="ico"><img src="assets/komponen/ikon-item/gulungan-misi.webp" alt=""></div><div class="lb" style="font-size:25px">HADIAH &amp; MISI</div><span class="dot sm" id="questDot"></span></button>
     <button class="tile big" data-act="tambang"><div class="ico"><img src="assets/komponen/ikon-gem-medali/berlian-hijau.webp" alt=""></div><div class="lb">TAMBANG</div></button>
   </div>
 
