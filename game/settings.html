@@ -29,6 +29,8 @@
   <section id="opts">
     <div class="grp"><div class="cap">GRAFIK</div><div class="seg" data-k="graphics"><button data-v="high">Tinggi</button><button data-v="low">Rendah</button></div></div>
     <div class="grp"><div class="cap">SUASANA</div><div class="seg" data-k="theme"><button data-v="day">Siang</button><button data-v="night">Malam</button><button data-v="system">Sistem</button></div></div>
+    <div class="grp"><div class="cap">BAHASA</div>
+      <button class="btn" id="langBtn" aria-haspopup="dialog"><img class="bgb" src="assets/komponen/tombol-dan-kontrol/tombol-ungu-polos.webp" alt=""><img class="fl" id="langFlag" src="" alt=""><span id="langName"></span></button></div>
   </section>
 
   <div id="line"></div>
@@ -42,6 +44,12 @@
       <button class="btn" id="cf-no"><img src="assets/komponen/tombol-dan-kontrol/tombol-abu-polos.webp" alt=""><span>BATAL</span></button>
       <button class="btn" id="cf-ok"><img src="assets/komponen/tombol-dan-kontrol/tombol-merah-polos.webp" alt=""><span>KELUAR</span></button>
     </div>
+  </div></div>
+  <!-- pilih bahasa -->
+  <div id="lang" role="dialog" aria-modal="true" aria-labelledby="lg-t"><div id="lbox">
+    <div id="lg-t" class="ttl">PILIH BAHASA</div>
+    <button id="lg-x" aria-label="Tutup"><img src="assets/komponen/tombol-dan-kontrol/tombol-tutup-bulat.webp" alt=""></button>
+    <div id="lgrid"></div>
   </div></div>
   <div id="toast"></div>
 </div></div>
