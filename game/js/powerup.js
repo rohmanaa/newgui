@@ -52,9 +52,6 @@ let sel=DC[0].id;
 const dieImg=f=>`<img ${f.g?'class="glyph" ':''}src="${IC}${f.ic}.webp" alt="">`;
 
 /* ---- tab kategori koleksi ---- */
-const TABS=[['karakter','ikon-item/helm-ksatria','karakter.html'],['frame','new-icon/frame','frame.html'],['dadu','new-icon/dadu','dadu.html'],['efek','ikon-gem-medali/kristal-api','efek.html'],['powerup','ikon-gem-medali/petir-ungu','powerup.html']];
-$('#tabs').innerHTML=TABS.map(([k,ic],i)=>`<button class="tab${k==='powerup'?' on':''}" data-k="${k}" style="left:${i*180}px"><img src="${IC}${ic}.webp" alt=""><img class="ul" src="${IC}ikon-navigasi/garis-bawah-tab-emas.webp" alt=""></button>`).join('');
-$('#tabs').onclick=e=>{const t=e.target.closest('.tab');if(t&&t.dataset.k!=='powerup')go(TABS.find(x=>x[0]===t.dataset.k)[2])};
 
 /* ---- gambar ulang ---- */
 function draw(){

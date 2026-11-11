@@ -45,9 +45,6 @@ const dieImg=f=>`<img ${f.g?'class="glyph" ':''}src="${IC}${f.ic}.webp" alt="">`
 const auraHtml=f=>f.id==='none'?'':`<i class="ring"></i><i class="ring r2"></i>`+Array.from({length:8},(_,i)=>`<u style="--a:${i*45}deg;--d:${(i*.23).toFixed(2)}s"></u>`).join('');
 
 /* ---- tab kategori koleksi ---- */
-const TABS=[['karakter','ikon-item/helm-ksatria','karakter.html'],['frame','new-icon/frame','frame.html'],['dadu','new-icon/dadu','dadu.html'],['efek','ikon-gem-medali/kristal-api','efek.html'],['powerup','ikon-gem-medali/petir-ungu','powerup.html']];
-$('#tabs').innerHTML=TABS.map(([k,ic],i)=>`<button class="tab${k==='efek'?' on':''}" data-k="${k}" style="left:${i*180}px"><img src="${IC}${ic}.webp" alt=""><img class="ul" src="${IC}ikon-navigasi/garis-bawah-tab-emas.webp" alt=""></button>`).join('');
-$('#tabs').onclick=e=>{const t=e.target.closest('.tab');if(t&&t.dataset.k!=='efek')go(TABS.find(x=>x[0]===t.dataset.k)[2])};
 
 /* ---- gambar ulang ---- */
 function draw(){
