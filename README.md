@@ -362,17 +362,42 @@ Iron/Diamond/Netherite Sword (serang musuh dekat, mundur 2/3/5), Wooden Shield (
 
 ## Struktur folder `game/` (GUI baru)
 
-Semua halaman, CSS, JS, dan aset GUI berada di `game/`. Buka lewat server statis (mis. `cd game && python3 -m http.server`) lalu `index.html`.
+Semua halaman, CSS, JS, dan aset GUI berada di `game/`. Buka lewat server statis (mis. `cd game && python3 -m http.server`) lalu `index.html`. Semua halaman memakai kanvas 1920×1080 yang diskalakan (`#stage`) dan data tiruan di `localStorage`; proyek utama menggantinya dengan server (Supabase).
+
+### Halaman
 
 | File | Isi |
 |---|---|
-| `index.html` → `splash.html` | Loading, login/daftar (simulasi di localStorage) |
-| `lobby.html`, `mode.html`, `room.html` | Menu, pilih mode, game room |
-| `karakter.html` | Pilih hero (10 karakter), dipakai lewat `js/heroes.js` |
-| `settings.html` | Grafik, suara, getar, suasana |
-| `shop.html` | Toko: tukar Emerald → Coin (10→500, 40→2.500, 120→10.000, ke-3 BEST), tab Emerald: Tonton Iklan (simulasi, +5). `?coin=1` buka tab Coin, `?from=` untuk Back |
-| `css/` | `common.css` + satu CSS per halaman |
-| `js/` | `heroes.js` (daftar hero) + satu JS per halaman |
-| `assets/` | Kit komponen UI. **Root `assets/` = sumber utama**; `game/assets/` = salinan siap pakai (lihat Aturan Aset) |
+| `index.html` → `splash.html` | Loading, TAP TO START, login/daftar (simulasi di localStorage) |
+| `lobby.html` | Menu utama; tile ke semua halaman di bawah. Daftar halaman yang sudah jadi ada di `BUILT` (`js/lobby.js`): **halaman baru wajib ditambahkan ke sana**, kalau tidak tile hanya menampilkan toast "Segera hadir" |
+| `mode.html`, `room.html` | Pilih mode/peta (tile Solo, Team, VS Computer, Multi Player, Create Room) dan game room |
+| `karakter.html` | Pilih hero (10 karakter), daftar di `js/heroes.js` |
+| `frame.html`, `dadu.html`, `efek.html`, `powerup.html`, `pet.html` | Koleksi dengan pola sama: preview, info, grid kartu, beli lewat modal konfirmasi (Coin kurang → Dapatkan Coin) |
+| `shop.html` | Toko: tab CHEST (default; Peti Kayu gratis 1×/24 jam lewat iklan simulasi, syarat main ≥ 10 kali), COIN (tukar Emerald → Coin 10→500, 40→2.500, 120→10.000), EMERALD (Tonton Iklan). `?coin=1` buka tab Coin, `?from=` untuk Back |
+| `tambang.html` | Tambang Emerald pasif (3 slot, tiruan di klien) |
+| `mission.html` | Hadiah & Misi (tab Daily, Hadiah login 7 hari, Achievements) |
+| `profile.html`, `leaderboard.html`, `friendship.html`, `mail.html` | Profil, peringkat, teman, kotak masuk (semua data tiruan) |
+| `settings.html` | Grafik, efek suara, musik, getar, suasana, bahasa (modal pilih bahasa), Keluar Akun (dengan konfirmasi) |
+| `css/` | `common.css`, `page.css`, `bg.css` + satu CSS per halaman |
+| `js/` | satu JS per halaman (+ `heroes.js`, `sub.js`) |
+| `assets/` | Kit komponen UI. **Root `assets/` = sumber utama**; `game/assets/` = salinan (lihat Aturan Aset) |
 
-Belum dibuat: gameplay (tombol START/Quick Start sementara menampilkan toast "Gameplay segera hadir"), Layar Siap (kartu urutan), power-up, fase Boss (Ender Dragon / Wither), multiplayer online (butuh Supabase), serta halaman koleksi, tambang, misi, profil, leaderboard, teman.
+### Data tiruan di localStorage
+
+Dompet demo `dragonroll:lobby:demo` (emerald, coin; dipakai semua halaman), pengaturan `dragonroll:pref:*` (`graphics`, `musicVol`, `sfxVol`, `musicOn`, `sfxOn`, `vibrate`, `theme`, `lang`, `hero`, `roomMap`, `frame`, `dice`, `fx`, `pet`), kepemilikan `dragonroll:own:*` (`frame`, `dice`, `fx`, `power`, `pet`, `aksesoris`), serta `auth`, `users`, `mail`, `friends`, `mine`, `mission:demo`, `chest:free`, `chest:opened`, `stats:played`, `profile:*`. Uji coba syarat Chest: buka `shop.html?played=N`.
+
+### Bahasa
+
+Pilihan bahasa disimpan di `dragonroll:pref:lang` (**default `en`**). Daftar: English, Indonesia, Deutsch, Français, Español, Português, Русский, Türkçe, हिन्दी, 한국어, 日本語, 简体中文, 繁體中文 (bendera di `assets/komponen/bendera-bahasa/`). **Teks halaman belum diterjemahkan**; baru pilihannya yang tersimpan.
+
+### Menambah aset baru
+
+1. Gambar baru harus **webp dengan background transparan** (ikon ~512 px, dipangkas rapi).
+2. Taruh di root `assets/komponen/<folder>/`, lalu salin ke `game/assets/komponen/<folder>/`.
+3. Ikon tile/slot yang sama harus identik di semua halaman (mis. ikon Dadu, Efek, Frame di lobby = slot di room).
+
+### Belum dibuat / catatan
+
+- Gameplay (tombol START/Quick Start sementara menampilkan toast "Gameplay segera hadir"), Layar Siap (kartu urutan), fase Boss (Ender Dragon / Wither), multiplayer online (butuh Supabase), dan sistem terjemahan teks.
+- `pet.html` masih memakai emoji sementara (belum ada ilustrasi pet di kit). Ganti dengan aset kit bila sudah ada.
+- `new-icon/solo2.webp` belum dipakai di halaman mana pun.

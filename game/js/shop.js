@@ -1,6 +1,7 @@
-/* shop.html — Toko (README): hanya jual Coin. Tukar Emerald -> Coin: 10->500, 40->2.500, 120->10.000 (paket ke-3 "BEST").
-   Tab EMERALD: "Tonton Iklan" (simulasi hitung mundur, +5 Emerald). Dompet demo di localStorage (sama dengan lobby/mission);
-   proyek utama memakai WalletService.exchange(i) dan klaim iklan lewat server. ?coin=1 membuka tab Coin dan menyorot kartu. ?from=<halaman> untuk tombol Back. */
+/* shop.html — Toko. Tab CHEST (default): 4 peti (aksesori + Coin); Peti Kayu: tombol Open (iklan simulasi) 1x/24 jam atau bayar Emerald; syarat main >= 10 kali.
+   Tab COIN: tukar Emerald -> Coin (10->500, 40->2.500, 120->10.000; paket ke-3 "BEST"). Tab EMERALD: "Tonton Iklan" (simulasi, +5 Emerald).
+   Dompet demo di localStorage (sama dengan lobby/mission); proyek utama memakai WalletService.exchange(i) dan klaim iklan lewat server.
+   ?coin=1 membuka tab Coin dan menyorot kartu. ?from=<halaman> untuk tombol Back. */
 const $=s=>document.querySelector(s);
 function fit(){$('#stage').style.transform=`scale(${Math.min(innerWidth/1920,innerHeight/1080)})`}addEventListener('resize',fit);fit();
 const IC='assets/komponen/';
