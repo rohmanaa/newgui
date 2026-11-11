@@ -11,7 +11,7 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | paket-gem/ | ZzeZYM.png | Ilustrasi paket Gem (9) |
 | paket-gold/ | _fLy_W.png | Ilustrasi paket Gold (9) |
 | paket-chest/ | xLrpM6.png | Peti kayu sampai legendaris (13) |
-| tombol-dan-kontrol/ | MrHvLu.png | Tombol, toggle, slider, checkbox, tab, input (28) + 6 tombol polos tanpa teks (`tombol-*-polos.webp`) |
+| tombol-dan-kontrol/ | MrHvLu.png | Tombol, toggle, slider, checkbox, tab, input (28) + 8 tombol polos tanpa teks (`tombol-*-polos.webp`) |
 | banner-label/ | CUkbIG.png | Banner, label, pita 8 warna (41) |
 | ikon-item/ | BX4smE.png | Ikon item: zirah, rune, bom, toko, dll. (46) |
 | ikon-gem-medali/ | zbp8uP.png | Gem, medali, hati, petir, dll. (46) |
@@ -57,3 +57,7 @@ Halaman lobby Dragon Roll di root repo, disusun dari README (bagian 4) memakai a
 ## mode.html
 
 Halaman Pilih Mode (README bagian 4): carousel peta (World, Nether, The End terkunci), kartu QUICK START dan CREATE ROOM dengan tile flip, modal pencarian lawan (simulasi). `NAVIGATE=false` seperti lobby.
+
+## room.html
+
+Halaman Game Room (README bagian 4): Equipment, Power Loadout (maks. 5, dinonaktifkan di online), Map Information, Player Room (host/tamu, kode room, privat/publik, undang teman, READY, START dengan validasi `check()`, pindah tim offline). Server disimulasikan.
