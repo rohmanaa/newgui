@@ -67,7 +67,7 @@ const cnt={daily:()=>QUESTS.filter(qReady).length+(qAll()&&!S.bonus?1:0),hadiah:
 /* ---- render ---- */
 function tabs(){
   const L=[['daily','DAILY','misi/ikon-tab-harian-centang.webp'],['hadiah','HADIAH','ikon-item/kado-merah.webp'],['ach','ACHIEVEMENTS','misi/ikon-tab-pencapaian-medali.webp']];
-  $('#tabs').innerHTML=L.map(([k,n,i])=>`<button class="tab ${S.tab===k?'on':''}" data-k="${k}"><img class="ic" src="${IC}${i}" alt=""><span class="lb">${n}</span>${badge(cnt[k]())}</button>`).join('');
+  $('#tabs').innerHTML=L.map(([k,n,i])=>`<button class="tab ${S.tab===k?'on':''}" data-k="${k}"><img class="ul" src="${IC}ikon-navigasi/garis-bawah-tab-emas.webp" alt=""><img class="ic" src="${IC}${i}" alt=""><span class="lb">${n}</span>${badge(cnt[k]())}</button>`).join('');
 }
 function vDaily(){
   const all=qAll(),rdy=all&&!S.bonus;
