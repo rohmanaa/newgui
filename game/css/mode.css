@@ -81,8 +81,8 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 .front:active{filter:brightness(1.1)}
 .front .ic{height:176px;display:grid;place-items:center}
 .front .ic img{height:176px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 5px 4px rgba(0,0,0,.45))}
-.front .ic.xl{height:230px;width:100%}
-.front .ic.xl img{height:auto;width:auto;max-height:230px;max-width:92%}
+.front .ic.xl{height:196px;width:100%}
+.front .ic.xl img{height:auto;width:auto;max-height:196px;max-width:84%}
 .front .nm{font-size:44px;line-height:1}
 .front .sb{font-weight:800;font-size:20px;opacity:.85}
 .back .q{font-size:30px;line-height:1.05;text-align:center;padding:0 40px}
