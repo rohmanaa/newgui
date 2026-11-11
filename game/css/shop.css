@@ -43,6 +43,10 @@
 .dbtns .btn{width:330px;height:100px}.dbtns .btn span{font-size:36px}
 @keyframes pop{from{transform:scale(.7);opacity:0}}
 /* iklan simulasi */
-#ad{position:absolute;inset:0;z-index:75;display:none;place-items:center;background:rgba(0,0,0,.92);text-align:center}
+#ad{position:absolute;inset:0;z-index:75;display:none;place-items:center;background:rgba(10,8,30,.78);text-align:center}
 #ad.on{display:grid}
-#ad-t{font-size:64px}#ad-n{font:400 220px/1 var(--font-title);color:#ffd45a;margin:10px 0}#ad-s{font:800 30px var(--font-body);color:#cfc8ea}
+/* kotak iklan memakai bingkai dialog kit + pita judul (bukan container polos) */
+#adbox{position:relative;width:820px;padding:96px 50px 56px;isolation:isolate;animation:pop .28s cubic-bezier(.2,1.4,.4,1)}
+#adbox::before{content:'';position:absolute;inset:-8px;border:22px solid transparent;border-image:url(../assets/komponen/panel-dialog/bingkai-dialog.webp) 44 fill / 22px stretch;z-index:-1;pointer-events:none}
+#ad-t{position:absolute;left:50%;top:-34px;transform:translateX(-50%);height:84px;padding:0 64px;line-height:70px;white-space:nowrap;font-size:40px;background:url(../assets/komponen/banner-label/banner-judul-ungu-polos.webp) center/100% 100% no-repeat;text-shadow:0 2px 0 rgba(20,5,70,.7)}
+#ad-n{font:400 200px/1 var(--font-title);color:#ffd45a;margin:0 0 10px;text-shadow:0 6px 0 rgba(60,30,0,.55)}#ad-s{font:800 30px var(--font-body);color:#ddd7f7}
