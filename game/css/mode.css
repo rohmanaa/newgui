@@ -79,9 +79,8 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 #quick .face{background:linear-gradient(180deg,#8a63e8,#5c34b8);border-color:#2b1a70;box-shadow:inset 0 3px 0 rgba(255,255,255,.28),0 6px 0 #2b1a70}
 #create .face{background:linear-gradient(180deg,#58b84a,#37852c);border-color:#12400e;box-shadow:inset 0 3px 0 rgba(255,255,255,.28),0 6px 0 #12400e}
 .front:active{filter:brightness(1.1)}
-.front .ic{height:130px;display:grid;place-items:center}
-.front .ic img{max-height:124px;max-width:150px;width:auto;filter:drop-shadow(0 5px 4px rgba(0,0,0,.45))}
-.front .ic img.glyph{height:84px}
+.front .ic{height:176px;display:grid;place-items:center}
+.front .ic img{height:176px;width:auto;max-width:100%;object-fit:contain;filter:drop-shadow(0 5px 4px rgba(0,0,0,.45))}
 .front .nm{font-size:44px;line-height:1}
 .front .sb{font-weight:800;font-size:20px;opacity:.85}
 .back .q{font-size:30px;line-height:1.05;text-align:center;padding:0 40px}
