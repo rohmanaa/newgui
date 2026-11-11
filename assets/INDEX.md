@@ -27,6 +27,7 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | ikon-pengaturan/ | layar Settings (orsWF1) | Ikon lonceng, speaker, musik mati, getar, bantuan, Facebook, Game Center, knob slider, lencana koin hadiah (teks "500" dihapus) |
 | misi/ | layar Missions (SCxZW6) | Panel hadiah harian kosong, alas ikon, baris misi (biasa + siap klaim) kosong, slot hadiah misi (abu + hijau/biru/merah/ungu) kosong, bar progres kosong + isi oranye, lencana merah segi delapan, ikon tab centang/medali, petir, jam weker |
 | stage-chapter/ | layar Chapter (8gAeU3) | Tile stage kosong 4 varian (selesai, aktif, biasa, terkunci), bintang emas/kosong, gembok kecil, panah kiri/kanan, titik halaman, bintang total, hiasan garis header |
+| menu-pause/ | layar Pause (uLHgow) | Tombol bulat kosong, ikon pengaturan/lanjut/ulang/menyerah (putih), teks "PAUSE" krem |
 | ikon-layar/ | layar penerapan (OLGF1N) | Ikon tab Serangan, Monster Kill, Boss Kill (teks dihapus) |
 | ikon-equipment/ | (dipotong dari layar penerapan fcuBiA dan 2wuCGF) | 34 ikon equipment unik: kapak, palu, ramuan, guci, cincin, daun, kristal, dll. Angka dan titik notifikasi dihapus, varian rarity yang identik dilewati |
 | bendera-bahasa/ | (dipotong dari layar penerapan m6GSCw) | 12 bendera panji menu bahasa (Inggris, Jerman, Prancis, Spanyol, Korea, Cina, Taiwan, Jepang, Portugal, Rusia, India, Turki). Tanda centang pilihan pada bendera Inggris dihapus dan area di bawahnya direkonstruksi |
