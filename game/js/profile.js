@@ -16,7 +16,7 @@ const go=u=>BUILT.includes(u.split('?')[0])?nav(u):toast('Segera hadir');
 $('#back').onclick=$('#home').onclick=()=>nav('lobby.html');
 
 /* ---- kiri: tab ---- */
-const TABS=[['akun','Akun','profil-bulat.webp'],['koleksi','Koleksi','tas-kulit.webp'],['aktivitas','Aktivitas','jam-bulat.webp']];
+const TABS=[['akun','Akun','profil-bulat.webp'],['koleksi','Koleksi','tas-kulit.webp'],['statistik','Statistik','grafik-batang.webp']];
 $('#menu').innerHTML=TABS.map(([k,n,ic])=>`<button class="mb" data-k="${k}" aria-label="${n}"><div class="ic"><img src="${G}${ic}" alt=""></div><div class="lb">${n}</div></button>`).join('');
 function tab(k){
   document.querySelectorAll('.mb').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
@@ -86,15 +86,14 @@ $('#kol').innerHTML=KOL.map(([n,a,t,ic,c,u],i)=>`<button class="kr" data-u="${u}
 $('#kol').onclick=e=>{const b=e.target.closest('.kr');if(b)go(b.dataset.u)};
 requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.kr b').forEach(b=>b.style.width=b.dataset.w+'%')));
 
-/* ---- kanan: AKTIVITAS (tiruan; di proyek utama dari server) ---- */
-const MIN=60e3,now=Date.now();
-const ACT=LS('dragonroll:profile:aktivitas',[
-  {t:'Menang di World',d:'+120 XP · +50 Coin',ic:'piala.webp',at:now-8*MIN},
-  {t:'Membeli Dadu Emas',d:'−300 Coin',ic:'dadu.webp',at:now-95*MIN},
-  {t:'Klaim hadiah harian',d:'Hari ke-4 · +100 Coin',ic:'kado.webp',at:now-26*60*MIN},
-  {t:'Naik ke Level '+L.lv,d:'Level baru tercapai',ic:'bintang.webp',at:now-30*60*MIN},
-  {t:'Menyelesaikan misi harian',d:'+5 Emerald',ic:'centang.webp',at:now-50*60*MIN},
-  {t:'Mengganti karakter',d:h.name+' · '+h.cls,ic:'helm-bulat.webp',at:now-74*60*MIN}
-]);
-function ago(at){const m=Math.max(1,Math.round((Date.now()-at)/MIN));if(m<60)return m+' mnt lalu';const j=Math.round(m/60);if(j<24)return j+' jam lalu';const d=Math.round(j/24);return d===1?'Kemarin':d+' hari lalu'}
-$('#akt').innerHTML=ACT.map(a=>`<div class="ar"><div class="ic"><img src="${G}${a.ic}" alt=""></div><div class="tx">${a.t}<small>${a.d}</small></div><div class="tm">${ago(a.at)}</div></div>`).join('')||'';
+/* ---- kanan: STATISTIK (tiruan; di proyek utama dari get_my_profile / leaderboard) ---- */
+const ST=Object.assign({rank:1,menang:9,kalah:5,streak:2,misi:4},LS('dragonroll:profile:stats',{}));
+const total=ST.menang+ST.kalah,wr=total?Math.round(ST.menang/total*100):0;
+const card=(id,ic,label,val,extra,go)=>`<${go?'button':'div'} class="sc" id="${id}"${go?` data-u="${go}"`:''}><div class="ic"><img src="${ic}" alt=""></div><div class="t"><small>${label}</small><b>${val}${extra||''}</b></div>${go==='mission.html'?`<img class="go" src="${G}segitiga-kanan.webp" alt="">`:''}</${go?'button':'div'}>`;
+$('#sg').innerHTML=
+  card('s-rank',G+'globe-meja.webp','Peringkat Global','#'+ST.rank,ST.rank===1?`<img src="${IC}ikon-item/mahkota.webp" alt="">`:'','leaderboard.html')+
+  card('s-wr',G+'pedang-silang.webp','Rasio Kemenangan',wr+'%',`<i>${ST.menang}/${total}</i>`)+
+  card('s-mis',G+'target-panah.webp','Misi',ST.misi,'','mission.html')+
+  card('s-wl',IC+'ikon-item/piala.webp','Win / Lose',ST.menang+' / '+ST.kalah)+
+  `<div class="sc" id="s-st"><div class="ic"><img src="${G}api.webp" alt=""></div><div class="row"><small>Win Streak</small><div class="t"><b>${ST.streak}</b></div></div></div>`;
+$('#sg').onclick=e=>{const b=e.target.closest('button.sc');if(b)go(b.dataset.u)};
