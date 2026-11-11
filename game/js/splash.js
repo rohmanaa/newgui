@@ -2,7 +2,6 @@
    Login dan Sign up = dua dialog terpisah. Sign up dengan email yang sudah terdaftar -> diarahkan ke Login. */
 const $=s=>document.querySelector(s);
 const AKEY='dragonroll:auth', UKEY='dragonroll:users', EKEY='dragonroll:accounts';
-function fit(){$('#stage').style.transform=`scale(${Math.min(innerWidth/1920,innerHeight/1080)})`}addEventListener('resize',fit);fit();
 const params=new URLSearchParams(location.search);
 const next=/^[\w-]+\.html$/.test(params.get('next')||'')?params.get('next'):'lobby.html';
 const ASSETS=['assets/komponen/karakter-monster/hero-shuri-pemanah.webp','assets/komponen/logo/bar-loading-bingkai-kosong.webp','assets/komponen/logo/bar-loading-isi-biru.webp','assets/komponen/hud/efek-titik-berputar.webp'];
