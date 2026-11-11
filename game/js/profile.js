@@ -89,11 +89,12 @@ requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.
 /* ---- kanan: STATISTIK (tiruan; di proyek utama dari get_my_profile / leaderboard) ---- */
 const ST=Object.assign({rank:1,menang:9,kalah:5,streak:2,misi:4},LS('dragonroll:profile:stats',{}));
 const total=ST.menang+ST.kalah,wr=total?Math.round(ST.menang/total*100):0;
-const card=(id,ic,label,val,extra,go)=>`<${go?'button':'div'} class="sc" id="${id}"${go?` data-u="${go}"`:''}><div class="ic"><img src="${ic}" alt=""></div><div class="t"><small>${label}</small><b>${val}${extra||''}</b></div>${go==='mission.html'?`<img class="go" src="${G}segitiga-kanan.webp" alt="">`:''}</${go?'button':'div'}>`;
+const row=(ic,label,v,go,bar)=>`<${go?'button':'div'} class="sr"${go?` data-u="${go}"`:''}><div class="ic"><img src="${ic}" alt=""></div><div class="nm">${label}</div>${bar!=null?`<i class="bar"><b data-w="${bar}"></b></i>`:''}<div class="v">${v}</div></${go?'button':'div'}>`;
 $('#sg').innerHTML=
-  card('s-rank',G+'globe-meja.webp','Peringkat Global','#'+ST.rank,ST.rank===1?`<img src="${IC}ikon-item/mahkota.webp" alt="">`:'','leaderboard.html')+
-  card('s-wr',G+'pedang-silang.webp','Rasio Kemenangan',wr+'%',`<i>${ST.menang}/${total}</i>`)+
-  card('s-mis',G+'target-panah.webp','Misi',ST.misi,'','mission.html')+
-  card('s-wl',IC+'ikon-item/piala.webp','Win / Lose',ST.menang+' / '+ST.kalah)+
-  `<div class="sc" id="s-st"><div class="ic"><img src="${G}api.webp" alt=""></div><div class="row"><small>Win Streak</small><div class="t"><b>${ST.streak}</b></div></div></div>`;
-$('#sg').onclick=e=>{const b=e.target.closest('button.sc');if(b)go(b.dataset.u)};
+  row(G+'globe-meja.webp','Peringkat Global','#'+ST.rank+(ST.rank===1?`<img src="${IC}ikon-item/mahkota.webp" alt="">`:''),'leaderboard.html')+
+  row(G+'pedang-silang.webp','Rasio Kemenangan',wr+'%<small>'+ST.menang+'/'+total+'</small>')+
+  row(G+'target-panah.webp','Misi',ST.misi+`<img class="go" src="${G}segitiga-kanan.webp" alt="">`,'mission.html')+
+  row(IC+'ikon-item/piala.webp','Win / Lose',ST.menang+' / '+ST.kalah)+
+  row(G+'api.webp','Win Streak',ST.streak);
+$('#sg').onclick=e=>{const b=e.target.closest('button.sr');if(b)go(b.dataset.u)};
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.sr i.bar b').forEach(b=>b.style.width=b.dataset.w+'%')));

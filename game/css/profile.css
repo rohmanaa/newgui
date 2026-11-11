@@ -75,24 +75,17 @@
 .kr i b{display:block;height:100%;width:0;background:var(--c);transition:width .6s}
 .kr em{width:96px;text-align:right;font:800 28px var(--font-body);font-style:normal}
 
-/* statistik — kartu biru dari kit (hud/kartu-kosong-biru) */
-#sg{position:absolute;left:0;top:226px;width:640px;height:470px}
-.sc{position:absolute;isolation:isolate;display:flex;align-items:center;gap:16px;padding:0 18px 0 22px;text-align:left;width:310px;height:150px;transition:transform .1s,filter .1s}
-.sc::before{content:'';position:absolute;inset:0;background:url(../assets/komponen/tombol-dan-kontrol/tombol-biru-polos.webp) center/100% 100% no-repeat;z-index:-1;pointer-events:none}
-button.sc:hover{filter:brightness(1.12)}
-button.sc:active{transform:scale(.97)}
-.sc .ic{flex:none;width:72px;height:72px;display:grid;place-items:center}
-.sc .ic img{width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 2px rgba(0,0,0,.4))}
-.sc .t{flex:1;min-width:0}
-.sc .t small{display:block;font:800 21px/1.1 var(--font-body);color:#dbe8ff;text-shadow:0 2px 0 rgba(10,6,24,.5);white-space:nowrap}
-.sc .t b{display:flex;align-items:center;gap:10px;font:400 58px/1.05 var(--font-title);text-shadow:0 3px 0 rgba(10,6,24,.5)}
-.sc .t b i{font:800 26px var(--font-body);font-style:normal;color:#dbe8ff}
-.sc .t b img{width:46px;height:46px;object-fit:contain}
-.sc .go{position:absolute;right:20px;top:50%;width:30px;height:30px;object-fit:contain;transform:translateY(-50%);opacity:.9}
-#s-rank{left:0;top:0}#s-wr{left:330px;top:0}
-#s-mis{left:0;top:176px}#s-wl{left:330px;top:176px}
-#s-st{left:0;top:352px;width:640px;height:120px;justify-content:center;gap:26px}
-#s-st .t{flex:none}
-#s-st .t b{font-size:60px}
-#s-st .row{display:flex;align-items:center;gap:26px}
-#s-st .row small{font:400 40px/1 var(--font-title);color:#fff}
+/* statistik — baris gelap, gaya sama dengan Koleksi */
+#sg{position:absolute;left:0;top:226px;width:640px}
+.sr{position:relative;display:flex;align-items:center;gap:18px;height:104px;margin-bottom:14px;padding:0 20px 0 14px;background:rgba(14,10,26,.5);border:3px solid rgba(255,255,255,.1);border-radius:14px;width:100%;text-align:left;transition:transform .1s,filter .1s}
+button.sr:hover{filter:brightness(1.15)}
+button.sr:active{transform:scale(.98)}
+.sr .ic{flex:none;width:80px;height:80px;background:url(../assets/komponen/slot-equipment/slot-ungu.webp) center/100% 100% no-repeat;position:relative}
+.sr .ic img{position:absolute;left:50%;top:50%;width:50px;height:50px;object-fit:contain;transform:translate(-50%,-50%)}
+.sr .nm{flex:1;font:400 32px/1 var(--font-title);text-shadow:0 2px 0 rgba(10,6,24,.5);white-space:nowrap}
+.sr i.bar{flex:none;width:130px;height:16px;background:rgba(10,6,24,.55);border-radius:3px;overflow:hidden}
+.sr i.bar b{display:block;height:100%;width:0;background:#3fc6a8;transition:width .6s}
+.sr .v{display:flex;align-items:center;justify-content:flex-end;gap:10px;min-width:120px;font:400 42px/1 var(--font-title);text-shadow:0 3px 0 rgba(10,6,24,.5)}
+.sr .v small{font:800 24px var(--font-body);color:#cfc8ea;text-shadow:none}
+.sr .v img{width:44px;height:44px;object-fit:contain}
+.sr .v img.go{width:24px;height:24px;opacity:.8}
