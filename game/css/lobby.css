@@ -117,7 +117,7 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 .small .lb{font-size:22px}
 .big{width:200px;height:150px;margin-top:34px;border-radius:14px}
 .big .lb{font-size:32px;padding-bottom:8px;position:relative;z-index:1}
-.big .ico{position:absolute;left:0;right:0;top:-40px;height:110px}.big .ico img{max-width:none;max-height:112px;width:auto}.big .ico img.glyph{max-height:80px;margin-top:18px}
+.big .ico{position:absolute;left:0;right:0;top:-40px;height:110px}.big .ico img{max-width:none;max-height:112px;width:auto}.big .ico img.glyph{max-height:80px;margin-top:18px}.big .ico img.fr{max-height:156px;margin-top:-4px}
 #nav{position:absolute;left:30px;top:880px;align-items:flex-end;display:flex;gap:34px}
 .tile.locked{filter:saturate(.35) brightness(.8)}
 
