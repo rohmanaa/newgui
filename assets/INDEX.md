@@ -11,7 +11,7 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | paket-gem/ | ZzeZYM.png | Ilustrasi paket Gem (9) |
 | paket-gold/ | _fLy_W.png | Ilustrasi paket Gold (9) |
 | paket-chest/ | xLrpM6.png | Peti kayu sampai legendaris (13) |
-| tombol-dan-kontrol/ | MrHvLu.png | Tombol, toggle, slider, checkbox, tab, input (28) |
+| tombol-dan-kontrol/ | MrHvLu.png | Tombol, toggle, slider, checkbox, tab, input (28) + 6 tombol polos tanpa teks (`tombol-*-polos.webp`) |
 | banner-label/ | CUkbIG.png | Banner, label, pita 8 warna (41) |
 | ikon-item/ | BX4smE.png | Ikon item: zirah, rune, bom, toko, dll. (46) |
 | ikon-gem-medali/ | zbp8uP.png | Gem, medali, hati, petir, dll. (46) |
@@ -32,6 +32,8 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | ikon-equipment/ | (dipotong dari layar penerapan fcuBiA dan 2wuCGF) | 34 ikon equipment unik: kapak, palu, ramuan, guci, cincin, daun, kristal, dll. Angka dan titik notifikasi dihapus, varian rarity yang identik dilewati |
 | bendera-bahasa/ | (dipotong dari layar penerapan m6GSCw) | 12 bendera panji menu bahasa (Inggris, Jerman, Prancis, Spanyol, Korea, Cina, Taiwan, Jepang, Portugal, Rusia, India, Turki). Tanda centang pilihan pada bendera Inggris dihapus dan area di bawahnya direkonstruksi |
 | ikon-kelas-hero/ | (dipotong dari layar penerapan +JzO2R) | 10 tombol bulat ikon kelas hero (pejuang terpilih, ahli sihir, gladiator, penyihir gelap, paladin, pemanah, penyihir, ranger, pendeta, assassin), teks nama dihapus |
+| lencana-level/ | (dipotong dari layar penerapan CyJ1Oe) | Lencana level-up bersayap, angka dan teks LEVEL dihapus (1) |
+| karakter-monster/ | (dipotong dari layar penerapan +JzO2R) | Hero Shuri pemanah, latar transparan (1). Monster/boss belum dipotong |
 
 ## penerapan/ (43) — contoh layar
 
@@ -46,3 +48,8 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 **Dalam permainan:** AbwPaz (HUD battle), MN2wMH (peta gameplay), uLHgow (pause), va8ppD (boss warning), KTXORC (stage clear), zsp46c (you are dead), CyJ1Oe (level up)
 
 **Popup dan sistem:** orsWF1 (Settings), m6GSCw (bahasa), O8xcIJ (EULA), OpWKU+ (update), SJszTO (maintenance), _h0KYH (error jaringan), y3LBJt (toast), Dka22H / FBUodT / VZQhOL (popup item Equipment)
+
+
+## lobby.html
+
+Halaman lobby Dragon Roll di root repo, disusun dari README (bagian 4) memakai aset `komponen/`. `NAVIGATE=false` membuat tombol hanya menampilkan toast tujuan halaman.

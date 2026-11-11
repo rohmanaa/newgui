@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Dragon Roll — Lobby</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<style>
+/* =========================================================================
+   DRAGON ROLL — LOBBY  (berdasarkan README bagian 4: lobby.html)
+   Kanvas desain 1920x1080 landscape, diskalakan agar muat di layar.
+   Aset: assets/komponen/** (kit Fantasy RPG, webp transparan).
+   ========================================================================= */
+:root{
+  --ink:#1b1430; --panel:rgba(38,31,62,.82); --panel-line:#6d6590; --panel-hi:#a79fd0;
+  --gold:#ffd45a; --white:#fff; --teal:#5f8da0; --teal-d:#3f6577; --red:#e8334a;
+  --font-title:'Lilita One','Baloo 2',Impact,sans-serif;
+  --font-body:'Nunito','Segoe UI',system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{margin:0;height:100%;background:#0e0b1c;overflow:hidden;font-family:var(--font-body);color:var(--white)}
+#wrap{position:fixed;inset:0;display:grid;place-items:center}
+#stage{position:relative;width:1920px;height:1080px;flex:none;transform-origin:center center;overflow:hidden;
+  background:linear-gradient(180deg,#53b8f2 0%,#8bd5fa 46%,#d6f1ff 100%)}
+img{display:block;-webkit-user-drag:none;pointer-events:none}
+button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:pointer}
+.t-title{font-family:var(--font-title);letter-spacing:.5px;
+  text-shadow:0 3px 0 rgba(20,10,40,.55);-webkit-text-stroke:1.5px rgba(20,10,40,.55);paint-order:stroke fill}
+
+/* ---------- langit & dunia ---------- */
+#sun{position:absolute;left:-180px;top:-260px;width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,235,.9) 0%,rgba(255,250,200,.35) 38%,transparent 68%)}
+.cloud{position:absolute;opacity:.95;animation:drift linear infinite}
+.cloud i{position:absolute;background:#fff;border-radius:6px;box-shadow:0 8px 0 #d3ecfb inset}
+@keyframes drift{from{transform:translateX(-340px)}to{transform:translateX(2300px)}}
+#world{position:absolute;left:0;top:0;width:1920px;height:1080px}
+#island{animation:float 5.5s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-16px)}}
+#hero{cursor:pointer;pointer-events:all}
+#hero .bob{animation:bob 1.8s ease-in-out infinite;transform-box:fill-box;transform-origin:50% 100%}
+@keyframes bob{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.015) translateY(-2px)}}
+#hero.jump{animation:jump .55s cubic-bezier(.3,.7,.4,1)}
+#hero.spin .bob{animation:spin .7s ease-in-out}
+@keyframes jump{0%{transform:translateY(0)}40%{transform:translateY(-120px)}100%{transform:translateY(0)}}
+@keyframes spin{0%{transform:rotateY(0)}100%{transform:rotateY(360deg)}}
+#hint{position:absolute;left:50%;top:222px;transform:translateX(-50%);padding:8px 20px;border-radius:99px;
+  background:rgba(20,16,44,.55);font-weight:800;font-size:22px;opacity:.9;pointer-events:none;animation:hint 2.4s ease-in-out infinite}
+@keyframes hint{0%,100%{opacity:.35}50%{opacity:.95}}
+
+/* ---------- profil ---------- */
+#profile{position:absolute;left:22px;top:16px;width:640px;height:150px;cursor:pointer;transition:transform .12s}
+#profile:active{transform:scale(.98)}
+#avatar{position:absolute;left:30px;top:12px;width:128px;height:128px;border-radius:50%;
+  background:radial-gradient(circle at 50% 35%,#8d78d6,#43377a);
+  border:6px solid #f2b844;box-shadow:0 0 0 3px #7a4a0b,0 6px 12px rgba(0,0,0,.4),inset 0 0 18px rgba(0,0,0,.35);overflow:hidden}
+#avatar img{position:absolute;left:-150px;top:-6px;width:370px;max-width:none}
+#lvl{position:absolute;left:0;top:76px;width:74px;height:86px;filter:drop-shadow(0 4px 4px rgba(0,0,0,.45));z-index:2}
+#lvl b{position:absolute;inset:0;display:grid;place-items:center;padding-bottom:10px;font:400 38px/1 var(--font-title);
+  -webkit-text-stroke:2px #0b2b57;paint-order:stroke fill}
+#pname{position:absolute;left:176px;top:10px;display:flex;align-items:center;gap:12px;font-size:40px;line-height:1}
+#pname img{width:52px;height:auto;filter:drop-shadow(0 2px 2px rgba(0,0,0,.4))}
+#pname span{text-shadow:0 3px 0 rgba(20,10,40,.6)}
+#xp{position:absolute;left:176px;top:70px;width:440px;height:46px;border-radius:10px;background:#1b1631;
+  border:4px solid #4c4468;box-shadow:inset 0 3px 6px rgba(0,0,0,.6),0 3px 0 #2a2342;overflow:hidden}
+#xpfill{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(180deg,#59b4ff,#1f6fe0 55%,#1856b6);
+  box-shadow:inset 0 3px 0 rgba(255,255,255,.45);transition:width .9s cubic-bezier(.2,.8,.2,1)}
+#xptxt{position:absolute;inset:0;display:grid;place-items:center;font:800 26px var(--font-body);text-shadow:0 2px 0 rgba(0,0,0,.6)}
+#xpnote{position:absolute;left:176px;top:120px;font-size:20px;font-weight:800;color:#fff;text-shadow:0 2px 0 rgba(20,10,50,.75),0 0 6px rgba(20,10,50,.5)}
+
+/* ---------- mata uang ---------- */
+.cur{position:absolute;top:26px;height:80px;width:290px;display:flex;align-items:center;cursor:pointer;
+  background:linear-gradient(180deg,#6f9db0,#55879b 55%,#4a7789);
+  clip-path:polygon(22px 0,calc(100% - 22px) 0,100% 50%,calc(100% - 22px) 100%,22px 100%,0 50%);
+  filter:drop-shadow(0 4px 3px rgba(0,0,0,.35))}
+.cur::before{content:"";position:absolute;inset:4px;background:linear-gradient(180deg,#5b8a9d,#46758a);
+  clip-path:polygon(19px 0,calc(100% - 19px) 0,100% 50%,calc(100% - 19px) 100%,19px 100%,0 50%)}
+.cur img{position:absolute;left:12px;top:50%;transform:translateY(-50%);height:76px;width:auto;z-index:2;filter:drop-shadow(0 3px 2px rgba(0,0,0,.4))}
+.cur .v{position:relative;z-index:2;flex:1;text-align:center;font:400 42px var(--font-title);padding-left:44px;padding-right:44px;
+  text-shadow:0 3px 0 rgba(10,30,45,.6)}
+.cur .plus{position:absolute;right:20px;top:50%;transform:translateY(-52%);z-index:2;font:800 46px/1 var(--font-body);color:#a9cad8;text-shadow:0 2px 0 rgba(0,0,0,.35)}
+.cur:active{filter:brightness(1.12) drop-shadow(0 4px 3px rgba(0,0,0,.35))}
+#cur-em{left:1000px}
+#cur-co{left:1304px}
+.cur.bump{animation:bump .4s}
+@keyframes bump{40%{transform:scale(1.07)}}
+
+/* ---------- tombol bulat kanan atas ---------- */
+.round{position:absolute;top:18px;width:92px;height:92px;transition:transform .1s}
+.round>img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.round>img.ic{position:absolute;left:50%;top:50%;width:54px;transform:translate(-50%,-52%);filter:drop-shadow(0 2px 2px rgba(0,0,0,.5))}
+.round:active{transform:scale(.92)}
+#b-mail{left:1612px}
+#b-lead{left:1712px}
+#b-set{left:1812px}
+.dot{position:absolute;right:-2px;top:-2px;width:30px;height:30px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#ff7b8b,#e8334a 55%,#b0182d);
+  border:3px solid #fff;box-shadow:0 2px 4px rgba(0,0,0,.4);font:800 17px/24px var(--font-body);text-align:center;z-index:5}
+.dot.sm{width:26px;height:26px;font-size:0}
+
+/* ---------- panel kartu / tile ---------- */
+.panel{position:absolute;background:var(--panel);border-radius:22px;border:4px solid var(--panel-line);
+  box-shadow:inset 0 0 0 3px rgba(0,0,0,.35),0 8px 18px rgba(10,6,30,.4);backdrop-filter:blur(3px)}
+.panel>h3{position:absolute;left:50%;top:-22px;transform:translateX(-50%);margin:0;padding:3px 28px 6px;font:400 28px var(--font-title);
+  background:linear-gradient(180deg,#8e6df0,#5b3bc4);border-radius:12px;border:3px solid #2b1a70;white-space:nowrap;
+  text-shadow:0 2px 0 rgba(20,5,70,.7)}
+#koleksi{left:22px;top:236px;width:636px;height:170px;padding:34px 12px 10px;display:flex;gap:10px;justify-content:center}
+.tile{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
+  border-radius:16px;background:linear-gradient(180deg,rgba(78,68,112,.95),rgba(52,44,82,.95));border:3px solid #7d75a6;
+  box-shadow:inset 0 2px 0 rgba(255,255,255,.18),inset 0 -6px 12px rgba(0,0,0,.28),0 5px 0 rgba(20,12,45,.55);
+  transition:transform .1s,filter .1s}
+.tile:hover{filter:brightness(1.12)}
+.tile:active{transform:translateY(3px);box-shadow:inset 0 2px 0 rgba(255,255,255,.18),0 2px 0 rgba(20,12,45,.55)}
+.tile .ico{flex:1;display:grid;place-items:center;width:100%}
+.tile .ico img{max-width:74%;max-height:92%;object-fit:contain;filter:drop-shadow(0 4px 3px rgba(0,0,0,.45))}
+.tile .ico img.glyph{filter:drop-shadow(0 3px 2px rgba(0,0,0,.5)) opacity(.95)}
+.tile .lb{font:400 24px/1 var(--font-title);padding:0 4px 9px;white-space:nowrap;text-shadow:0 2px 0 rgba(0,0,0,.65)}
+.small{width:114px;height:122px}
+.small .lb{font-size:22px}
+.big{width:208px;height:182px}
+.big .lb{font-size:32px;padding-bottom:12px}
+.big .ico img{max-width:68%}
+#nav{position:absolute;left:22px;top:880px;display:flex;gap:16px}
+.tile.locked{filter:saturate(.35) brightness(.8)}
+
+/* ---------- panel kanan: hadiah gratis & event ---------- */
+#side{position:absolute;right:0;top:238px;width:236px;display:flex;flex-direction:column;gap:14px;align-items:flex-end}
+.sidecard{position:relative;width:236px;height:196px;cursor:pointer;
+  background:linear-gradient(90deg,rgba(30,24,56,0) 0%,rgba(30,24,56,.78) 30%);border-radius:18px 0 0 18px;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;padding-left:24px;transition:transform .1s}
+.sidecard:active{transform:scale(.97)}
+.sidecard img{height:130px;width:auto;object-fit:contain;filter:drop-shadow(0 5px 4px rgba(0,0,0,.45))}
+.sidecard .tag{position:absolute;left:34px;top:-8px;z-index:2;padding:2px 12px;font:400 22px var(--font-title);background:#f48a12;border-radius:8px;border:2px solid #7a3c00;
+  text-shadow:0 2px 0 rgba(90,40,0,.7)}
+.sidecard .tm{font-weight:800;font-size:22px;margin-top:6px;color:#f2eefc;text-shadow:0 2px 0 rgba(0,0,0,.6)}
+
+/* ---------- tombol MULAI ---------- */
+#go{position:absolute;right:30px;bottom:28px;width:470px;height:166px;transition:transform .1s;animation:pulse 2.2s ease-in-out infinite}
+#go img{position:absolute;inset:0;width:100%;height:100%;object-fit:fill;filter:drop-shadow(0 8px 6px rgba(20,10,0,.5))}
+#go span{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;gap:14px;padding-bottom:10px;
+  font:400 78px/1 var(--font-title);color:#4d2300;text-shadow:0 3px 0 rgba(255,236,160,.65);letter-spacing:2px}
+#go span svg{width:54px;height:54px}
+#go:active{animation:none;transform:scale(.95)}
+#go:hover img{filter:brightness(1.1) drop-shadow(0 8px 6px rgba(20,10,0,.5))}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.035)}}
+
+/* ---------- toast & transisi ---------- */
+#toast{position:absolute;left:50%;bottom:250px;transform:translate(-50%,30px);opacity:0;pointer-events:none;
+  padding:14px 34px;border-radius:16px;background:rgba(24,18,48,.92);border:3px solid #8f86bf;font-weight:800;font-size:28px;
+  transition:.28s;z-index:50;white-space:nowrap;box-shadow:0 8px 20px rgba(0,0,0,.4)}
+#toast.on{opacity:1;transform:translate(-50%,0)}
+#fade{position:absolute;inset:0;background:#000;opacity:0;pointer-events:none;transition:opacity .35s;z-index:60}
+#fade.on{opacity:1;pointer-events:all}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body>
+<div id="wrap">
+<div id="stage">
+
+  <!-- ===== dunia: langit + pulau melayang + karakter ===== -->
+  <div id="sun"></div>
+  <div class="cloud" style="top:340px;animation-duration:95s;animation-delay:-30s"><i style="left:0;top:30px;width:150px;height:36px"></i><i style="left:30px;top:6px;width:96px;height:36px"></i></div>
+  <div class="cloud" style="top:560px;animation-duration:130s;animation-delay:-90s"><i style="left:0;top:30px;width:210px;height:40px"></i><i style="left:50px;top:4px;width:120px;height:40px"></i></div>
+  <div class="cloud" style="top:760px;animation-duration:110s;animation-delay:-10s"><i style="left:0;top:26px;width:130px;height:30px"></i><i style="left:24px;top:2px;width:80px;height:30px"></i></div>
+  <div class="cloud" style="top:150px;animation-duration:150s;animation-delay:-60s"><i style="left:0;top:30px;width:180px;height:36px"></i><i style="left:36px;top:6px;width:100px;height:36px"></i></div>
+
+  <svg id="world" viewBox="0 0 1920 1080" aria-label="Pulau melayang dengan karakter pemain">
+    <ellipse cx="960" cy="1010" rx="260" ry="34" fill="rgba(20,60,110,.18)"/>
+    <g id="island"></g>
+  </svg>
+  <div id="hint" class="t-title">Ketuk karakter!</div>
+
+  <!-- ===== profil ===== -->
+  <div id="profile" data-act="profil" role="button" aria-label="Profil">
+    <div id="avatar"><img src="assets/komponen/karakter-monster/hero-shuri-pemanah.webp" alt=""></div>
+    <svg id="lvl" viewBox="0 0 74 86">
+      <defs><linearGradient id="gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d8fe6"/><stop offset="1" stop-color="#1b4aa8"/></linearGradient></defs>
+      <path d="M37 2 L70 12 V44 C70 62 54 76 37 84 C20 76 4 62 4 44 V12 Z" fill="#cfd5e3" stroke="#222a45" stroke-width="3"/>
+      <path d="M37 9 L63 17 V44 C63 58 50 69 37 76 C24 69 11 58 11 44 V17 Z" fill="url(#gs)" stroke="#12285e" stroke-width="2"/>
+    </svg>
+    <div id="lvl" style="pointer-events:none"><b class="t-title" id="lvnum">1</b></div>
+    <div id="pname" class="t-title"><span id="nm">Pemain</span><img src="assets/komponen/bendera-bahasa/bendera-inggris.webp" alt="bendera"></div>
+    <div id="xp"><div id="xpfill"></div><div id="xptxt">—</div></div>
+    <div id="xpnote"></div>
+  </div>
+
+  <!-- ===== Emerald & Coin ===== -->
+  <div class="cur" id="cur-em" data-act="tambang" role="button" aria-label="Emerald, buka Tambang">
+    <img src="assets/komponen/ikon-gem-medali/berlian-hijau.webp" alt=""><div class="v" id="v-em">—</div><div class="plus">+</div>
+  </div>
+  <div class="cur" id="cur-co" data-act="beliCoin" role="button" aria-label="Coin, buka Toko">
+    <img src="assets/komponen/hud/ikon-koin-emas.webp" alt=""><div class="v" id="v-co">—</div><div class="plus">+</div>
+  </div>
+
+  <!-- ===== MAIL, LEADERBOARD, SETTINGS ===== -->
+  <button class="round" id="b-mail" data-act="mail" aria-label="Mail">
+    <img class="bg" src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""><img class="ic" src="assets/komponen/ikon-item/surat-segel.webp" alt="">
+    <span class="dot" id="mailDot">1</span>
+  </button>
+  <button class="round" id="b-lead" data-act="leaderboard" aria-label="Leaderboard">
+    <img class="bg" src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""><img class="ic" src="assets/komponen/ikon-item/podium.webp" alt="">
+  </button>
+  <button class="round" id="b-set" data-act="settings" aria-label="Pengaturan">
+    <img class="bg" src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""><img class="ic" src="assets/komponen/ikon-item/gir.webp" alt="">
+  </button>
+
+  <!-- ===== grup koleksi ===== -->
+  <div class="panel" id="koleksi">
+    <h3>KOLEKSI</h3>
+    <button class="tile small" data-act="karakter"><div class="ico"><img src="assets/komponen/ikon-item/helm-ksatria.webp" alt=""></div><div class="lb">Karakter</div></button>
+    <button class="tile small" data-act="frame"><div class="ico"><img src="assets/komponen/ikon-gem-medali/medali-1.webp" alt=""></div><div class="lb">Frame</div></button>
+    <button class="tile small" data-act="dadu"><div class="ico"><img class="glyph" src="assets/komponen/glyph-putih/dadu.webp" alt=""></div><div class="lb">Dadu</div></button>
+    <button class="tile small" data-act="efek"><div class="ico"><img src="assets/komponen/ikon-gem-medali/kristal-api.webp" alt=""></div><div class="lb">Efek</div></button>
+    <button class="tile small" data-act="powerup"><div class="ico"><img src="assets/komponen/ikon-gem-medali/petir-ungu.webp" alt=""></div><div class="lb">Power-up</div></button>
+  </div>
+
+  <!-- ===== hadiah gratis (kanan) ===== -->
+  <div id="side">
+    <div class="sidecard" data-act="hadiahGratis" role="button">
+      <span class="tag">GRATIS</span>
+      <img src="assets/komponen/ikon-gem-medali/televisi.webp" alt=""><div class="tm">Hadiah gratis</div>
+    </div>
+  </div>
+
+  <!-- ===== navigasi bawah ===== -->
+  <div id="nav">
+    <button class="tile big" data-act="toko"><div class="ico"><img src="assets/komponen/ikon-item/toko.webp" alt=""></div><div class="lb">TOKO</div></button>
+    <button class="tile big" data-act="teman"><div class="ico"><img class="glyph" src="assets/komponen/glyph-putih/grup-pengguna.webp" alt="" style="max-width:56%"></div><div class="lb">TEMAN</div><span class="dot sm" id="friendDot" hidden></span></button>
+    <button class="tile big" data-act="hadiahMisi"><div class="ico"><img src="assets/komponen/ikon-item/gulungan-misi.webp" alt=""></div><div class="lb" style="font-size:25px">HADIAH &amp; MISI</div><span class="dot" id="questDot">2</span></button>
+    <button class="tile big" data-act="tambang"><div class="ico"><img src="assets/komponen/ikon-gem-medali/berlian-hijau.webp" alt=""></div><div class="lb">TAMBANG</div></button>
+  </div>
+
+  <!-- ===== MULAI! ===== -->
+  <button id="go" data-act="mulai" aria-label="Mulai">
+    <img src="assets/komponen/tombol-dan-kontrol/tombol-kuning-polos.webp" alt="">
+    <span>MULAI!<svg viewBox="0 0 24 24" fill="#4d2300"><path d="M8 4l10 8-10 8V4z"/></svg></span>
+  </button>
+
+  <div id="toast"></div>
+  <div id="fade"></div>
+</div>
+</div>
+
+<script>
+/* =========================================================================
+   LOGIKA — mengikuti README (lobby.html)
+   - Peta navigasi ACT
+   - Level/XP: level 1 butuh 400 XP, tiap level +100 (maks. 999); XP server menang bila lebih tinggi
+   - Saldo tampil "—" sampai server membalas (walletReady)
+   - MAIL & "Hadiah gratis": toast "segera hadir"
+   Halaman tujuan belum ada di repo GUI ini, maka NAVIGATE=false hanya menampilkan toast.
+   Set NAVIGATE=true di proyek utama agar benar-benar berpindah halaman.
+   ========================================================================= */
+const NAVIGATE=false;
+const ACT={
+  profil:'profile.html', karakter:'karakter.html', frame:'frame.html', dadu:'dadu.html', efek:'efek.html', powerup:'powerup.html',
+  leaderboard:'leaderboard.html', toko:'shop.html', beliCoin:'shop.html?coin=1', teman:'friendship.html', hadiahMisi:'hadiah-misi.html',
+  tambang:'tambang.html?from=lobby.html', settings:'settings.html', mulai:'mode.html'
+};
+const SOON={mail:'Mail segera hadir',hadiahGratis:'Hadiah gratis segera hadir'};
+
+/* ---- PlayerData tiruan (di proyek utama diganti PlayerData asli) ---- */
+const KEY='dragonroll:lobby:demo';
+const PD={
+  data:Object.assign({name:'Ryuen',xp:683,emerald:120,coin:2500},(()=>{try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}})()),
+  ready:false,
+  save(){try{localStorage.setItem(KEY,JSON.stringify(this.data))}catch(e){}}
+};
+function lvInfo(xp){
+  let lv=1,need=400;
+  while(xp>=need && lv<999){xp-=need;lv++;need=400+100*(lv-1)}
+  return {lv,cur:lv>=999?need:xp,need};
+}
+const fmt=n=>Number(n).toLocaleString('en-US');
+
+function render(){
+  const d=PD.data,L=lvInfo(d.xp);
+  document.getElementById('nm').textContent=d.name;
+  document.getElementById('lvnum').textContent=L.lv;
+  document.getElementById('xptxt').textContent=L.cur+' / '+L.need;
+  document.getElementById('xpfill').style.width=Math.min(100,L.cur/L.need*100)+'%';
+  document.getElementById('xpnote').textContent='Butuh '+(L.need-L.cur)+' XP lagi ke Level '+Math.min(999,L.lv+1);
+  document.getElementById('v-em').textContent=PD.ready?fmt(d.emerald):'—';
+  document.getElementById('v-co').textContent=PD.ready?fmt(d.coin):'—';
+}
+render();
+document.getElementById('xpfill').style.width='0';
+setTimeout(()=>{PD.ready=true;render();
+  ['cur-em','cur-co'].forEach(i=>{const e=document.getElementById(i);e.classList.add('bump')});
+  /* Multiplayer.Progress.dailyLogin() dipanggil di sini pada proyek utama */
+},700);
+
+/* ---- toast & navigasi ---- */
+let tt;
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1900)}
+function go(act){
+  if(SOON[act]){toast(SOON[act]);return}
+  const url=ACT[act]; if(!url)return;
+  if(!NAVIGATE){toast('→ '+url);return}
+  const f=document.getElementById('fade');f.classList.add('on');setTimeout(()=>{location.href=url},330);
+}
+document.querySelectorAll('[data-act]').forEach(el=>el.addEventListener('click',()=>go(el.dataset.act)));
+
+/* ---- skala kanvas ---- */
+function fit(){
+  const s=Math.min(innerWidth/1920,innerHeight/1080);
+  document.getElementById('stage').style.transform='scale('+s+')';
+}
+addEventListener('resize',fit);fit();
+
+/* ---- pulau voxel melayang (SVG isometrik) ---- */
+const NS='http://www.w3.org/2000/svg';
+const isl=document.getElementById('island');
+function poly(pts,fill,extra){const p=document.createElementNS(NS,'polygon');p.setAttribute('points',pts.map(q=>q.join(',')).join(' '));p.setAttribute('fill',fill);
+  p.setAttribute('stroke','rgba(20,30,10,.35)');p.setAttribute('stroke-width','2');p.setAttribute('stroke-linejoin','round');if(extra)for(const k in extra)p.setAttribute(k,extra[k]);isl.appendChild(p)}
+function slab(cx,cy,w,d,c){ // cy = pusat diamond atas
+  const h=w/2,N=[cx,cy-h/2],E=[cx+w/2,cy],S=[cx,cy+h/2],W=[cx-w/2,cy];
+  poly([W,S,[S[0],S[1]+d],[W[0],W[1]+d]],c.l);
+  poly([S,E,[E[0],E[1]+d],[S[0],S[1]+d]],c.r);
+  poly([N,E,S,W],c.t);
+}
+const DIRT={t:'#8d6038',l:'#9b6a40',r:'#7b5230'}, STONE={t:'#7d808c',l:'#8a8d99',r:'#666975'}, DEEP={t:'#5d606c',l:'#6a6d79',r:'#4e515c'};
+const GRASS={t:'#78cc4e',l:'#58a33a',r:'#478a2e'};
+slab(960,872,150,70,DEEP);
+slab(960,800,290,76,DEEP);
+slab(960,728,430,76,STONE);
+slab(960,654,560,80,DIRT);
+// sisi tanah + pita rumput di atas
+{const cx=960,cy=580,w=640,h=w/2,d=84,g=28;
+  const W=[cx-w/2,cy],S=[cx,cy+h/2],E=[cx+w/2,cy],N=[cx,cy-h/2];
+  poly([W,S,[S[0],S[1]+d],[W[0],W[1]+d]],DIRT.l);
+  poly([S,E,[E[0],E[1]+d],[S[0],S[1]+d]],DIRT.r);
+  poly([W,S,[S[0],S[1]+g],[W[0],W[1]+g]],GRASS.l);
+  poly([S,E,[E[0],E[1]+g],[S[0],S[1]+g]],GRASS.r);
+  poly([N,E,S,W],GRASS.t);
+  // petak kotak-kotak di permukaan
+  for(let i=1;i<8;i++){const a=i/8;
+    const l=document.createElementNS(NS,'line');l.setAttribute('x1',W[0]+(N[0]-W[0])*a);l.setAttribute('y1',W[1]+(N[1]-W[1])*a);
+    l.setAttribute('x2',S[0]+(E[0]-S[0])*a);l.setAttribute('y2',S[1]+(E[1]-S[1])*a);l.setAttribute('stroke','rgba(40,100,20,.22)');isl.appendChild(l);
+    const m=document.createElementNS(NS,'line');m.setAttribute('x1',W[0]+(S[0]-W[0])*a);m.setAttribute('y1',W[1]+(S[1]-W[1])*a);
+    m.setAttribute('x2',N[0]+(E[0]-N[0])*a);m.setAttribute('y2',N[1]+(E[1]-N[1])*a);m.setAttribute('stroke','rgba(40,100,20,.22)');isl.appendChild(m);}
+}
+// pohon & semak voxel (urut dari belakang ke depan)
+const LEAF={t:'#4caf3a',l:'#368a2a',r:'#2b7222'}, LEAF2={t:'#5cc443',l:'#3f9a30',r:'#318028'}, WOOD={t:'#a8794a',l:'#7e5530',r:'#684526'};
+function tree(x,y,s){slab(x,y,34*s,64*s,WOOD);slab(x,y-58*s,120*s,46*s,LEAF);slab(x,y-100*s,80*s,40*s,LEAF2)}
+tree(830,545,1);
+tree(1090,525,.85);
+slab(1180,600,70,30,LEAF);
+slab(760,622,56,24,LEAF2);
+// batu kecil
+slab(1115,650,56,26,STONE);
+
+/* ---- karakter blocky ---- */
+const hero=document.createElementNS(NS,'g');hero.id='hero';
+hero.innerHTML=`
+ <g transform="translate(960,612)">
+  <ellipse cx="0" cy="6" rx="52" ry="14" fill="rgba(0,0,0,.28)"/>
+  <g class="bob">
+   <rect x="-30" y="-74" width="29" height="76" fill="#3e4aa6" stroke="#1e2455" stroke-width="3"/>
+   <rect x="1" y="-74" width="29" height="76" fill="#35419a" stroke="#1e2455" stroke-width="3"/>
+   <rect x="-33" y="-6" width="32" height="12" fill="#5a5a66" stroke="#2b2b34" stroke-width="3"/>
+   <rect x="1" y="-6" width="32" height="12" fill="#5a5a66" stroke="#2b2b34" stroke-width="3"/>
+   <rect x="-34" y="-152" width="68" height="82" fill="#1fb3ac" stroke="#0e5a57" stroke-width="3"/>
+   <rect x="-34" y="-96" width="68" height="14" fill="#1a9791"/>
+   <rect x="-60" y="-150" width="26" height="80" fill="#e8b08a" stroke="#8a5a3a" stroke-width="3"/>
+   <rect x="34" y="-150" width="26" height="80" fill="#d99f78" stroke="#8a5a3a" stroke-width="3"/>
+   <rect x="-60" y="-150" width="26" height="30" fill="#1fb3ac" stroke="#0e5a57" stroke-width="3"/>
+   <rect x="34" y="-150" width="26" height="30" fill="#1aa09a" stroke="#0e5a57" stroke-width="3"/>
+   <rect x="-36" y="-224" width="72" height="72" fill="#eab894" stroke="#8a5a3a" stroke-width="3"/>
+   <rect x="-36" y="-224" width="72" height="24" fill="#4a2f1b" stroke="#2a1a0e" stroke-width="3"/>
+   <rect x="-36" y="-204" width="12" height="22" fill="#4a2f1b"/><rect x="24" y="-204" width="12" height="22" fill="#4a2f1b"/>
+   <rect x="-24" y="-184" width="16" height="11" fill="#fff"/><rect x="8" y="-184" width="16" height="11" fill="#fff"/>
+   <rect x="-16" y="-184" width="9" height="11" fill="#4b3fc4"/><rect x="8" y="-184" width="9" height="11" fill="#4b3fc4"/>
+   <rect x="-12" y="-166" width="24" height="5" fill="#a5604a"/>
+   <rect x="-8" y="-176" width="16" height="6" fill="#d9a07a"/>
+  </g>
+ </g>`;
+isl.appendChild(hero);
+let busy=false;
+hero.addEventListener('click',()=>{
+  if(busy)return;busy=true;
+  const a=Math.random()<.5?'jump':'spin';
+  hero.classList.add(a);
+  setTimeout(()=>{hero.classList.remove(a);busy=false},a==='jump'?560:720);
+  document.getElementById('hint').style.display='none';
+});
+</script>
+</body>
+</html>
