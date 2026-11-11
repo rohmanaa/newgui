@@ -1,0 +1,63 @@
+/* profile.html — mengikuti layar Heroes (assets/penerapan/+JzO2R.png):
+   kiri = tombol pintasan (ganti deretan ikon kelas), tengah = karakter di pedestal, kanan = info pemain.
+   Tanpa daftar achievement. */
+
+/* ---- bar atas (sama dengan karakter.html) ---- */
+#back{left:40px;top:30px;width:64px;height:72px}
+#back img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 3px 2px rgba(0,0,0,.4))}
+#back svg{display:none}
+#title{left:140px;top:28px;font-size:72px;font-weight:400;-webkit-text-stroke:0;text-shadow:0 3px 0 rgba(10,6,24,.5)}
+#home{position:absolute;left:1812px;top:30px;width:68px;height:72px}
+#home img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 3px 2px rgba(0,0,0,.4))}
+#home:active,#back:active{transform:scale(.92)}
+.cur{background:rgba(14,10,26,.6)!important;filter:none!important;top:26px}
+.cur::before{background:none!important}
+#cur-em{left:1100px}#cur-co{left:1420px}
+
+/* ---- kiri: tombol pintasan ---- */
+#menu{position:absolute;left:56px;top:132px;width:300px;display:grid;grid-template-columns:repeat(2,130px);grid-auto-rows:168px;gap:0 40px}
+.mb{position:relative;display:flex;flex-direction:column;align-items:center;gap:6px;transition:transform .1s,filter .1s}
+.mb .ic{position:relative;width:124px;height:124px;background:url(../assets/komponen/slot-equipment/slot-ungu.webp) center/100% 100% no-repeat}
+.mb .ic img{position:absolute;left:50%;top:50%;width:72px;height:72px;object-fit:contain;transform:translate(-50%,-50%);filter:drop-shadow(0 3px 2px rgba(0,0,0,.5))}
+.mb .lb{font:800 22px/1 var(--font-body);color:#d8d2ee;text-shadow:0 2px 0 rgba(10,6,24,.6);white-space:nowrap}
+.mb:hover{filter:brightness(1.15)}
+.mb:active{transform:scale(.94)}
+.mb:active .ic{background-image:url(../assets/komponen/slot-equipment/slot-terpilih.webp)}
+.mb .dot{position:absolute;right:6px;top:2px;width:26px;height:26px}
+
+/* ---- tengah: karakter ---- */
+#mid{position:absolute;left:400px;top:0;width:760px;height:1080px}
+#art{position:absolute;left:30px;top:150px;width:700px;height:620px}
+#art svg{position:absolute;left:100px;bottom:0;width:500px;height:190px}
+#art img{position:absolute;left:50%;bottom:118px;transform:translateX(-50%);max-width:none;filter:drop-shadow(0 10px 8px rgba(0,0,0,.45));animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateX(-50%) translateY(-10px)}}
+#stars{position:absolute;left:0;right:0;top:812px;display:flex;justify-content:center;gap:6px}
+#stars img{width:68px;height:68px;object-fit:contain;filter:drop-shadow(0 3px 2px rgba(0,0,0,.45))}
+#sum{position:absolute;left:0;right:0;top:896px;display:flex;justify-content:center;align-items:center;gap:16px}
+#sum img{width:56px;height:56px;object-fit:contain;opacity:.95}
+#sum b{font:400 58px/1 var(--font-title);text-shadow:0 3px 0 rgba(10,6,24,.5)}
+
+/* ---- kanan: info ---- */
+#right{position:absolute;left:1220px;top:0;width:640px;height:1080px}
+#hico{position:absolute;left:0;top:150px;width:136px;height:136px;border-radius:50%;background:radial-gradient(circle,#4a4068,#2c2547);border:5px solid #1b1430;box-shadow:inset 0 0 0 3px rgba(255,255,255,.12)}
+#hico img{position:absolute;inset:8px;width:calc(100% - 16px);height:calc(100% - 16px);object-fit:contain}
+#hnm{position:absolute;left:164px;top:150px;width:470px;font-size:76px;line-height:1;font-weight:400;-webkit-text-stroke:0;text-shadow:0 3px 0 rgba(10,6,24,.5);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#hcls{position:absolute;left:164px;top:236px;font:400 38px/1 var(--font-title);color:#ffd45a;text-shadow:0 2px 0 rgba(10,6,24,.5)}
+#ds{position:absolute;left:0;top:322px;width:620px;margin:0;font:700 28px/1.4 var(--font-body);color:#cfc8ea}
+#lv{position:absolute;left:0;top:470px;width:620px;height:90px}
+#lv b{position:absolute;left:0;top:-8px;font-size:84px;line-height:1;font-weight:400;-webkit-text-stroke:0;text-shadow:0 3px 0 rgba(10,6,24,.5)}
+.lvr{position:absolute;left:70px;top:0;width:550px;height:80px}
+.lvr .l{position:absolute;left:0;top:4px;font:800 30px/1 var(--font-body);color:#fff;text-shadow:0 2px 0 rgba(10,6,24,.5)}
+.lvr .p{position:absolute;right:0;top:10px;font:800 22px/1 var(--font-body);color:#cfc8ea}
+.lvr i{position:absolute;left:0;right:0;top:44px;height:20px;background:#17122a;border-radius:3px;overflow:hidden;box-shadow:inset 0 2px 4px rgba(0,0,0,.6)}
+.lvr u{display:block;height:100%;width:0;background:linear-gradient(180deg,#d6dcff,#9aa6ee);transition:width .6s}
+#sep{position:absolute;left:0;top:596px;width:640px;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.28) 12%,rgba(255,255,255,.28) 88%,transparent)}
+#stats{position:absolute;left:0;top:622px;width:640px}
+.st{display:flex;align-items:center;gap:14px;height:56px;font:800 28px var(--font-body)}
+.st img{width:34px;height:34px;object-fit:contain;flex:none}
+.st span{width:176px;color:var(--c);white-space:nowrap}
+.st i{flex:1;height:14px;background:rgba(10,6,24,.55);border-radius:2px;overflow:hidden}
+.st b{display:block;height:100%;background:var(--c);width:0;transition:width .6s}
+.st em{width:84px;text-align:right;font-style:normal;color:#fff}
+#use{position:absolute;left:300px;top:940px;width:340px;height:104px}
+#use span{font-size:34px;color:#17420a;text-shadow:0 2px 0 rgba(220,255,160,.55);margin-top:-8px}

@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/page.css">
+<title>Dragon Roll — Profil</title>
+<link rel="stylesheet" href="css/profile.css">
+<link rel="stylesheet" href="css/bg.css">
+</head>
+<body class="pf">
+<div id="wrap"><div id="stage">
+  <!-- tata letak mengikuti layar Heroes (assets/penerapan/+JzO2R.png): kiri tombol, tengah karakter, kanan info -->
+  <button id="back" aria-label="Kembali"><img src="assets/komponen/ikon-navigasi/panah-kembali.webp" alt=""></button>
+  <div id="title" class="ttl">Profil</div>
+  <div class="cur" id="cur-em"><img src="assets/komponen/ikon-gem-medali/berlian-hijau.webp" alt=""><div class="v" id="v-em">—</div><div class="plus">+</div></div>
+  <div class="cur" id="cur-co"><img src="assets/komponen/hud/ikon-koin-emas.webp" alt=""><div class="v" id="v-co">—</div><div class="plus">+</div></div>
+  <button id="home" aria-label="Lobby"><img src="assets/komponen/ikon-navigasi/ikon-home.webp" alt=""></button>
+
+  <!-- kiri: tombol pintasan 2 kolom x 5 baris -->
+  <nav id="menu"></nav>
+
+  <!-- tengah: karakter di pedestal + bintang + ringkasan -->
+  <section id="mid">
+    <div id="art"></div>
+    <div id="stars"></div>
+    <div id="sum"><img src="assets/komponen/glyph-putih/pedang-silang.webp" alt=""><b id="sumv">0</b></div>
+  </section>
+
+  <!-- kanan: info pemain -->
+  <section id="right">
+    <div id="head">
+      <div id="hico"><img id="hicon" src="" alt=""></div>
+      <div id="hnm" class="ttl"></div>
+      <div id="hcls"></div>
+    </div>
+    <p id="ds"></p>
+    <div id="lv"><b class="ttl" id="lvn">1</b><div class="lvr"><span class="l">Level</span><span class="p" id="lvp"></span><i><u id="lvf"></u></i></div></div>
+    <div id="sep"></div>
+    <div id="stats"></div>
+    <button class="btn" id="use"><img src="assets/komponen/tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span>GANTI KARAKTER</span></button>
+  </section>
+
+  <div id="toast"></div>
+</div></div>
+<div id="fade"></div>
+<script src="js/heroes.js"></script>
+<script src="js/profile.js"></script>
+</body></html>
