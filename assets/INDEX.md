@@ -24,6 +24,7 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | slot-equipment/ | layar Guide (2wuCGF) | Bingkai slot item 7 varian (coklat, merah, ungu, biru, hijau, terkunci, terpilih), ikon di dalamnya dihapus |
 | ikon-navigasi/ | layar Guide (2wuCGF) | Ikon tab (pedang, perisai, sepatu, cincin), garis bawah tab emas, titik notifikasi, panah kembali, ikon home |
 | kartu-hero/ | layar Select Heroes (mUweYE) | Bingkai kartu hero kosong (+ terkunci), ikon plus, gembok abu besar, tombol hapus, ikon busur mati; teks "Add" dihapus |
+| ikon-pengaturan/ | layar Settings (orsWF1) | Ikon lonceng, speaker, musik mati, getar, bantuan, Facebook, Game Center, knob slider, lencana koin hadiah (teks "500" dihapus) |
 | ikon-layar/ | layar penerapan (OLGF1N) | Ikon tab Serangan, Monster Kill, Boss Kill (teks dihapus) |
 | ikon-equipment/ | (dipotong dari layar penerapan fcuBiA dan 2wuCGF) | 34 ikon equipment unik: kapak, palu, ramuan, guci, cincin, daun, kristal, dll. Angka dan titik notifikasi dihapus, varian rarity yang identik dilewati |
 | bendera-bahasa/ | (dipotong dari layar penerapan m6GSCw) | 12 bendera panji menu bahasa (Inggris, Jerman, Prancis, Spanyol, Korea, Cina, Taiwan, Jepang, Portugal, Rusia, India, Turki). Tanda centang pilihan pada bendera Inggris dihapus dan area di bawahnya direkonstruksi |
