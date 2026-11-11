@@ -38,12 +38,8 @@ const LANGS=[
   {id:'es',name:'Español',flag:BF+'bendera-spanyol.webp'},
   {id:'pt',name:'Português',flag:BF+'bendera-portugal.webp'},
   {id:'ru',name:'Русский',flag:BF+'bendera-rusia.webp'},
-  {id:'tr',name:'Türkçe',flag:BF+'bendera-turki.webp'},
   {id:'hi',name:'हिन्दी',flag:BF+'bendera-india.webp'},
-  {id:'ko',name:'한국어',flag:BF+'bendera-korea.webp'},
-  {id:'ja',name:'日本語',flag:BF+'bendera-jepang.webp'},
-  {id:'zh',name:'简体中文',flag:BF+'bendera-cina.webp'},
-  {id:'tw',name:'繁體中文',flag:BF+'bendera-taiwan.webp'}
+  {id:'zh',name:'简体中文',flag:BF+'bendera-cina.webp'}
 ];
 const GLB='assets/komponen/glyph-putih/bola-dunia-garis.webp';
 const lgModal=$('#lang'),lgrid=$('#lgrid');
