@@ -1,6 +1,5 @@
 /* karakter.html — mengikuti layar Equipment (assets/penerapan/fcuBiA.png): latar ungu gelap,
    slot samping, hero di pedestal, nama + level + statistik di kiri, tab + grid slot di kanan. */
-body.kr #stage{background:radial-gradient(ellipse at 28% 38%,#4b4163 0%,#352d4b 52%,#231d37 100%)}
 
 /* ---- bar atas ---- */
 #back{left:40px;top:30px;width:64px;height:72px}

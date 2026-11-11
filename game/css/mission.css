@@ -1,6 +1,5 @@
 /* mission.html — mengikuti layar Missions (assets/penerapan/SCxZW6.png).
    Tab kiri (Daily / Hadiah / Achievements), header hadiah, baris misi dari kit (baris-misi*.webp). */
-body.ms #stage{background:radial-gradient(ellipse at 22% 8%,#4b4163 0%,#352d4b 50%,#231d37 100%)}
 #back{left:40px;top:30px;width:64px;height:72px}
 #back img,#home img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 3px 2px rgba(0,0,0,.4))}
 #back svg{display:none}
