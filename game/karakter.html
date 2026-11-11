@@ -3,18 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Dragon Roll — Karakter</title>
 <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/common.css">
+<link rel="stylesheet" href="css/page.css">
+<title>Dragon Roll — Karakter</title>
 <link rel="stylesheet" href="css/karakter.css">
 </head>
-<body>
+<body class="sub">
 <div id="wrap"><div id="stage">
-  <button id="back" class="round t-title">‹</button>
-  <h1 class="t-title">KARAKTER</h1>
-  <div id="show"><div id="art"></div><div id="info"><div id="nm" class="t-title"></div><div id="cls"></div><p id="ds"></p><div id="stats"></div>
-    <button id="use" class="gbtn green t-title">GUNAKAN</button></div></div>
-  <div id="grid"></div>
+  <div id="sun"></div><div id="vig"></div>
+  <button id="back" aria-label="Kembali"><img src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""><svg viewBox="0 0 24 24" fill="#fff"><path d="M15 4L7 12l8 8V4z"/></svg></button>
+  <div id="title" class="ttl">KARAKTER</div>
+  <div class="cur" id="cur-em"><img src="assets/komponen/ikon-gem-medali/berlian-hijau.webp" alt=""><div class="v" id="v-em">—</div><div class="plus">+</div></div>
+  <div class="cur" id="cur-co"><img src="assets/komponen/hud/ikon-koin-emas.webp" alt=""><div class="v" id="v-co">—</div><div class="plus">+</div></div>
+  <section class="panel" id="show"><h3>HERO</h3>
+    <div id="art"></div>
+    <div id="info"><div id="nm" class="ttl"></div><div id="cls"></div><p id="ds"></p><div id="stats"></div>
+      <button class="btn" id="use"><img src="assets/komponen/tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span>GUNAKAN</span></button></div>
+  </section>
+  <section class="panel" id="listp"><h3>PILIH KARAKTER</h3><div id="grid"></div></section>
   <div id="toast"></div><div id="fade"></div>
 </div></div>
 <script src="js/heroes.js"></script>

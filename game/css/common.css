@@ -18,28 +18,3 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 /* Penengah kanvas: tetap di tengah walau layar lebih kecil dari 1920x1080 (grid "safe" align membuatnya bergeser) */
 #wrap{display:block!important}
 #stage{position:absolute!important;left:50%!important;top:50%!important;margin:-540px 0 0 -960px!important;transform-origin:center center!important}
-
-/* ===== Komponen dari kit assets/ (bukan CSS): tombol, bingkai, toggle, input, banner ===== */
-:root{--k:url(../assets/komponen)}
-.gbtn{border:0!important;box-shadow:none!important;background:url(../assets/komponen/tombol-dan-kontrol/tombol-hijau-polos.webp) center/100% 100% no-repeat!important;padding:0!important;height:108px;line-height:100px}
-.gbtn.blue{background-image:url(../assets/komponen/tombol-dan-kontrol/tombol-biru-polos.webp)!important}
-.gbtn.red{background-image:url(../assets/komponen/tombol-dan-kontrol/tombol-merah-polos.webp)!important}
-.gbtn:disabled{background-image:url(../assets/komponen/tombol-dan-kontrol/tombol-abu-polos.webp)!important;filter:none}
-.gbtn:active{transform:translateY(3px)}
-#back{width:96px!important;height:96px!important;border:0!important;border-radius:0!important;font-size:0!important;background:url(../assets/komponen/ikon-navigasi/panah-kembali.webp) center/contain no-repeat!important}
-h1{background:url(../assets/komponen/banner-label/banner-judul-kuning-polos.webp) center/100% 100% no-repeat;height:120px;line-height:108px;padding:0 110px;color:#fff!important;white-space:nowrap}
-#panel,#show,.box{background:none!important;border:0!important;box-shadow:none!important}
-#panel::before,#show::before,.box::before{content:'';position:absolute;inset:-6px;border:22px solid transparent;border-image:url(../assets/komponen/panel-dialog/bingkai-dialog.webp) 44 fill / 22px stretch;z-index:-1;pointer-events:none}
-.box{position:relative}
-.card{border:0!important;box-shadow:none!important;background:none!important}
-.card::before{content:'';position:absolute;inset:-2px;border:18px solid transparent;border-image:url(../assets/komponen/hud/kartu-kosong-ungu.webp) 40 fill / 20px stretch;z-index:-1;pointer-events:none}
-.card.sel::before{border-image-source:url(../assets/komponen/hud/kartu-kosong-oranye.webp)}
-.seg button,.tabs button{border:0!important;background:url(../assets/komponen/tombol-dan-kontrol/tombol-gelap-polos.webp) center/100% 100% no-repeat!important;height:88px}
-.seg button.on,.tabs button.on{background-image:url(../assets/komponen/tombol-dan-kontrol/tombol-biru-polos.webp)!important}
-.tg{width:140px!important;height:65px!important;border:0!important;background:url(../assets/komponen/tombol-dan-kontrol/toggle-off.webp) center/100% 100% no-repeat!important}
-.tg.on{background-image:url(../assets/komponen/tombol-dan-kontrol/toggle-on.webp)!important}
-.tg::after{display:none!important}
-.box input{border:0!important;background:url(../assets/komponen/tombol-dan-kontrol/input-terisi.webp) center/100% 100% no-repeat!important;padding:24px 30px!important}
-input[type=range]{-webkit-appearance:none;appearance:none;height:26px!important;border-radius:13px;background:#1b1631;border:3px solid #4c4468}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:56px;height:56px;background:url(../assets/komponen/ikon-pengaturan/knob-slider.webp) center/contain no-repeat}
-input[type=range]::-moz-range-thumb{width:56px;height:56px;border:0;background:url(../assets/komponen/ikon-pengaturan/knob-slider.webp) center/contain no-repeat}
