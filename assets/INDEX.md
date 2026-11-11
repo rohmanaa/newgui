@@ -12,7 +12,7 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | paket-gold/ | _fLy_W.png | Ilustrasi paket Gold (9) |
 | paket-chest/ | xLrpM6.png | Peti kayu sampai legendaris (13) |
 | tombol-dan-kontrol/ | MrHvLu.png | Tombol, toggle, slider, checkbox, tab, input (28) + 8 tombol polos tanpa teks (`tombol-*-polos.webp`) |
-| banner-label/ | CUkbIG.png | Banner, label, pita 8 warna (41) |
+| banner-label/ | CUkbIG.png | Banner, label, pita 8 warna (41) + `banner-judul-*-polos` dan `label-*-polos` tanpa teks (16) |
 | ikon-item/ | BX4smE.png | Ikon item: zirah, rune, bom, toko, dll. (46) |
 | ikon-gem-medali/ | zbp8uP.png | Gem, medali, hati, petir, dll. (46) |
 | hud/ | X5pZMc.png (D5j9sH.png = duplikat persis) | Lencana level, bar, slot, kartu, joystick, tombol skill, panel mata uang, ikon di bawah slot (49) |
