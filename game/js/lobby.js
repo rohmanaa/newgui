@@ -109,32 +109,38 @@ slab(760,622,56,24,LEAF2);
 // batu kecil
 slab(1115,650,56,26,STONE);
 
-/* ---- karakter blocky ---- */
+/* ---- karakter: mengikuti layar Equipment (penerapan/fcuBiA) ----
+   Hero chibi di atas pedestal batu bertingkat, nama di bawahnya, lalu "Level" + persen + bar XP. */
+function cyl(cx,cy,rx,ry,h,top,side,line){
+  return `<path d="M${cx-rx},${cy} v${h} a${rx},${ry} 0 0 0 ${rx*2},0 v${-h} Z" fill="${side}" stroke="${line}" stroke-width="3" stroke-linejoin="round"/>`+
+         `<ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${top}" stroke="${line}" stroke-width="3"/>`;
+}
+const H=getHero(),HL=lvInfo(PD.data.xp),HFEET=608;
+const HART=H.art||heroIcon(H),HW=H.art?290:190,HH=H.art?Math.round(290*598/619):190;
+document.getElementById('avatarImg').src=HART;
 const hero=document.createElementNS(NS,'g');hero.id='hero';
 hero.innerHTML=`
- <g transform="translate(960,612)">
-  <ellipse cx="0" cy="6" rx="52" ry="14" fill="rgba(0,0,0,.28)"/>
-  <g class="bob">
-   <rect x="-30" y="-74" width="29" height="76" fill="#3e4aa6" stroke="#1e2455" stroke-width="3"/>
-   <rect x="1" y="-74" width="29" height="76" fill="#35419a" stroke="#1e2455" stroke-width="3"/>
-   <rect x="-33" y="-6" width="32" height="12" fill="#5a5a66" stroke="#2b2b34" stroke-width="3"/>
-   <rect x="1" y="-6" width="32" height="12" fill="#5a5a66" stroke="#2b2b34" stroke-width="3"/>
-   <rect x="-34" y="-152" width="68" height="82" fill="#1fb3ac" stroke="#0e5a57" stroke-width="3"/>
-   <rect x="-34" y="-96" width="68" height="14" fill="#1a9791"/>
-   <rect x="-60" y="-150" width="26" height="80" fill="#e8b08a" stroke="#8a5a3a" stroke-width="3"/>
-   <rect x="34" y="-150" width="26" height="80" fill="#d99f78" stroke="#8a5a3a" stroke-width="3"/>
-   <rect x="-60" y="-150" width="26" height="30" fill="#1fb3ac" stroke="#0e5a57" stroke-width="3"/>
-   <rect x="34" y="-150" width="26" height="30" fill="#1aa09a" stroke="#0e5a57" stroke-width="3"/>
-   <rect x="-36" y="-224" width="72" height="72" fill="#eab894" stroke="#8a5a3a" stroke-width="3"/>
-   <rect x="-36" y="-224" width="72" height="24" fill="#4a2f1b" stroke="#2a1a0e" stroke-width="3"/>
-   <rect x="-36" y="-204" width="12" height="22" fill="#4a2f1b"/><rect x="24" y="-204" width="12" height="22" fill="#4a2f1b"/>
-   <rect x="-24" y="-184" width="16" height="11" fill="#fff"/><rect x="8" y="-184" width="16" height="11" fill="#fff"/>
-   <rect x="-16" y="-184" width="9" height="11" fill="#4b3fc4"/><rect x="8" y="-184" width="9" height="11" fill="#4b3fc4"/>
-   <rect x="-12" y="-166" width="24" height="5" fill="#a5604a"/>
-   <rect x="-8" y="-176" width="16" height="6" fill="#d9a07a"/>
-  </g>
+ <g transform="translate(960,0)">
+  <ellipse cx="0" cy="${HFEET+32}" rx="190" ry="36" fill="rgba(10,25,50,.28)"/>
+  ${cyl(0,HFEET+12,162,39,24,'#4b4370','#2f2949','#17122b')}
+  ${cyl(0,HFEET+1,128,31,20,'#5d5486','#3b3459','#17122b')}
+  ${cyl(0,HFEET-8,95,23,16,'#6f66a0','#463e6b','#17122b')}
+  <ellipse cx="0" cy="${HFEET-8}" rx="74" ry="17" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="3"/>
+  <g class="bob"><image href="${HART}" x="${-HW/2}" y="${HFEET-6-HH+(H.art?8:0)}" width="${HW}" height="${HH}" preserveAspectRatio="xMidYMax meet"/></g>
  </g>`;
 isl.appendChild(hero);
+
+/* nama + level + bar XP di bawah pedestal (tidak ikut melompat) */
+const tag=document.createElementNS(NS,'g');tag.id='herotag';tag.setAttribute('pointer-events','none');
+const ty=HFEET+96,bw=330,pct=Math.min(100,HL.cur/HL.need*100);
+tag.innerHTML=`
+ <text x="960" y="${ty}" text-anchor="middle" class="svt" font-size="54">${H.name}</text>
+ <text x="${960-bw/2-16}" y="${ty+58}" text-anchor="end" class="svt" font-size="64">${HL.lv}</text>
+ <text x="${960-bw/2}" y="${ty+30}" class="svb" font-size="26">Level</text>
+ <text x="${960+bw/2}" y="${ty+30}" text-anchor="end" class="svb" font-size="22">${pct.toFixed(1)}%</text>
+ <rect x="${960-bw/2}" y="${ty+38}" width="${bw}" height="18" rx="3" fill="#1c1730" stroke="#0e0a1c" stroke-width="2"/>
+ <rect x="${960-bw/2+2}" y="${ty+40}" width="${Math.max(0,(bw-4)*pct/100)}" height="14" rx="2" fill="#b9c3ff"/>`;
+isl.appendChild(tag);
 let busy=false;
 hero.addEventListener('click',()=>{
   if(busy)return;busy=true;

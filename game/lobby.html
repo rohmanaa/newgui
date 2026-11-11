@@ -29,7 +29,7 @@
 
   <!-- ===== profil ===== -->
   <div id="profile" data-act="profil" role="button" aria-label="Profil">
-    <div id="avatar"><img src="assets/komponen/karakter-monster/hero-shuri-pemanah.webp" alt=""></div>
+    <div id="avatar"><img id="avatarImg" src="assets/komponen/karakter-monster/hero-shuri-pemanah.webp" alt=""></div>
     <svg id="lvl" viewBox="0 0 74 86">
       <defs><linearGradient id="gs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4d8fe6"/><stop offset="1" stop-color="#1b4aa8"/></linearGradient></defs>
       <path d="M37 2 L70 12 V44 C70 62 54 76 37 84 C20 76 4 62 4 44 V12 Z" fill="#cfd5e3" stroke="#222a45" stroke-width="3"/>
@@ -90,7 +90,7 @@
   <div id="nav">
     <button class="tile big" data-act="toko"><div class="ico"><img src="assets/komponen/ikon-item/toko.webp" alt=""></div><div class="lb">TOKO</div></button>
     <button class="tile big" data-act="teman"><div class="ico"><img class="glyph" src="assets/komponen/glyph-putih/grup-pengguna.webp" alt="" style="max-width:56%"></div><div class="lb">TEMAN</div><span class="dot sm" id="friendDot" hidden></span></button>
-    <button class="tile big" data-act="hadiahMisi"><div class="ico"><img src="assets/komponen/ikon-item/gulungan-misi.webp" alt=""></div><div class="lb" style="font-size:25px">HADIAH &amp; MISI</div><span class="dot sm" id="questDot"></span></button>
+    <button class="tile big" data-act="hadiahMisi"><div class="ico"><img src="assets/komponen/ikon-item/gulungan-misi.webp" alt=""></div><div class="lb" style="font-size:22px">HADIAH &amp; MISI</div><span class="dot sm" id="questDot"></span></button>
     <button class="tile big" data-act="tambang"><div class="ico"><img src="assets/komponen/ikon-gem-medali/berlian-hijau.webp" alt=""></div><div class="lb">TAMBANG</div></button>
   </div>
 
@@ -105,6 +105,7 @@
 </div>
 </div>
 
+<script src="js/heroes.js"></script>
 <script src="js/lobby.js"></script>
 </body>
 </html>
