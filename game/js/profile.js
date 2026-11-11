@@ -8,7 +8,7 @@ const fmt=n=>Number(n).toLocaleString('en-US');
 $('#v-em').textContent=fmt(wal.emerald??120);$('#v-co').textContent=fmt(wal.coin??2500);
 
 /* halaman yang sudah ada (sama dengan BUILT di lobby.js) — tambahkan saat halaman baru selesai */
-const BUILT=['karakter.html','mode.html','settings.html','room.html','mission.html','shop.html','profile.html'];
+const BUILT=['karakter.html','mode.html','settings.html','room.html','mission.html','shop.html','profile.html','frame.html'];
 const IC='assets/komponen/',G=IC+'glyph-putih/';
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)}
 const nav=u=>{$('#fade').classList.add('on');setTimeout(()=>location.href=u,330)};
@@ -74,10 +74,10 @@ $('#file').onchange=e=>{
 };
 
 /* ---- kanan: KOLEKSI (dimiliki / total; tiruan) ---- */
-const K=Object.assign({karakter:3,frame:4,dadu:7,efek:2,powerup:9},LS('dragonroll:profile:koleksi',{}));
+const K=Object.assign({karakter:3,frame:Math.max(1,LS('dragonroll:own:frame',[]).length),dadu:7,efek:2,powerup:9},LS('dragonroll:profile:koleksi',{}));
 const KOL=[
   ['Karakter',K.karakter,HEROES.length,'ikon-item/helm-ksatria.webp','#e5604e','karakter.html'],
-  ['Frame',K.frame,12,'new-icon/frame.webp','#e89a52','frame.html'],
+  ['Frame',K.frame,6,'new-icon/frame.webp','#e89a52','frame.html'],
   ['Dadu',K.dadu,20,'new-icon/dadu.webp','#3fc6a8','dadu.html'],
   ['Efek',K.efek,15,'ikon-gem-medali/kristal-api.webp','#d26f9c','efek.html'],
   ['Power-up',K.powerup,17,'ikon-gem-medali/petir-ungu.webp','#4db3e6','powerup.html']
