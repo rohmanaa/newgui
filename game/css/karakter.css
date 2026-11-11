@@ -1,0 +1,20 @@
+#stage{background:linear-gradient(180deg,#53b8f2,#cfeeff)}
+#back{position:absolute;left:30px;top:26px;font-size:56px;line-height:1}
+h1{position:absolute;left:50%;top:26px;transform:translateX(-50%);margin:0;font-size:84px;color:#ffd45a}
+#show{position:absolute;left:60px;top:150px;width:1000px;height:870px;background:var(--panel);border:5px solid var(--panel-line);border-radius:28px;display:flex}
+#art{flex:1;display:grid;place-items:center;border-right:4px solid rgba(255,255,255,.1)}
+#art img{max-width:90%;max-height:88%;filter:drop-shadow(0 12px 12px rgba(0,0,0,.5));animation:bob 2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-12px)}}
+#info{width:470px;padding:34px 30px;display:flex;flex-direction:column;gap:14px}
+#nm{font-size:64px;color:#ffd45a}#cls{font:800 30px var(--font-body);color:#b9aee8}
+#ds{font:700 26px/1.4 var(--font-body);color:#e6e1fa;margin:0;flex:1}
+.st{display:flex;align-items:center;gap:12px;font:800 24px var(--font-body)}.st span{width:130px}
+.st i{flex:1;height:18px;border-radius:9px;background:#1b1631;overflow:hidden}.st b{display:block;height:100%;background:linear-gradient(180deg,#ffd76a,#f39a12)}
+#use{font-size:44px}
+#grid{position:absolute;left:1100px;top:150px;width:770px;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{height:206px;border-radius:20px;background:linear-gradient(180deg,rgba(78,68,112,.95),rgba(52,44,82,.95));border:4px solid #7d75a6;box-shadow:0 6px 0 rgba(20,12,45,.55);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;position:relative}
+.card img{width:110px;height:110px;object-fit:contain}
+.card .n{font:400 28px var(--font-title);text-shadow:0 2px 0 rgba(0,0,0,.6)}
+.card.sel{border-color:#ffd45a;box-shadow:0 0 18px rgba(255,212,90,.8),0 6px 0 rgba(20,12,45,.55)}
+.card.eq::after{content:'DIPAKAI';position:absolute;top:-12px;padding:2px 14px;border-radius:99px;background:#2f9f3d;font:400 20px var(--font-title);border:3px solid #fff}
+#toast{position:absolute;left:50%;bottom:30px;transform:translateX(-50%);padding:14px 30px;border-radius:99px;background:rgba(20,16,44,.9);font-weight:800;font-size:26px;opacity:0;transition:.2s}#toast.on{opacity:1}

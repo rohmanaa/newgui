@@ -9,6 +9,9 @@ const COLORS=['#e8334a','#3f8cff','#3fbf4a','#ffcf33'];
 const KEY='dragonroll:lobby:demo';
 const N=MODE==='cpu'?2:+MODE;
 const players=Array.from({length:N},(_,i)=>({name:i===0?'Kamu':(MODE==='cpu'?'Computer':'Pemain '+(i+1)),cpu:MODE==='cpu'&&i>0,pos:0,sixes:0,nextSix:false,bonus:0,col:COLORS[i]}));
+/* karakter: pemain 1 memakai hero pilihan di karakter.html, lainnya acak (berbeda) */
+const heroes=[getHero(),...HEROES.filter(h=>h.id!==getHero().id).sort(()=>Math.random()-.5)];
+players.forEach((p,i)=>{p.hero=heroes[i];if(i===0)p.name=p.hero.name;else if(p.cpu)p.name='CPU '+p.hero.name;else p.name=p.hero.name});
 let cur=0,busy=false,over=false,auto=false,paused=false,timers=[];
 
 /* ---- skala kanvas ---- */
@@ -38,16 +41,16 @@ function build(){
   for(const k in G.SNAKES)line(+k,G.SNAKES[k],'#e8334a');
   svg.innerHTML=h;
   const tk=$('#tokens');tk.style.width=W+'px';tk.style.height=H+'px';
-  players.forEach((p,i)=>{const e=document.createElement('div');e.className='tok';e.style.background=p.col;e.style.width=e.style.height=CELL*.38+'px';e.textContent=i+1;p.el=e;tk.appendChild(e);place(p,0)});
+  players.forEach((p,i)=>{const e=document.createElement('div');e.className='tok';e.style.backgroundColor=p.col;e.style.backgroundImage=`url(${heroIcon(p.hero)})`;e.style.backgroundSize='cover';e.style.backgroundPosition='center';e.style.width=e.style.height=CELL*.46+'px';p.el=e;tk.appendChild(e);place(p,0)});
 }
 function place(p,n,slide){
   const i=players.indexOf(p),o=[[-.2,-.2],[.2,-.2],[-.2,.2],[.2,.2]][i];
-  const c=xy(n),s=CELL*.38;
+  const c=xy(n),s=CELL*.46;
   p.el.classList.toggle('slide',!!slide);
   p.el.style.left=(c.x+o[0]*CELL-s/2+(n<1?-CELL*.6:0))+'px';p.el.style.top=(c.y+o[1]*CELL-s/2+(n<1?CELL*.5:0))+'px';
 }
 function hud(){
-  $('#players').innerHTML=players.map((p,i)=>`<div class="pc ${i===cur&&!over?'on':''}"><i style="background:${p.col}"></i>${p.name}<span class="pos">Petak ${p.pos||'—'}</span></div>`).join('');
+  $('#players').innerHTML=players.map((p,i)=>`<div class="pc ${i===cur&&!over?'on':''}"><i style="background:${p.col} url(${heroIcon(p.hero)}) center/cover"></i>${p.name}<span class="pos">Petak ${p.pos||'—'}</span></div>`).join('');
   players.forEach((p,i)=>p.el.classList.toggle('active',i===cur&&!over));
   const me=!players[cur].cpu;$('#roll').disabled=busy||over||!me||paused;
   $('#turnname').textContent=over?'SELESAI':'Giliran: '+players[cur].name;
