@@ -8,7 +8,7 @@ const fmt=n=>Number(n).toLocaleString('en-US');
 $('#v-em').textContent=fmt(wal.emerald??120);$('#v-co').textContent=fmt(wal.coin??2500);
 
 /* halaman yang sudah ada (sama dengan BUILT di lobby.js) — tambahkan saat halaman baru selesai */
-const BUILT=['karakter.html','mode.html','settings.html','room.html','mission.html','shop.html','profile.html','frame.html','dadu.html'];
+const BUILT=['karakter.html','mode.html','settings.html','room.html','mission.html','shop.html','profile.html','frame.html','dadu.html','efek.html','powerup.html','leaderboard.html','friendship.html','tambang.html'];
 const IC='assets/komponen/',G=IC+'glyph-putih/';
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)}
 const nav=u=>{$('#fade').classList.add('on');setTimeout(()=>location.href=u,330)};

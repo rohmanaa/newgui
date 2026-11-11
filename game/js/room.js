@@ -16,7 +16,7 @@ const FORMAT=q.get('format')==='team'?'team':'solo';
 let COUNT=Math.min(4,Math.max(2,+q.get('count')||2));
 const ROLE=q.get('role')==='guest'?'guest':'host';
 const ONLINE=MODE==='online';
-const MAXP=ONLINE?(FORMAT==='team'?4:2):COUNT;
+let MAXP=ONLINE?(FORMAT==='team'?4:2):COUNT;
 if(!ONLINE&&FORMAT==='team')COUNT=4;
 const isHost=ROLE==='host';
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),2000)}
@@ -47,7 +47,8 @@ const img=(p,glyph)=>`<img ${glyph?'class="glyph" ':''}src="${K}${p}.webp" alt="
 
 /* ---- header ---- */
 const MODENAME={vsc:'VS COMPUTER',local:'MULTI PLAYER',online:'ONLINE'};
-$('#chips').innerHTML=`<span class="chip">${MODENAME[MODE]}</span><span class="chip">${FORMAT==='team'?'TEAM 2 vs 2':'SOLO'}</span><span class="chip">${MAXP} pemain</span><span class="chip ${ONLINE?'on':''}">${ONLINE?(isHost?'● HOST':'● TAMU'):'OFFLINE'}</span>`;
+function drawChips(){$('#chips').innerHTML=`<span class="chip">${MODENAME[MODE]}</span><span class="chip">${FORMAT==='team'?'TEAM 2 vs 2':'SOLO'}</span><span class="chip">${MAXP} pemain</span><span class="chip ${ONLINE?'on':''}">${ONLINE?(isHost?'● HOST':'● TAMU'):'OFFLINE'}</span>`}
+drawChips();
 
 /* ---- equipment ---- */
 function drawEquip(){
@@ -91,7 +92,7 @@ const COL=['#3d8bff','#ff5468','#43b63a','#f1b21f'];
 let players=[];let access='private';
 const code=(()=>{const a='ABCDEFGHJKLMNPQRSTUVWXYZ23456789';let s='';for(let i=0;i<6;i++)s+=a[Math.floor(Math.random()*a.length)];return q.get('code')||s})();
 function initPlayers(){
-  const me={id:'me',name:'Ryuen',me:true,host:isHost,ready:!ONLINE,team:0};
+  const me={id:'me',name:'Ryuen',me:true,host:isHost,ready:false,team:0};
   players=[me];
   if(!ONLINE){
     for(let i=1;i<COUNT;i++)players.push({id:'p'+i,name:MODE==='vsc'?'Bot '+i:'Pemain '+(i+1),bot:MODE==='vsc',ready:true,team:FORMAT==='team'?(i%2===1?1:0):i%2});
@@ -101,6 +102,13 @@ function initPlayers(){
   }
 }
 function teamOf(p){return FORMAT==='team'?p.team:null}
+function unlockSlot(){
+  if(!isHost){toast('Hanya host yang bisa membuka slot');return}
+  if(MAXP>=4)return;
+  MAXP++;
+  if(!ONLINE){const i=players.length;players.push({id:'p'+i,name:MODE==='vsc'?'Bot '+i:'Pemain '+(i+1),bot:MODE==='vsc',ready:true,team:i%2})}
+  toast('Slot dibuka ('+MAXP+'/4)');draw();drawChips();
+}
 function check(){
   const n=players.length;
   if(ONLINE){
@@ -130,21 +138,22 @@ function draw(){
   }else{
     h=players.map(row).join('');
     for(let i=players.length;i<MAXP;i++)h+=`<div class="pl empty">Menunggu pemain…</div>`;
+    for(let i=MAXP;i<4;i++)h+=`<button class="pl empty lock" data-unlock="1"><img src="${K}glyph-putih/gembok.webp" alt=""><span>SLOT TERKUNCI</span><b>${isHost?'BUKA':'HOST'}</b></button>`;
   }
   L.className=FORMAT==='team'?'cmp':'';L.innerHTML=h;
+  $$('[data-unlock]').forEach(b=>b.onclick=unlockSlot);
   $$('[data-mv]').forEach(b=>b.onclick=()=>{const p=players.find(x=>x.id===b.dataset.mv);const to=p.team?0:1;
     if(players.filter(x=>x.team===to).length>=2){toast('Tim penuh (maks. 2)');return}p.team=to;draw()});
   const me=players.find(p=>p.me);
   $('#ready span').textContent=me.ready?'BATAL READY':'READY';
-  $('#ready').style.display=(!ONLINE)?'none':'';
+  $('#ready').style.display='';
   const c=check();$('#why').textContent=c.why;
   $('#start').classList.toggle('off',!c.ok);
   $('#start').style.display=(ONLINE&&!isHost)?'none':'';
-  if(ONLINE&&!isHost)$('#ready').style.margin='0 auto';
 }
 /* ---- bar atas Player Room ---- */
 function drawBar(){
-  if(!ONLINE){$('#bar').innerHTML=`<div id="code" style="font-size:24px"><span>${MODE==='vsc'?'Lawan bot — semua pemain otomatis siap':'Satu perangkat, bermain bergantian'}</span></div>`;return}
+  if(!ONLINE){$('#bar').innerHTML=`<div id="code" style="font-size:24px"><span>${MODE==='vsc'?'Lawan bot — bot otomatis siap, tekan READY':'Satu perangkat, bermain bergantian — tekan READY'}</span></div>`;return}
   $('#bar').innerHTML=`<div id="code"><span>KODE ROOM</span><b>${code}</b><button id="cp1">SALIN</button></div>`+
     (isHost?`<button class="btn bsm" id="bacc"><img src="${K}tombol-dan-kontrol/tombol-ungu-polos.webp" alt=""><span>${access==='private'?'PRIVAT':'PUBLIK'}</span></button><button class="btn bsm" id="binv"><img src="${K}tombol-dan-kontrol/tombol-biru-polos.webp" alt="" onerror="this.src='${K}tombol-dan-kontrol/tombol-biru.webp'"><span>INVITE</span></button>`:'');
   $('#cp1').onclick=()=>copy(code);
@@ -190,6 +199,12 @@ function leave(){
 $('#back').onclick=leave;$('#leave').onclick=leave;
 
 initPlayers();drawEquip();drawPower();drawMap();drawBar();draw();
+/* dari friendship.html: ?invite=<id teman> -> host online langsung mengirim undangan */
+if(ONLINE&&isHost&&q.get('invite')){
+  try{const fl=(JSON.parse(localStorage.getItem('dragonroll:friends'))||{}).friends||[];
+    const f=fl.find(x=>x.id===q.get('invite'));
+    if(f){let i=FR.findIndex(x=>x[0]===f.name);if(i<0){FR.push([f.name,'Di lobi']);i=FR.length-1}setTimeout(()=>invite(i),600)}}catch(e){}
+}
 /* tamu online: tiruan host menekan ready lalu memulai */
 if(ONLINE&&!isHost)setTimeout(()=>toast('Terhubung ke room '+code),500);
 /* skala */

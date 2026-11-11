@@ -136,3 +136,9 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 .panel>h3{background:url(../assets/komponen/banner-label/banner-judul-ungu-polos.webp) center/100% 100% no-repeat!important;border:0!important;border-radius:0!important;box-shadow:none!important;height:84px;padding:0 54px!important;line-height:60px;-webkit-text-stroke:1.5px rgba(20,10,40,.6);paint-order:stroke fill;top:-34px!important;}
 #players h3{background:url(../assets/komponen/banner-label/banner-judul-hijau-polos.webp) center/100% 100% no-repeat!important;border:0!important;border-radius:0!important;box-shadow:none!important;height:84px;padding:0 54px!important;line-height:60px;-webkit-text-stroke:1.5px rgba(20,10,40,.6);paint-order:stroke fill;top:-34px!important;}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+/* ---- slot terkunci (solo): panel terkunci, host bisa membuka ---- */
+.pl.lock{width:100%;cursor:pointer;opacity:.85;gap:18px;border-color:#6d6590;background:rgba(20,15,40,.6)!important;justify-content:center;transition:filter .1s,transform .1s}
+.pl.lock img{width:54px;height:54px;object-fit:contain;opacity:.8}
+.pl.lock span{font:400 30px var(--font-title);color:#b7b0d9;letter-spacing:1px}
+.pl.lock b{padding:6px 20px;border-radius:10px;background:#5a5180;border:3px solid #2b2550;font:400 24px var(--font-title);color:#fff}
+.pl.lock:hover{filter:brightness(1.2)}.pl.lock:active{transform:scale(.98)}
