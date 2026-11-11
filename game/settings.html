@@ -28,6 +28,8 @@
       <div id="gfxn" class="note">Pilih Rendah bila game terasa berat di HP kamu.</div></div>
     <div class="grp"><div class="cap">SUASANA</div><div class="seg" id="seg-amb"><button data-amb="day">Siang</button><button data-amb="night">Malam</button><button data-amb="system">Sistem</button></div>
       <div id="sysn"></div></div>
+    <div class="grp"><div class="cap">BAHASA</div>
+      <button class="btn" id="langBtn" aria-haspopup="dialog"><img class="bgb" src="assets/ng/komponen/tombol-dan-kontrol/tombol-ungu-polos.webp" alt=""><img class="fl" id="langFlag" src="" alt=""><span id="langName"></span></button></div>
   </section>
 
   <div id="line"></div>
@@ -42,6 +44,13 @@
       <button class="btn" id="cf-ok"><img src="assets/ng/komponen/tombol-dan-kontrol/tombol-merah-polos.webp" alt=""><span>KELUAR</span></button>
     </div>
   </div></div>
+  <!-- pilih bahasa -->
+  <div id="lang" role="dialog" aria-modal="true" aria-labelledby="lg-t"><div id="lbox">
+    <div id="lg-t" class="ttl">PILIH BAHASA</div>
+    <button id="lg-x" aria-label="Tutup"><img src="assets/ng/komponen/tombol-dan-kontrol/tombol-tutup-bulat.webp" alt=""></button>
+    <div id="lgrid"></div>
+  </div></div>
+  <div id="toast"></div>
 </div></div>
 <div id="fade"></div>
 <script src="assets/js/item-catalog.js"></script>
@@ -85,8 +94,39 @@ $('#back').addEventListener('click',()=>{buzz();home()});
 const cf=$('#confirm'),openCf=()=>cf.classList.add('on'),closeCf=()=>cf.classList.remove('on');
 $('#logout').onclick=openCf;$('#cf-no').onclick=closeCf;
 cf.addEventListener('click',e=>{if(e.target===cf)closeCf()});
-addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(cf.classList.contains('on'))closeCf();else home()});
+addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(lgModal.classList.contains('on'))closeLang();else if(cf.classList.contains('on'))closeCf();else home()});
 $('#cf-ok').onclick=()=>{closeCf();import('./assets/js/auth.js').then(()=>UT.Auth.signOut()).catch(()=>{}).then(()=>{try{sessionStorage.removeItem('ut:booted')}catch(e){}UT.Session.clear();location.replace('splash.html')})};
+/* bahasa: pilihan disimpan di pref 'lang' (teks game belum diterjemahkan; hanya menyimpan pilihan) */
+const BF=IC+'bendera-bahasa/',GLB=IC+'glyph-putih/bola-dunia-garis.webp';
+const LANGS=[
+ {id:'en',name:'English',flag:BF+'bendera-inggris.webp'},
+ {id:'id',name:'Indonesia',flag:BF+'bendera-indonesia.webp'},
+ {id:'de',name:'Deutsch',flag:BF+'bendera-jerman.webp'},
+ {id:'fr',name:'Français',flag:BF+'bendera-prancis.webp'},
+ {id:'es',name:'Español',flag:BF+'bendera-spanyol.webp'},
+ {id:'pt',name:'Português',flag:BF+'bendera-portugal.webp'},
+ {id:'ru',name:'Русский',flag:BF+'bendera-rusia.webp'},
+ {id:'hi',name:'हिन्दी',flag:BF+'bendera-india.webp'},
+ {id:'zh',name:'简体中文',flag:BF+'bendera-cina.webp'}
+];
+const lgModal=$('#lang'),lgrid=$('#lgrid');
+const curLang=()=>LANGS.find(l=>l.id===PF().get('lang','en'))||LANGS[0];
+let tt;const toast=m=>{const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)};
+function drawLangBtn(){const l=curLang(),f=$('#langFlag');f.src=l.flag||GLB;f.classList.toggle('glb',!l.flag);$('#langName').textContent=l.name}
+function closeLang(){lgModal.classList.remove('on')}
+function drawLangGrid(){
+ lgrid.innerHTML='';
+ LANGS.forEach(l=>{
+  const b=document.createElement('button');b.className='kcard lc'+(l.id===curLang().id?' sel':'');
+  b.innerHTML='<img class="'+(l.flag?'':'glb')+'" src="'+(l.flag||GLB)+'" alt=""><b>'+l.name+'</b>';
+  b.onclick=()=>{PF().set('lang',l.id);buzz();drawLangBtn();closeLang();toast('Bahasa: '+l.name)};
+  lgrid.appendChild(b);
+ });
+}
+$('#langBtn').onclick=()=>{buzz();drawLangGrid();lgModal.classList.add('on')};
+$('#lg-x').onclick=closeLang;
+lgModal.addEventListener('click',e=>{if(e.target===lgModal)closeLang()});
+drawLangBtn();
 /* skala kanvas 1920x1080 */
 function fit(){$('#stage').style.transform='scale('+Math.min(innerWidth/1920,innerHeight/1080)+')'}
 addEventListener('resize',fit);fit();
