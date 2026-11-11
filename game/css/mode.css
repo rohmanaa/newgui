@@ -134,3 +134,11 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 #quick .hd{background:url(../assets/komponen/banner-label/banner-judul-ungu-polos.webp) center/100% 100% no-repeat!important;border:0!important;border-radius:0!important;box-shadow:none!important;height:84px;padding:0 54px!important;line-height:60px;-webkit-text-stroke:1.5px rgba(20,10,40,.6);paint-order:stroke fill;top:-38px!important;left:36px!important;line-height:64px;}
 #create .hd{background:url(../assets/komponen/banner-label/banner-judul-hijau-polos.webp) center/100% 100% no-repeat!important;border:0!important;border-radius:0!important;box-shadow:none!important;height:84px;padding:0 54px!important;line-height:60px;-webkit-text-stroke:1.5px rgba(20,10,40,.6);paint-order:stroke fill;top:-38px!important;left:36px!important;line-height:64px;}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* pilihan jumlah peserta: tersusun BARIS (atas-bawah), bukan kolom */
+.opts{flex-direction:column;gap:10px;align-items:stretch;justify-content:center}
+.opt{flex:none;width:100%;height:68px;display:flex;align-items:center;justify-content:center;gap:14px}
+.opt span{margin-top:0;font-size:38px}
+.opt small{position:relative;bottom:auto;left:auto;right:auto;width:auto;font-size:20px}
+.back{padding:14px 16px 16px;gap:8px}
+.back .q{font-size:28px}
