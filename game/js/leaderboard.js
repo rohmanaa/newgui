@@ -4,6 +4,7 @@ const COL=['#3d8bff','#ff5468','#43b63a','#f1b21f','#b07cff','#2fd1a8'];
 const NAMES=['RajaBlok','SiNaga99','Budi_Blox','Mira','Kevin_X','CreeperKing','PixelQueen','Zoro_MC','EnderLord','Nyx','Tarra','Bimo','Lunar','Kiko','Rangga','Sasha','Dimas','Vero','Fajar','Gita','Hana','Ilham','Jojo','Kayla','Lintang','Mawar','Naufal','Oki','Putri','Raka'];
 const TIER=[[4200,'Master','#ff6a5e'],[3200,'Diamond','#6fd8ff'],[2400,'Platinum','#4be0d0'],[1600,'Gold','#ffd45a'],[900,'Silver','#cfc8ea'],[0,'Bronze','#c99a5b']];
 const tier=s=>TIER.find(t=>s>=t[0]);
+const ICO={global:'bola-dunia-garis',friends:'grup-pengguna',weekly:'jam-bulat'};
 const SCOPE={global:{n:'GLOBAL',top:5200,step:118},friends:{n:'TEMAN',top:3300,step:340},weekly:{n:'MINGGUAN',top:1850,step:44}};
 let scope='global';
 const ME={global:{pos:17,score:1890},friends:{pos:4,score:1890},weekly:{pos:9,score:760}};
@@ -28,13 +29,13 @@ function drawPodium(a){
 }
 function draw(){
   const a=data(scope);
-  $('#tabs').innerHTML=Object.keys(SCOPE).map(k=>`<button class="tabb${k===scope?' on':''}" data-k="${k}">${SCOPE[k].n}</button>`).join('');
+  $('#ltabs').innerHTML=Object.keys(SCOPE).map(k=>`<button class="lt${k===scope?' on':''}" data-k="${k}"><img class="ul" src="${IC}ikon-navigasi/garis-bawah-tab-emas.webp" alt=""><img class="ic" src="${IC}glyph-putih/${ICO[k]}.webp" alt=""><span>${SCOPE[k].n}</span></button>`).join('');
   drawPodium(a);
   $('#rows').innerHTML=a.map((p,i)=>{const t=tier(p.score);
     return `<div class="row rw${p.me?' me':''}"><span class="no">${i+1}</span>${avatar(p,64,34)}<span class="nm grow">${p.name}${p.me?' (Kamu)':''}</span><span class="sc">${fmt(p.score)}</span><span class="rk" style="color:${t[2]}">${t[1]}</span></div>`}).join('');
   const mi=a.findIndex(p=>p.me),me=a[mi],t=tier(me.score);
   $('#mycard').innerHTML=`<div class="row me"><div class="lbl ttl">POSISI KAMU</div>${avatar(me,92,48)}<div class="grow"><div class="nm ttl">${me.name}</div><div class="sb" style="color:${t[2]}">${t[1]} · ${fmt(me.score)} poin</div></div><div class="big ttl">#${mi+1}</div></div>`;
 }
-$('#tabs').onclick=e=>{const b=e.target.closest('.tabb');if(b){scope=b.dataset.k;draw()}};
+$('#ltabs').onclick=e=>{const b=e.target.closest('.lt');if(b){scope=b.dataset.k;draw()}};
 $('#reward').onclick=()=>modal('Hadiah Peringkat','Hadiah musiman dibagikan di akhir pekan<br>sesuai rank tertinggimu.','TUTUP','');
 draw();

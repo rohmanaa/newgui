@@ -1,5 +1,5 @@
 /* profile.html — informasi akun: nama, level + progres, foto profil, koleksi, aktivitas.
-   Data tiruan dari localStorage (di proyek utama: PlayerData + RPC get_my_profile). Achievement: 15 × 3 bintang, data tiruan. */
+   Data tiruan dari localStorage (di proyek utama: PlayerData + RPC get_my_profile). Tanpa achievement. */
 const $=s=>document.querySelector(s);
 function fit(){$('#stage').style.transform=`scale(${Math.min(innerWidth/1920,innerHeight/1080)})`}addEventListener('resize',fit);fit();
 const LS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
@@ -16,9 +16,8 @@ const go=u=>BUILT.includes(u.split('?')[0])?nav(u):toast('Segera hadir');
 $('#back').onclick=$('#home').onclick=()=>nav('lobby.html');
 
 /* ---- kiri: tab ---- */
-const TABS=[['akun','Akun','profil-bulat.webp'],['koleksi','Koleksi','tas-kulit.webp'],['statistik','Statistik','grafik-batang.webp'],['achievement','Achievement','bintang.webp']];
-/* gaya tab kiri mengikuti layar Ranking (assets/penerapan/OLGF1N.png): baris penuh, ikon + label, garis pemisah, penanda emas di sisi kiri */
-$('#menu').innerHTML=TABS.map(([k,n,ic])=>`<button class="mb" data-k="${k}" aria-label="${n}"><img src="${G}${ic}" alt=""><div class="lb">${n}</div></button>`).join('');
+const TABS=[['akun','Akun','profil-bulat.webp'],['koleksi','Koleksi','tas-kulit.webp'],['statistik','Statistik','grafik-batang.webp']];
+$('#menu').innerHTML=TABS.map(([k,n,ic])=>`<button class="mb" data-k="${k}" aria-label="${n}"><div class="ic"><img src="${G}${ic}" alt=""></div><div class="lb">${n}</div></button>`).join('');
 function tab(k){
   document.querySelectorAll('.mb').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
   document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id==='p-'+k));
@@ -99,23 +98,3 @@ $('#sg').innerHTML=
   row(G+'api.webp','Win Streak',ST.streak);
 $('#sg').onclick=e=>{const b=e.target.closest('button.sr');if(b)go(b.dataset.u)};
 requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.sr i.bar b').forEach(b=>b.style.width=b.dataset.w+'%')));
-
-/* ---- kanan: ACHIEVEMENT (15 achievement x 3 bintang; di proyek utama progres dari server get_my_profile, klaim claim_achievement) ---- */
-const ACH=[
- ['Sang Legenda','Menangkan pertandingan',[500,1000,2000],212],['Penjelajah','Selesaikan pertandingan',[10,50,200],64],['Pelempar Dadu','Lempar dadu',[100,500,2000],388],
- ['Pendaki Tangga','Naik tangga',[25,100,400],73],['Selamat dari Ular','Terkena ular',[25,100,400],31],['Pemburu Peti','Buka peti',[10,50,200],22],
- ['Pembunuh Naga','Kalahkan Ender Dragon',[1,5,20],1],['Penakluk Wither','Kalahkan Wither',[1,5,20],0],['Penambang','Ambil emerald dari tambang',[100,500,2500],340],
- ['Kolektor','Miliki item koleksi',[5,15,30],8],['Dermawan Coin','Belanjakan Coin',[1000,10000,50000],4200],['Sahabat','Punya teman',[1,5,15],6],
- ['Rantai Kemenangan','Win streak',[3,5,10],4],['Pengguna Power','Pakai power-up',[10,50,200],19],['Setia Login','Login harian',[3,7,30],5]];
-const AK='dragonroll:ach:claimed';let claimed=LS(AK,{});
-function drawAch(){
-  $('#ag').innerHTML=ACH.map(([n,d,g,v],i)=>{
-    const done=g.filter(x=>v>=x).length,nx=g[Math.min(done,2)],pct=Math.min(100,v/nx*100);
-    const cl=claimed[i]||0,can=done>cl;
-    return `<div class="ar"><div class="as">${[0,1,2].map(j=>`<img class="${j<done?'on':''}" src="${IC}stage-chapter/bintang-stage-${j<done?'emas':'kosong'}.webp" alt="">`).join('')}</div>
-      <div class="ai"><div class="nm">${n}</div><div class="ds">${d}</div><div class="pb"><i><b style="width:${pct}%"></b></i><span>${fmt(Math.min(v,nx))} / ${fmt(nx)}</span></div></div>
-      <button class="cb${can?'':' off'}" data-c="${i}">${cl>=3?'✓':'KLAIM'}</button></div>`}).join('');
-}
-$('#ag').onclick=e=>{const b=e.target.closest('[data-c]');if(!b)return;const i=+b.dataset.c,done=ACH[i][2].filter(x=>ACH[i][3]>=x).length;
-  if(done<=(claimed[i]||0))return;claimed[i]=(claimed[i]||0)+1;try{localStorage.setItem(AK,JSON.stringify(claimed))}catch(e){}drawAch();toast('Hadiah achievement diklaim');};
-drawAch();
