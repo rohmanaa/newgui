@@ -9,19 +9,34 @@
 <title>Dragon Roll — Karakter</title>
 <link rel="stylesheet" href="css/karakter.css">
 </head>
-<body class="sub">
+<body class="kr">
 <div id="wrap"><div id="stage">
-  <div id="sun"></div><div id="vig"></div>
-  <button id="back" aria-label="Kembali"><img src="assets/komponen/tombol-dan-kontrol/tombol-rumah-abu.webp" alt=""><svg viewBox="0 0 24 24" fill="#fff"><path d="M15 4L7 12l8 8V4z"/></svg></button>
-  <div id="title" class="ttl">KARAKTER</div>
+  <!-- tata letak mengikuti layar Equipment (assets/penerapan/fcuBiA.png) -->
+  <button id="back" aria-label="Kembali"><img src="assets/komponen/ikon-navigasi/panah-kembali.webp" alt=""></button>
+  <div id="title" class="ttl">Karakter</div>
   <div class="cur" id="cur-em"><img src="assets/komponen/ikon-gem-medali/berlian-hijau.webp" alt=""><div class="v" id="v-em">—</div><div class="plus">+</div></div>
   <div class="cur" id="cur-co"><img src="assets/komponen/hud/ikon-koin-emas.webp" alt=""><div class="v" id="v-co">—</div><div class="plus">+</div></div>
-  <section class="panel" id="show"><h3>HERO</h3>
+  <button id="home" aria-label="Lobby"><img src="assets/komponen/ikon-navigasi/ikon-home.webp" alt=""></button>
+
+  <!-- kiri: slot samping + hero di pedestal + nama + level + statistik -->
+  <section id="left">
+    <div class="eqs" id="eqL"></div>
     <div id="art"></div>
-    <div id="info"><div id="nm" class="ttl"></div><div id="cls"></div><p id="ds"></p><div id="stats"></div>
-      <button class="btn" id="use"><img src="assets/komponen/tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span>GUNAKAN</span></button></div>
+    <div class="eqs" id="eqR"></div>
+    <div id="nm" class="ttl"></div>
+    <div id="lv"><b class="ttl" id="lvn">1</b><div class="lvr"><span class="l">Level</span><span class="p" id="lvp"></span><i><u id="lvf"></u></i></div></div>
+    <div id="sep"></div>
+    <div id="stats"></div>
+    <div id="info"><div id="cls"></div><p id="ds"></p></div>
   </section>
-  <section class="panel" id="listp"><h3>PILIH KARAKTER</h3><div id="grid"></div></section>
+
+  <!-- kanan: tab kategori + grid slot hero + tombol aksi -->
+  <section id="right">
+    <div id="tabs"></div>
+    <div id="grid"></div>
+    <button class="btn" id="use"><img src="assets/komponen/tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span>GUNAKAN</span></button>
+  </section>
+
   <div id="toast"></div><div id="fade"></div>
 </div></div>
 <script src="js/heroes.js"></script>
