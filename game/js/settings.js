@@ -32,7 +32,7 @@ $('#cf-ok').onclick=()=>{closeCf();try{localStorage.removeItem('dragonroll:auth'
 const BF='assets/komponen/bendera-bahasa/';
 const LANGS=[
   {id:'en',name:'English',flag:BF+'bendera-inggris.webp'},
-  {id:'id',name:'Indonesia',flag:null},
+  {id:'id',name:'Indonesia',flag:BF+'bendera-indonesia.webp'},
   {id:'de',name:'Deutsch',flag:BF+'bendera-jerman.webp'},
   {id:'fr',name:'Français',flag:BF+'bendera-prancis.webp'},
   {id:'es',name:'Español',flag:BF+'bendera-spanyol.webp'},
