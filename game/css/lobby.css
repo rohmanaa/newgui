@@ -187,3 +187,28 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 html,body{background:linear-gradient(180deg,rgba(10,20,60,.28) 0,transparent 20%,transparent 70%,rgba(10,10,50,.45) 100%),linear-gradient(180deg,#53b8f2 0%,#8bd5fa 46%,#d6f1ff 100%) fixed #8bd5fa!important}
 #stage{background:none!important;overflow:visible!important}
 #vig{display:none}
+
+/* ===== gaya mengikuti referensi 5vR06g ===== */
+#koleksi{width:760px}
+#koleksi .small{width:112px}
+/* tile menu bawah: bentuk tile ungu dipotong dari referensi */
+#nav{gap:40px}
+.big{width:188px;height:136px;margin-top:40px;border-radius:0}
+#nav .tile.big::before{inset:0;border:0;border-image:none;background:url(../assets/komponen/tombol-dan-kontrol/tile-menu-bawah.webp) center/100% 100% no-repeat;filter:drop-shadow(0 5px 0 rgba(10,6,30,.5))}
+.big .lb{font-size:30px;padding-bottom:10px;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.55),0 0 3px rgba(0,0,0,.7);-webkit-text-stroke:1px rgba(20,10,40,.6);paint-order:stroke fill}
+.big .lk{position:absolute;right:8px;bottom:4px;width:34px;height:auto;filter:drop-shadow(0 2px 2px rgba(0,0,0,.6))}
+#nav .tile.locked{filter:saturate(.5) brightness(.85)}
+#nav .tile:nth-child(5){animation-delay:.28s}
+/* tombol PLAY dari referensi */
+#go{right:14px;bottom:6px;width:420px;height:240px}
+#go img{filter:drop-shadow(0 6px 5px rgba(20,10,0,.45))}
+#go span{padding-bottom:6px;font:400 84px/1 var(--font-title);color:#3a1236;text-shadow:none;letter-spacing:1px}
+#go::after{inset:42px 62px 52px;border-radius:12px}
+/* kartu kanan: Chest & Celengan (soon) */
+#side{top:226px;gap:10px}
+.sidecard{height:178px}
+.sidecard img{height:112px}
+.sidecard .tag.pk{left:auto;right:8px;top:30px;background:#e8334a;border-color:#7a0f20;text-shadow:0 2px 0 rgba(80,0,10,.7)}
+.sidecard .tag.sn{left:34px;background:#6e69a0;border-color:#2d2a58;text-shadow:0 2px 0 rgba(10,8,40,.7)}
+.sidecard.soon img{filter:drop-shadow(0 5px 4px rgba(0,0,0,.45)) saturate(.7)}
+.sidecard.soon .tm b{color:#cfc8ea}

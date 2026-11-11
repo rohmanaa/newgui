@@ -11,7 +11,7 @@ const SAVE=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
 const fmt=n=>Number(n).toLocaleString('en-US');
 
 /* halaman yang sudah ada (sama dengan BUILT di lobby.js) */
-const BUILT=['karakter.html','mode.html','settings.html','room.html','mission.html','shop.html','profile.html','frame.html','dadu.html','efek.html','powerup.html','leaderboard.html','friendship.html','tambang.html','mail.html'];
+const BUILT=['karakter.html','mode.html','settings.html','room.html','mission.html','shop.html','profile.html','frame.html','dadu.html','efek.html','powerup.html','leaderboard.html','friendship.html','tambang.html','mail.html','pet.html'];
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1900)}
 const nav=u=>{$('#fade').classList.add('on');setTimeout(()=>location.href=u,330)};
 const go=u=>BUILT.includes(u.split('?')[0])?nav(u):toast('Segera hadir');
