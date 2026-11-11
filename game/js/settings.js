@@ -26,7 +26,7 @@ $('#logout').onclick=openCf;
 $('#cf-no').onclick=closeCf;
 cf.addEventListener('click',e=>{if(e.target===cf)closeCf()});
 addEventListener('keydown',e=>{if(e.key==='Escape')closeCf()});
-$('#cf-ok').onclick=()=>{closeCf();try{localStorage.removeItem('dragonroll:auth')}catch(e){}nav('splash.html')};
+$('#cf-ok').onclick=()=>{closeCf();try{localStorage.removeItem('dragonroll:auth');sessionStorage.removeItem('dragonroll:auth')}catch(e){}nav('splash.html')};
 
 /* bahasa: pilihan disimpan di pref 'lang' (teks game belum diterjemahkan; hanya menyimpan pilihan) */
 const BF='assets/komponen/bendera-bahasa/';

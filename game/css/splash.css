@@ -1,15 +1,53 @@
-body.sub #stage{background:linear-gradient(180deg,#53b8f2 0%,#8bd5fa 46%,#d6f1ff 100%)}
-#logo{position:absolute;left:50%;top:70px;transform:translateX(-50%);width:760px;animation:pop .9s cubic-bezier(.3,1.4,.5,1)}
-@keyframes pop{from{transform:translateX(-50%) scale(.3);opacity:0}}
-#loadbox{position:absolute;left:50%;bottom:130px;transform:translateX(-50%);width:900px;text-align:center}
-#bar{height:34px;border-radius:99px;background:#1b1631;border:5px solid #4c4468;overflow:hidden}
-#fill{display:block;height:100%;width:0;background:linear-gradient(180deg,#ffd76a,#f39a12);transition:width .15s}
-#lbl{margin-top:14px;font-size:36px}
-#loginbtn{position:absolute;left:50%;bottom:110px;transform:translateX(-50%);width:460px;height:140px}
+/* splash.html — loading mengikuti m726N1 (gua gelap, hero pemanah, spinner titik, bar logam di bawah); Login & Sign up = dua dialog terpisah (BSaOQ5 / S1ckUb) */
+html,body{background:#120d14!important}
+#stage{background:#150f17}
+#cave{position:absolute;inset:0;
+  background:
+   radial-gradient(ellipse 34% 62% at 38% 0%,rgba(222,150,40,.78),rgba(150,95,25,.35) 55%,transparent 80%),
+   radial-gradient(ellipse 30% 60% at 70% 34%,rgba(96,60,34,.85),transparent 78%),
+   radial-gradient(ellipse 22% 44% at 11% 58%,rgba(40,98,120,.38),transparent 80%),
+   radial-gradient(ellipse 18% 56% at 56% 46%,rgba(38,22,16,.95),transparent 85%),
+   linear-gradient(180deg,#2a1d17 0%,#1b141b 60%,#120d14 100%)}
+#beam{position:absolute;left:24%;top:-4%;width:22%;height:72%;transform:skewX(-8deg);background:linear-gradient(180deg,rgba(255,214,120,.38),transparent);filter:blur(34px)}
+#floor{position:absolute;left:3%;right:3%;top:72%;height:12%;background:radial-gradient(ellipse 52% 46% at 46% 38%,#f6edaa 0%,#d9cc86 45%,rgba(150,140,90,.2) 72%,transparent 80%);filter:blur(3px);opacity:.95}
+#vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse 78% 78% at 50% 46%,transparent 40%,rgba(8,5,10,.75) 100%),linear-gradient(180deg,transparent 80%,rgba(8,5,10,.85))}
+#hero{position:absolute;left:560px;bottom:228px;width:380px;filter:drop-shadow(0 10px 8px rgba(0,0,0,.55))}
+#spin{position:absolute;left:904px;top:452px;width:110px;height:111px;animation:spin 1.6s steps(12) infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loadbox{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);width:1650px;height:122px}
+#loadbox .frm{position:absolute;inset:0;width:100%;height:100%}
+#bar{position:absolute;left:2.4%;right:2.4%;top:19%;bottom:21%;overflow:hidden}
+#fill{display:block;height:100%;width:0;background:url(../assets/komponen/logo/bar-loading-isi-biru.webp) left center/auto 100% repeat-x;transition:width .15s}
+#lbl{position:absolute;left:0;right:0;top:19%;bottom:21%;display:grid;place-items:center;font:800 30px var(--font-body);color:#fff;text-shadow:0 2px 2px rgba(0,0,0,.6)}
+#loginbtn{position:absolute;left:50%;bottom:190px;transform:translateX(-50%);width:460px;height:140px}
 #loginbtn span{font-size:56px}
 #loginbtn[hidden]{display:none}
-#authmodal{position:absolute;inset:0;background:rgba(10,6,30,.65);display:none;place-items:center;z-index:50}
-#authmodal.on{display:grid}
-.box{position:relative;width:740px;padding:40px 44px;display:flex;flex-direction:column;gap:20px}
-#err{min-height:30px;color:#ff9a9a;font-weight:800;font-size:24px}
-.row{display:flex;gap:16px}.row .btn{flex:1;height:96px}
+
+/* ===== dialog login / sign up ===== */
+.amodal{position:absolute;inset:0;background:rgba(6,4,12,.66);display:none;place-items:center;z-index:50}
+.amodal.on{display:grid}
+.dlg{position:relative;width:830px;min-height:700px;isolation:isolate;margin-top:-10px}
+.dlg::before{content:'';position:absolute;inset:-6px;border:22px solid transparent;border-image:url(../assets/komponen/panel-dialog/bingkai-dialog.webp) 44 fill / 22px stretch;z-index:-1;pointer-events:none}
+.dh{position:relative;height:84px;margin:0 6px;display:grid;place-items:center;background:#221e30;font:400 44px var(--font-title);color:#ffd98e;text-shadow:0 2px 0 rgba(0,0,0,.5)}
+.x{position:absolute;right:0;top:0;width:96px;height:84px;display:grid;place-items:center;background:#2c283c;clip-path:polygon(22% 0,100% 0,100% 100%,0 100%,0 50%)}
+.x img{width:40px;height:40px}
+.x:active{filter:brightness(1.3)}
+.df{padding:44px 64px 40px;display:flex;flex-direction:column;gap:22px}
+.inp{position:relative;display:flex;align-items:center;height:92px;background:#17131f;padding:0 26px;gap:22px;
+  clip-path:polygon(2% 0,98% 0,100% 50%,98% 100%,2% 100%,0 50%);box-shadow:inset 0 0 0 2px #3a344c}
+.inp img{width:38px;height:38px;object-fit:contain;opacity:.5;flex:none}
+.inp input{flex:1;min-width:0;height:100%;background:none;border:0;outline:0;font:700 34px var(--font-body);color:#fff;user-select:text}
+.inp input::placeholder{color:#6b6483;font-weight:600}
+.inp:focus-within{background:#1f1a2b;box-shadow:inset 0 0 0 3px #5c8de0}
+.rem{display:flex;align-items:center;gap:22px;font:700 32px var(--font-body);color:#fff;cursor:pointer;margin:4px 0 0 4px;position:relative}
+.rem input{position:absolute;opacity:0;width:0;height:0}
+.cb{width:62px;height:62px;flex:none;background:url(../assets/komponen/tombol-dan-kontrol/checkbox-kosong.webp) center/100% 100% no-repeat}
+.rem input:checked+.cb{background-image:url(../assets/komponen/tombol-dan-kontrol/checkbox-dicentang.webp)}
+.err{min-height:34px;color:#ff9a9a;font:800 26px var(--font-body);text-align:center}
+.err.info{color:#ffd98e}
+.btn.blue{width:100%;height:112px}.btn.blue span{font:400 44px var(--font-title);text-shadow:0 2px 0 rgba(0,0,0,.45)}
+.foot{display:flex;justify-content:space-between;align-items:center;margin-top:14px;font:700 30px var(--font-body);color:#d8d2ee}
+.foot.c{justify-content:center;gap:12px}
+.foot a{color:#5c8de0;font-weight:800;text-decoration:none;font-size:34px}
+.foot a.dim{color:#d8d2ee;font-size:28px;font-weight:700}
+.foot a:active{filter:brightness(1.3)}
