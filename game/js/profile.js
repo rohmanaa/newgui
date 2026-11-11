@@ -1,58 +1,100 @@
-/* profile.html — kiri: tombol pintasan, tengah: karakter terpasang, kanan: info pemain.
+/* profile.html — informasi akun: nama, level + progres, foto profil, koleksi, aktivitas.
    Data tiruan dari localStorage (di proyek utama: PlayerData + RPC get_my_profile). Tanpa achievement. */
 const $=s=>document.querySelector(s);
 function fit(){$('#stage').style.transform=`scale(${Math.min(innerWidth/1920,innerHeight/1080)})`}addEventListener('resize',fit);fit();
-const wal=(()=>{try{return JSON.parse(localStorage.getItem('dragonroll:lobby:demo'))||{}}catch(e){return{}}})();
+const LS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch(e){return d}};
+const wal=LS('dragonroll:lobby:demo',{});
 const fmt=n=>Number(n).toLocaleString('en-US');
 $('#v-em').textContent=fmt(wal.emerald??120);$('#v-co').textContent=fmt(wal.coin??2500);
 
 /* halaman yang sudah ada (sama dengan BUILT di lobby.js) — tambahkan saat halaman baru selesai */
 const BUILT=['karakter.html','mode.html','settings.html','room.html','mission.html','shop.html','profile.html'];
-const IC='assets/komponen/';
-const MENU=[
-  ['Karakter','ikon-item/helm-ksatria.webp','karakter.html'],
-  ['Frame','new-icon/frame.webp','frame.html'],
-  ['Dadu','new-icon/dadu.webp','dadu.html'],
-  ['Efek','ikon-gem-medali/kristal-api.webp','efek.html'],
-  ['Power-up','ikon-gem-medali/petir-ungu.webp','powerup.html'],
-  ['Peringkat','ikon-item/podium.webp','leaderboard.html'],
-  ['Teman','new-icon/freinds.webp','friendship.html'],
-  ['Tambang','ikon-gem-medali/berlian-hijau.webp','tambang.html?from=profile.html'],
-  ['Misi','ikon-item/gulungan-misi.webp','mission.html'],
-  ['Pengaturan','ikon-item/gir.webp','settings.html']
-];
-$('#menu').innerHTML=MENU.map(([n,ic,u],i)=>`<button class="mb" data-i="${i}" aria-label="${n}"><div class="ic"><img src="${IC}${ic}" alt=""></div><div class="lb">${n}</div></button>`).join('');
-
+const IC='assets/komponen/',G=IC+'glyph-putih/';
 let tt;function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1800)}
 const nav=u=>{$('#fade').classList.add('on');setTimeout(()=>location.href=u,330)};
-function go(u){if(!BUILT.includes(u.split('?')[0])){toast('Segera hadir');return}nav(u)}
-$('#menu').onclick=e=>{const b=e.target.closest('.mb');if(b)go(MENU[b.dataset.i][2])};
-$('#use').onclick=()=>go('karakter.html');
+const go=u=>BUILT.includes(u.split('?')[0])?nav(u):toast('Segera hadir');
 $('#back').onclick=$('#home').onclick=()=>nav('lobby.html');
 
-/* level: rumus sama dengan lobby (level 1 butuh 400 XP, tiap level +100) */
-function lvInfo(xp){let lv=1,need=400;while(xp>=need&&lv<999){xp-=need;lv++;need=400+100*(lv-1)}return{lv,cur:lv>=999?need:xp,need}}
-const L=lvInfo(wal.xp??683),pct=Math.min(100,L.cur/L.need*100);
-$('#lvn').textContent=L.lv;$('#lvp').textContent=pct.toFixed(1)+'%';
-requestAnimationFrame(()=>requestAnimationFrame(()=>$('#lvf').style.width=pct+'%'));
+/* ---- kiri: tab ---- */
+const TABS=[['akun','Akun','profil-bulat.webp'],['koleksi','Koleksi','tas-kulit.webp'],['aktivitas','Aktivitas','jam-bulat.webp']];
+$('#menu').innerHTML=TABS.map(([k,n,ic])=>`<button class="mb" data-k="${k}" aria-label="${n}"><div class="ic"><img src="${G}${ic}" alt=""></div><div class="lb">${n}</div></button>`).join('');
+function tab(k){
+  document.querySelectorAll('.mb').forEach(b=>b.classList.toggle('on',b.dataset.k===k));
+  document.querySelectorAll('.pane').forEach(p=>p.classList.toggle('on',p.id==='p-'+k));
+}
+$('#menu').onclick=e=>{const b=e.target.closest('.mb');if(b)tab(b.dataset.k)};
+tab('akun');
 
-/* karakter terpasang di tengah */
+/* ---- tengah: karakter terpasang ---- */
 const h=getHero();
 const cyl=(cx,cy,rx,ry,hh,top,side)=>`<path d="M${cx-rx},${cy} v${hh} a${rx},${ry} 0 0 0 ${rx*2},0 v${-hh} Z" fill="${side}" stroke="#17122b" stroke-width="3" stroke-linejoin="round"/><ellipse cx="${cx}" cy="${cy}" rx="${rx}" ry="${ry}" fill="${top}" stroke="#17122b" stroke-width="3"/>`;
 const PED=`<svg viewBox="0 0 500 190" aria-hidden="true"><ellipse cx="250" cy="168" rx="236" ry="22" fill="rgba(8,4,20,.35)"/>${cyl(250,104,222,46,30,'#4b4370','#2f2949')}${cyl(250,82,176,36,24,'#5d5486','#3b3459')}${cyl(250,62,128,27,20,'#6f66a0','#463e6b')}<ellipse cx="250" cy="62" rx="100" ry="20" fill="none" stroke="rgba(255,255,255,.14)" stroke-width="3"/></svg>`;
 $('#art').innerHTML=PED+`<img src="${h.art||heroIcon(h)}" alt="" style="height:${h.art?440:250}px">`;
-$('#hicon').src=heroIcon(h);
-$('#hnm').textContent=wal.name||'Ryuen';
-$('#hcls').textContent=h.name+' · '+h.cls;
+$('#mnm').textContent=h.name;$('#mcls').textContent=h.cls;
 
-/* statistik (tiruan; di proyek utama dari get_my_profile) */
-const S=Object.assign({main:42,menang:24,tangga:96,ular:71,peti:38,naga:150,sejak:'12 Okt 2026',id:'482913'},(()=>{try{return JSON.parse(localStorage.getItem('dragonroll:profile:stats'))||{}}catch(e){return{}}})());
-const wr=S.main?Math.round(S.menang/S.main*100):0;
-$('#ds').textContent=`ID #${S.id} · Bergabung ${S.sejak}. ${S.main} pertandingan, ${wr}% kemenangan.`;
-const stars=wr>=60?3:wr>=40?2:wr>0?1:0;
-$('#stars').innerHTML=[0,1,2].map(i=>`<img src="${IC}stage-chapter/bintang-stage-${i<stars?'emas':'kosong'}.webp" alt="">`).join('');
-$('#sumv').textContent=fmt(S.menang);
-const G=IC+'glyph-putih/';
-const ROWS=[['Menang','piala',S.menang,S.main||1,'#3fc6a8'],['Tangga','panah-atas',S.tangga,150,'#e5604e'],['Ular','tongkat-ular',S.ular,150,'#e89a52'],['Peti','peti-harta',S.peti,60,'#4db3e6'],['Serang Naga','tengkorak',S.naga,300,'#d26f9c']];
-$('#stats').innerHTML=ROWS.map(([n,ic,v,m,c])=>`<div class="st" style="--c:${c}"><img src="${G}${ic}.webp" alt=""><span>${n}</span><i><b data-w="${Math.min(100,v/m*100)}"></b></i><em>${fmt(v)}</em></div>`).join('');
-requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.st b').forEach(b=>b.style.width=b.dataset.w+'%')));
+/* ---- kanan: AKUN ---- */
+const S=Object.assign({id:'482913',sejak:'12 Okt 2026',bahasa:'Indonesia'},LS('dragonroll:profile:stats',{}));
+const name=wal.name||'Ryuen';
+$('#hnm').textContent=name;$('#hid').innerHTML=`ID #${S.id}<br>Bergabung ${S.sejak}`;
+function lvInfo(xp){let lv=1,need=400;while(xp>=need&&lv<999){xp-=need;lv++;need=400+100*(lv-1)}return{lv,cur:lv>=999?need:xp,need}}
+const L=lvInfo(wal.xp??683),pct=Math.min(100,L.cur/L.need*100);
+$('#lvn').textContent=L.lv;$('#lvp').textContent=pct.toFixed(1)+'%';
+$('#xpnote').textContent=`${L.cur} / ${L.need} XP · butuh ${L.need-L.cur} XP lagi ke Level ${Math.min(999,L.lv+1)}`;
+requestAnimationFrame(()=>requestAnimationFrame(()=>$('#lvf').style.width=pct+'%'));
+$('#info').innerHTML=[['Nama',name],['ID Pemain','#'+S.id],['Bergabung',S.sejak],['Karakter aktif',h.name+' · '+h.cls],['Bahasa',S.bahasa]].map(([a,b])=>`<div class="ir"><span>${a}</span><b>${b}</b></div>`).join('');
+
+/* foto profil: pilih gambar, dipotong persegi 256px, disimpan di localStorage (di proyek utama: unggah ke server) */
+const PK='dragonroll:profile:photo';
+function showPhoto(){
+  const p=(()=>{try{return localStorage.getItem(PK)}catch(e){return null}})();
+  const im=$('#avimg');
+  if(p){im.src=p;im.className=''}else{im.src=heroIcon(h);im.className='ico'}
+}
+showPhoto();
+$('#up').onclick=()=>$('#file').click();
+$('#file').onchange=e=>{
+  const f=e.target.files[0];e.target.value='';
+  if(!f)return;
+  if(!/^image\//.test(f.type)){toast('File harus gambar');return}
+  const r=new FileReader();
+  r.onerror=()=>toast('Gagal membaca file');
+  r.onload=()=>{
+    const img=new Image();
+    img.onerror=()=>toast('Gambar tidak valid');
+    img.onload=()=>{
+      const c=document.createElement('canvas');c.width=c.height=256;
+      const s=Math.min(img.width,img.height),x=(img.width-s)/2,y=(img.height-s)/2;
+      c.getContext('2d').drawImage(img,x,y,s,s,0,0,256,256);
+      try{localStorage.setItem(PK,c.toDataURL('image/jpeg',.85));showPhoto();toast('Foto profil diperbarui')}
+      catch(err){toast('Gagal menyimpan foto')}
+    };
+    img.src=r.result;
+  };
+  r.readAsDataURL(f);
+};
+
+/* ---- kanan: KOLEKSI (dimiliki / total; tiruan) ---- */
+const K=Object.assign({karakter:3,frame:4,dadu:7,efek:2,powerup:9},LS('dragonroll:profile:koleksi',{}));
+const KOL=[
+  ['Karakter',K.karakter,HEROES.length,'ikon-item/helm-ksatria.webp','#e5604e','karakter.html'],
+  ['Frame',K.frame,12,'new-icon/frame.webp','#e89a52','frame.html'],
+  ['Dadu',K.dadu,20,'new-icon/dadu.webp','#3fc6a8','dadu.html'],
+  ['Efek',K.efek,15,'ikon-gem-medali/kristal-api.webp','#d26f9c','efek.html'],
+  ['Power-up',K.powerup,17,'ikon-gem-medali/petir-ungu.webp','#4db3e6','powerup.html']
+];
+$('#kol').innerHTML=KOL.map(([n,a,t,ic,c,u],i)=>`<button class="kr" data-u="${u}" style="--c:${c}"><div class="ic"><img src="${IC}${ic}" alt=""></div><div class="nm">${n}</div><i><b data-w="${Math.min(100,a/t*100)}"></b></i><em>${a}/${t}</em></button>`).join('');
+$('#kol').onclick=e=>{const b=e.target.closest('.kr');if(b)go(b.dataset.u)};
+requestAnimationFrame(()=>requestAnimationFrame(()=>document.querySelectorAll('.kr b').forEach(b=>b.style.width=b.dataset.w+'%')));
+
+/* ---- kanan: AKTIVITAS (tiruan; di proyek utama dari server) ---- */
+const MIN=60e3,now=Date.now();
+const ACT=LS('dragonroll:profile:aktivitas',[
+  {t:'Menang di World',d:'+120 XP · +50 Coin',ic:'piala.webp',at:now-8*MIN},
+  {t:'Membeli Dadu Emas',d:'−300 Coin',ic:'dadu.webp',at:now-95*MIN},
+  {t:'Klaim hadiah harian',d:'Hari ke-4 · +100 Coin',ic:'kado.webp',at:now-26*60*MIN},
+  {t:'Naik ke Level '+L.lv,d:'Level baru tercapai',ic:'bintang.webp',at:now-30*60*MIN},
+  {t:'Menyelesaikan misi harian',d:'+5 Emerald',ic:'centang.webp',at:now-50*60*MIN},
+  {t:'Mengganti karakter',d:h.name+' · '+h.cls,ic:'helm-bulat.webp',at:now-74*60*MIN}
+]);
+function ago(at){const m=Math.max(1,Math.round((Date.now()-at)/MIN));if(m<60)return m+' mnt lalu';const j=Math.round(m/60);if(j<24)return j+' jam lalu';const d=Math.round(j/24);return d===1?'Kemarin':d+' hari lalu'}
+$('#akt').innerHTML=ACT.map(a=>`<div class="ar"><div class="ic"><img src="${G}${a.ic}" alt=""></div><div class="tx">${a.t}<small>${a.d}</small></div><div class="tm">${ago(a.at)}</div></div>`).join('')||'';

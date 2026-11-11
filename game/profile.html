@@ -19,28 +19,34 @@
   <div class="cur" id="cur-co"><img src="assets/komponen/hud/ikon-koin-emas.webp" alt=""><div class="v" id="v-co">—</div><div class="plus">+</div></div>
   <button id="home" aria-label="Lobby"><img src="assets/komponen/ikon-navigasi/ikon-home.webp" alt=""></button>
 
-  <!-- kiri: tombol pintasan 2 kolom x 5 baris -->
+  <!-- kiri: tombol tab -->
   <nav id="menu"></nav>
 
-  <!-- tengah: karakter di pedestal + bintang + ringkasan -->
+  <!-- tengah: karakter terpasang -->
   <section id="mid">
     <div id="art"></div>
-    <div id="stars"></div>
-    <div id="sum"><img src="assets/komponen/glyph-putih/pedang-silang.webp" alt=""><b id="sumv">0</b></div>
+    <div id="mnm" class="ttl"></div>
+    <div id="mcls"></div>
   </section>
 
-  <!-- kanan: info pemain -->
+  <!-- kanan: isi tab -->
   <section id="right">
-    <div id="head">
-      <div id="hico"><img id="hicon" src="" alt=""></div>
+    <!-- AKUN: foto, nama, level, progres, info -->
+    <div class="pane" id="p-akun">
+      <div id="avatar"><img id="avimg" src="" alt=""></div>
       <div id="hnm" class="ttl"></div>
-      <div id="hcls"></div>
+      <div id="hid"></div>
+      <div id="lv"><b class="ttl" id="lvn">1</b><div class="lvr"><span class="l">Level</span><span class="p" id="lvp"></span><i><u id="lvf"></u></i></div></div>
+      <div id="xpnote"></div>
+      <div id="sep"></div>
+      <div id="info"></div>
+      <input type="file" id="file" accept="image/*" hidden>
+      <button class="btn" id="up"><img src="assets/komponen/tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span>UNGGAH FOTO</span></button>
     </div>
-    <p id="ds"></p>
-    <div id="lv"><b class="ttl" id="lvn">1</b><div class="lvr"><span class="l">Level</span><span class="p" id="lvp"></span><i><u id="lvf"></u></i></div></div>
-    <div id="sep"></div>
-    <div id="stats"></div>
-    <button class="btn" id="use"><img src="assets/komponen/tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span>GANTI KARAKTER</span></button>
+    <!-- KOLEKSI -->
+    <div class="pane" id="p-koleksi"><div class="ph">Koleksi</div><div id="kol"></div></div>
+    <!-- AKTIVITAS -->
+    <div class="pane" id="p-aktivitas"><div class="ph">Aktivitas Terbaru</div><div id="akt"></div></div>
   </section>
 
   <div id="toast"></div>
