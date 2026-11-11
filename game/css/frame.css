@@ -39,3 +39,5 @@
 #mbtns{position:absolute;left:0;right:0;bottom:36px;display:flex;justify-content:center;gap:40px}
 #mbtns .btn{width:330px;height:100px}
 #mbtns .btn span{font-size:32px}
+/* tanpa tab kategori (frame, dadu): grid naik ke atas */
+body.notabs #grid{top:150px}
