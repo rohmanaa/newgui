@@ -53,3 +53,7 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 ## lobby.html
 
 Halaman lobby Dragon Roll di root repo, disusun dari README (bagian 4) memakai aset `komponen/`. `NAVIGATE=false` membuat tombol hanya menampilkan toast tujuan halaman.
+
+## mode.html
+
+Halaman Pilih Mode (README bagian 4): carousel peta (World, Nether, The End terkunci), kartu QUICK START dan CREATE ROOM dengan tile flip, modal pencarian lawan (simulasi). `NAVIGATE=false` seperti lobby.
