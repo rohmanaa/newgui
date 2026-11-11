@@ -22,7 +22,83 @@ const COINS=[
   {t:'Kantong Koin',coin:10000,em:120,img:'paket-gold/gold-kantong.webp',best:true}];
 const AD_REWARD=5,AD_SECONDS=3;
 const Q=new URLSearchParams(location.search);
-let tab=(Q.get('coin')==='1'||Q.get('tab')!=='emerald')?'coin':'emerald';
+const TABS=['coin','emerald','chest','koleksi'];
+let tab=Q.get('coin')==='1'?'coin':(TABS.includes(Q.get('tab'))?Q.get('tab'):'coin');
+
+
+/* ---- CHEST: dapat aksesori karakter (koleksi) + Coin. Kepemilikan tiruan di localStorage (di proyek utama: ItemCatalog + server).
+   Aksesori kembar -> diganti Coin sesuai kelangkaan. Peti Kayu gratis 1x per 24 jam. ---- */
+const OWN_K='dragonroll:own:aksesoris',FREE_K='dragonroll:chest:free',CNT_K='dragonroll:chest:opened';
+const RAR=[['Biasa','#cfc8ea'],['Langka','#4db3e6'],['Epik','#b07cff'],['Legendaris','#ffd45a']];
+const DUP=[50,150,400,1000];                       /* Coin pengganti aksesori kembar, per kelangkaan */
+const ACC=[
+  {id:'tas',n:'Tas Kulit',ic:'ikon-item/tas-kulit',r:0},
+  {id:'kompas',n:'Kompas Tua',ic:'ikon-item/kompas',r:0},
+  {id:'lentera',n:'Lentera Kecil',ic:'ikon-gem-medali/lentera',r:0},
+  {id:'semanggi',n:'Semanggi Hoki',ic:'ikon-gem-medali/semanggi',r:0},
+  {id:'jamur',n:'Jamur Ajaib',ic:'ikon-gem-medali/jamur',r:0},
+  {id:'megafon',n:'Megafon',ic:'ikon-item/megafon',r:0},
+  {id:'kalung',n:'Kalung Permata',ic:'ikon-gem-medali/kalung-permata',r:1},
+  {id:'cincin',n:'Cincin Permata',ic:'ikon-item/cincin-permata',r:1},
+  {id:'helm',n:'Helm Ksatria',ic:'ikon-item/helm-ksatria',r:1},
+  {id:'sarung',n:'Sarung Tangan Besi',ic:'ikon-gem-medali/sarung-tangan-besi',r:1},
+  {id:'bajak',n:'Bendera Bajak Laut',ic:'ikon-gem-medali/bendera-bajak-laut',r:1},
+  {id:'panji',n:'Panji Pedang',ic:'ikon-item/panji-pedang',r:1},
+  {id:'helmsayap',n:'Helm Bersayap',ic:'ikon-item/helm-sayap',r:2},
+  {id:'sepatu',n:'Sepatu Bersayap',ic:'ikon-item/sepatu-sayap',r:2},
+  {id:'es',n:'Panji Es',ic:'ikon-gem-medali/panji-es',r:2},
+  {id:'api',n:'Kristal Api',ic:'ikon-gem-medali/kristal-api',r:2},
+  {id:'medali',n:'Medali Juara',ic:'ikon-gem-medali/medali-1',r:3},
+  {id:'mahkota',n:'Mahkota Naga',ic:'ikon-item/mahkota',r:3}
+];
+/* w = bobot peluang [Biasa,Langka,Epik,Legendaris]; coin = hadiah uang acak [min,maks] */
+const CHESTS=[
+  {id:'kayu',t:'Peti Kayu',lb:'wooden',img:'paket-chest/peti-kayu.webp',price:300,w:[70,25,5,0],coin:[100,300],free:true},
+  {id:'perak',t:'Peti Perak',lb:'silver',img:'paket-chest/peti-perak.webp',price:800,w:[40,45,14,1],coin:[300,700]},
+  {id:'emas',t:'Peti Emas',lb:'golden',img:'paket-chest/peti-emas.webp',price:2000,w:[10,50,32,8],coin:[800,1800]},
+  {id:'legend',t:'Peti Legendaris',lb:'legendary',img:'paket-chest/peti-legendaris.webp',price:6000,w:[0,30,55,15],coin:[2500,5500],best:true}
+];
+const owned=()=>{const a=rd(OWN_K);return Array.isArray(a)?a:[]};
+const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
+function pickAcc(ch){
+  let t=ch.w.reduce((a,b)=>a+b,0),x=Math.random()*t,r=0;
+  for(;r<3;r++){if(x<ch.w[r])break;x-=ch.w[r]}
+  const pool=ACC.filter(a=>a.r===r);return pool[Math.floor(Math.random()*pool.length)];
+}
+const freeLeft=()=>Math.max(0,(+localStorage.getItem(FREE_K)||0)+86400e3-Date.now());
+const hm=ms=>{const m=Math.ceil(ms/60e3);return Math.floor(m/60)+'j '+String(m%60).padStart(2,'0')+'m'};
+let opening=false;
+function openChest(i){
+  if(opening)return;const ch=CHESTS[i],isFree=ch.free&&freeLeft()===0,w=wallet();
+  if(!isFree&&w.coin<ch.price){
+    ask({title:'COIN TIDAK CUKUP',text:`Kamu butuh ${fmt(ch.price-w.coin)} Coin lagi untuk ${ch.t}.`,ok:'DAPATKAN COIN',okImg:'tombol-kuning-polos',fn:()=>setTab('coin',true)});return;
+  }
+  if(isFree)return doOpen(i,true);
+  ask({title:`BUKA ${ch.t.toUpperCase()}?`,text:`${fmt(ch.price)} Coin → 1 aksesori + hadiah Coin`,ok:'BUKA',fn:()=>doOpen(i,false)});
+}
+function doOpen(i,isFree){
+  const ch=CHESTS[i];opening=true;
+  if(isFree)localStorage.setItem(FREE_K,String(Date.now()));
+  const acc=pickAcc(ch),own=owned(),dup=own.includes(acc.id);
+  let coin=rnd(ch.coin[0],ch.coin[1]);if(dup)coin+=DUP[acc.r];
+  if(!dup){own.push(acc.id);wr(OWN_K,own)}
+  localStorage.setItem(CNT_K,String((+localStorage.getItem(CNT_K)||0)+1));
+  addWallet({coin:coin-(isFree?0:ch.price)});
+  /* animasi: peti bergoyang, lalu hasil muncul */
+  $('#rw-chest').src=IC+ch.img;$('#rbox').className='shake';$('#rw-res').style.display='none';$('#rw').classList.add('on');
+  setTimeout(()=>{
+    $('#rbox').className='';$('#rw-chest').style.display='none';
+    $('#rw-img').src=IC+acc.ic+'.webp';$('#rw-nm').textContent=acc.n;
+    $('#rw-rar').textContent=RAR[acc.r][0];$('#rw-rar').style.color=RAR[acc.r][1];
+    $('#rw-ico').style.setProperty('--c',RAR[acc.r][1]);
+    $('#rw-tag').textContent=dup?'DUPLIKAT':'BARU!';$('#rw-tag').className=dup?'dup':'new';
+    $('#rw-sub').textContent=dup?`Aksesori sudah dimiliki → bonus +${fmt(DUP[acc.r])} Coin`:'Masuk ke koleksi aksesori kamu';
+    $('#rw-cv').textContent='+'+fmt(coin);
+    $('#rw-res').style.display='';
+  },1100);
+}
+$('#rw-ok').onclick=()=>{$('#rw').classList.remove('on');$('#rw-chest').style.display='';opening=false;render()};
+setInterval(()=>{const e=$('#free-t');if(e){const l=freeLeft();if(l===0)render();else e.textContent=hm(l)}},30000);
 
 /* ---- render ---- */
 function render(hl){
@@ -33,6 +109,18 @@ function render(hl){
       <div class="nm">${p.t}</div><div class="pic"><img src="${IC}${p.img}" alt=""></div>
       <div class="amt">${fmt(p.coin)} Coin</div>
       <button class="btn buy" data-i="${i}"><img src="${IC}tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span><img src="${IC}ikon-gem-medali/berlian-hijau.webp" alt="">${p.em}</span></button></div>`).join('');
+  }else if(tab==='chest'){
+    const fl=freeLeft();
+    $('#cards').innerHTML=CHESTS.map((c,i)=>{const fr=c.free&&fl===0;return `<div class="card chest">
+      ${c.best?`<img class="rib" src="${IC}banner-label/pita-badge-biru.webp" alt=""><span class="rt">BEST</span>`:''}
+      <div class="nm">${c.t}</div><div class="pic"><img src="${IC}${c.img}" alt=""></div>
+      <div class="amt sm">${fmt(c.coin[0])}–${fmt(c.coin[1])} Coin<small>+ 1 aksesori karakter</small></div>
+      <button class="btn buy" data-c="${i}"><img src="${IC}tombol-dan-kontrol/${fr?'tombol-kuning-polos':'tombol-hijau-polos'}.webp" alt=""><span>${fr?'GRATIS':`<img src="${IC}hud/ikon-koin-emas.webp" alt="">${fmt(c.price)}`}</span></button>
+      ${c.free&&!fr?`<div class="cd">Gratis lagi: <b id="free-t">${hm(fl)}</b></div>`:''}</div>`}).join('');
+  }else if(tab==='koleksi'){
+    const own=owned();
+    $('#cards').innerHTML=`<div id="kol"><div class="kh">Koleksi Aksesori <b>${own.length}/${ACC.length}</b></div><div class="kg">`+
+      ACC.map(a=>{const h=own.includes(a.id);return `<div class="kc${h?' has':''}" style="--c:${RAR[a.r][1]}"><div class="ki"><img src="${IC}${a.ic}.webp" alt=""></div><div class="kn">${h?a.n:'???'}</div><div class="kr">${RAR[a.r][0]}</div></div>`}).join('')+`</div></div>`;
   }else{
     $('#cards').innerHTML=`<div class="card">
       <div class="nm">Tonton Iklan</div><div class="pic"><img src="${IC}ikon-gem-medali/televisi.webp" alt="" style="max-height:230px"></div>
@@ -77,7 +165,7 @@ function watch(){
 }
 $('#cards').addEventListener('click',e=>{
   const b=e.target.closest('.buy');if(!b)return;
-  if(b.id==='watch')watch();else buy(+b.dataset.i);
+  if(b.id==='watch')watch();else if(b.dataset.c!==undefined)openChest(+b.dataset.c);else buy(+b.dataset.i);
 });
 
 /* ---- navigasi ---- */

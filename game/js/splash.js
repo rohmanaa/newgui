@@ -13,9 +13,17 @@ function session(){try{return JSON.parse(localStorage.getItem(AKEY))||JSON.parse
 let pct=0;
 function setPct(p){pct=p;$('#fill').style.width=p+'%';$('#lbl').textContent='Loading… '+Math.round(p)+'%'}
 function go(){sessionStorage.setItem('dragonroll:booted','1');$('#fade').classList.add('on');setTimeout(()=>location.replace(next),400)}
+/* TAP TO START (gmyIel): muncul setelah loading selesai (sudah login) atau setelah login/sign up berhasil; sentuh layar -> lobby */
+let tapped=false;
+function showTap(username){
+  document.body.classList.add('ready');$('#hi').textContent=username?'Halo, '+username:'';
+  const t0=Date.now(),start=()=>{if(tapped||Date.now()-t0<600)return;tapped=true;go()};
+  $('#intro').onclick=start;
+  addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')start()});
+}
 function loaded(){
   const s=session();
-  if(s){$('#lbl').textContent='Halo, '+s.username;setTimeout(go,700)}
+  if(s)showTap(s.username);
   else openLogin()
 }
 (function load(){
@@ -42,7 +50,7 @@ function finish(username,remember){
   try{localStorage.removeItem(AKEY);sessionStorage.removeItem(AKEY)}catch(e){}
   try{(remember?localStorage:sessionStorage).setItem(AKEY,v)}catch(e){}
   try{const d=JSON.parse(localStorage.getItem('dragonroll:lobby:demo'))||{};d.name=username;localStorage.setItem('dragonroll:lobby:demo',JSON.stringify(d))}catch(e){}
-  show(null);$('#lbl').textContent='Halo, '+username;setTimeout(go,700);
+  show(null);showTap(username);
 }
 
 /* LOGIN: username atau email + password */

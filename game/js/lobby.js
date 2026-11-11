@@ -13,9 +13,9 @@ const BUILT=['karakter.html','mode.html','settings.html','room.html','mission.ht
 const ACT={
   profil:'profile.html', karakter:'karakter.html', frame:'frame.html', dadu:'dadu.html', efek:'efek.html', powerup:'powerup.html',
   leaderboard:'leaderboard.html', toko:'shop.html', beliCoin:'shop.html?coin=1', teman:'friendship.html', hadiahMisi:'mission.html',
-  tambang:'tambang.html?from=lobby.html', mail:'mail.html', pet:'pet.html', settings:'settings.html', mulai:'mode.html'
+  tambang:'tambang.html?from=lobby.html', mail:'mail.html', pet:'pet.html', settings:'settings.html', mulai:'mode.html', chest:'shop.html?tab=chest'
 };
-const SOON={guild:'Guild segera hadir',chest:'Chest segera hadir',babi:'Celengan segera hadir',hadiahGratis:'Hadiah gratis segera hadir'};
+const SOON={guild:'Guild segera hadir',babi:'Celengan segera hadir',hadiahGratis:'Hadiah gratis segera hadir'};
 
 /* ---- PlayerData tiruan (di proyek utama diganti PlayerData asli) ---- */
 const KEY='dragonroll:lobby:demo';

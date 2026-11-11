@@ -9,7 +9,7 @@
 #cur-em{left:1100px}#cur-co{left:1420px}
 
 /* tab */
-#tabs{position:absolute;left:70px;top:132px;display:flex;gap:60px}
+#tabs{position:absolute;left:70px;top:132px;display:flex;gap:34px}
 .tabb{position:relative;padding:8px 34px 44px;font:400 48px/1 var(--font-title);color:#b9b1d3;letter-spacing:.5px;text-shadow:0 2px 0 rgba(10,6,24,.5)}
 .tabb.on{color:#ffe8a3}
 .tabb.on::after{content:'';position:absolute;left:50%;bottom:0;width:260px;height:38px;transform:translateX(-50%);background:url(../assets/komponen/ikon-navigasi/garis-bawah-tab-emas.webp) center/100% 100% no-repeat}
@@ -50,3 +50,46 @@
 #adbox::before{content:'';position:absolute;inset:-8px;border:22px solid transparent;border-image:url(../assets/komponen/panel-dialog/bingkai-dialog.webp) 44 fill / 22px stretch;z-index:-1;pointer-events:none}
 #ad-t{position:absolute;left:50%;top:-34px;transform:translateX(-50%);height:84px;padding:0 64px;line-height:70px;white-space:nowrap;font-size:40px;background:url(../assets/komponen/banner-label/banner-judul-ungu-polos.webp) center/100% 100% no-repeat;text-shadow:0 2px 0 rgba(20,5,70,.7)}
 #ad-n{font:400 200px/1 var(--font-title);color:#ffd45a;margin:0 0 10px;text-shadow:0 6px 0 rgba(60,30,0,.55)}#ad-s{font:800 30px var(--font-body);color:#ddd7f7}
+
+/* ===== CHEST & KOLEKSI ===== */
+#cards:has(.chest){gap:36px}
+.card.chest{width:420px}
+.card.chest .nm{font-size:38px}
+.card.chest .pic img{max-width:270px;max-height:290px}
+.card .amt.sm{font-size:40px}.card .amt.sm small{font-size:24px}
+.card.chest .buy{width:340px}
+.card .cd{margin-top:10px;font:800 24px var(--font-body);color:#b9b1d3}.card .cd b{color:#ffe8a3}
+#kol{width:1780px}
+.kh{font:400 46px var(--font-title);color:#ffe8a3;text-shadow:0 3px 0 rgba(10,6,24,.5);margin:0 0 18px 20px}
+.kh b{color:#fff;margin-left:14px}
+.kg{display:grid;grid-template-columns:repeat(6,1fr);gap:22px;padding:0 20px}
+.kc{background:rgba(14,10,26,.62);border:4px solid #4b4468;border-radius:20px;padding:14px 10px 12px;text-align:center}
+.kc.has{border-color:var(--c);box-shadow:inset 0 0 22px color-mix(in srgb,var(--c) 28%,transparent)}
+.ki{height:150px;display:grid;place-items:center}
+.ki img{max-width:130px;max-height:130px;width:auto;height:auto;filter:brightness(0) opacity(.45)}
+.kc.has .ki img{filter:drop-shadow(0 5px 6px rgba(0,0,0,.5))}
+.kn{font:800 28px/1.1 var(--font-body);color:#d9d3ee;margin-top:6px;min-height:32px}
+.kr{font:800 22px var(--font-body);color:#8a82a8;margin-top:2px}
+.kc.has .kr{color:var(--c)}
+/* hasil buka chest */
+#rw{position:absolute;inset:0;z-index:72;display:none;place-items:center;background:rgba(10,8,30,.8)}
+#rw.on{display:grid}
+#rbox{position:relative;width:760px;min-height:640px;padding:50px 40px 44px;text-align:center;isolation:isolate;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#rbox::before{content:'';position:absolute;inset:-8px;border:22px solid transparent;border-image:url(../assets/komponen/panel-dialog/bingkai-dialog.webp) 44 fill / 22px stretch;z-index:-1;pointer-events:none}
+#rw-chest{width:330px;height:auto;filter:drop-shadow(0 12px 12px rgba(0,0,0,.55))}
+#rbox.shake #rw-chest{animation:shk .28s linear 4 alternate}
+@keyframes shk{from{transform:rotate(-7deg) scale(1.02)}to{transform:rotate(7deg) scale(1.08)}}
+#rw-res{display:flex;flex-direction:column;align-items:center;animation:pop .35s cubic-bezier(.2,1.4,.4,1)}
+#rw-tag{font:400 40px/1 var(--font-title);padding:6px 28px;border-radius:12px;margin-bottom:10px}
+#rw-tag.new{background:#e0392f;color:#fff;text-shadow:0 2px 0 rgba(0,0,0,.5)}
+#rw-tag.dup{background:#4b4468;color:#ddd7f7}
+#rw-ico{width:230px;height:230px;display:grid;place-items:center;border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--c,#fff) 55%,transparent),transparent 68%)}
+#rw-img{max-width:170px;max-height:170px;width:auto;height:auto;filter:drop-shadow(0 8px 8px rgba(0,0,0,.55))}
+#rw-nm{font:400 54px/1.1 var(--font-title);margin-top:6px;text-shadow:0 3px 0 rgba(10,6,24,.5)}
+#rw-rar{font:800 30px var(--font-body);margin-top:4px}
+#rw-sub{font:800 26px var(--font-body);color:#ddd7f7;margin-top:10px;max-width:600px}
+#rw-coin{display:flex;align-items:center;gap:12px;margin-top:16px}
+#rw-coin img{width:56px;height:auto}
+#rw-coin b{font:400 56px var(--font-title);color:#ffb81c;text-shadow:0 3px 0 rgba(70,30,0,.7)}
+#rw-ok{width:330px;height:100px;margin-top:24px}
+#rw-ok span{font-size:40px}
