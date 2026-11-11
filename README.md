@@ -370,8 +370,9 @@ Semua halaman, CSS, JS, dan aset GUI berada di `game/`. Buka lewat server statis
 | `lobby.html`, `mode.html`, `room.html` | Menu, pilih mode, game room |
 | `karakter.html` | Pilih hero (10 karakter), dipakai lewat `js/heroes.js` |
 | `settings.html` | Grafik, suara, getar, suasana |
+| `shop.html` | Toko: tukar Emerald → Coin (10→500, 40→2.500, 120→10.000, ke-3 BEST), tab Emerald: Tonton Iklan (simulasi, +5). `?coin=1` buka tab Coin, `?from=` untuk Back |
 | `css/` | `common.css` + satu CSS per halaman |
 | `js/` | `heroes.js` (daftar hero) + satu JS per halaman |
 | `assets/` | Kit komponen UI. **Root `assets/` = sumber utama**; `game/assets/` = salinan siap pakai (lihat Aturan Aset) |
 
-Belum dibuat: gameplay (tombol START/Quick Start sementara menampilkan toast "Gameplay segera hadir"), Layar Siap (kartu urutan), power-up, fase Boss (Ender Dragon / Wither), multiplayer online (butuh Supabase), serta halaman koleksi, toko, tambang, misi, profil, leaderboard, teman.
+Belum dibuat: gameplay (tombol START/Quick Start sementara menampilkan toast "Gameplay segera hadir"), Layar Siap (kartu urutan), power-up, fase Boss (Ender Dragon / Wither), multiplayer online (butuh Supabase), serta halaman koleksi, tambang, misi, profil, leaderboard, teman.
