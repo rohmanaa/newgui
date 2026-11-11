@@ -50,10 +50,9 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 .lock{display:none;position:absolute;inset:0;place-items:center;z-index:3}
 .lock img{width:130px}
 .map.locked .tag{background:#cfc7ee;border-color:#4a4270;color:#2b2550}
-.arrow{position:absolute;top:340px;width:76px;height:96px;border-radius:16px;background:linear-gradient(180deg,#ffd45a,#f39a12);
-  border:4px solid #7a4a00;box-shadow:0 5px 0 #7a4a00;display:grid;place-items:center;transition:transform .1s}
-.arrow:active{transform:translateY(4px);box-shadow:0 1px 0 #7a4a00}
-.arrow svg{width:36px;height:36px;fill:#4d2300}
+.arrow{position:absolute;top:340px;width:76px;height:96px;display:grid;place-items:center;transition:transform .1s,filter .1s;filter:drop-shadow(0 4px 3px rgba(0,0,0,.45))}
+.arrow:active{transform:scale(.9);filter:brightness(1.15) drop-shadow(0 2px 2px rgba(0,0,0,.45))}
+.arrow img{width:auto;height:96px}
 #prev{left:8px}#next{right:8px}
 #dots{position:absolute;left:0;right:0;top:750px;display:flex;justify-content:center;gap:16px}
 #dots i{width:20px;height:20px;border-radius:50%;background:#3c3460;border:3px solid #8d85b8;transition:.2s}
