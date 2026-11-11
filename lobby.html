@@ -177,6 +177,13 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
   background:linear-gradient(110deg,transparent 40%,rgba(255,255,255,.55) 50%,transparent 60%);background-size:250% 100%;background-position:150% 0;animation:shine 3.2s 1s infinite}
 @keyframes shine{to{background-position:-50% 0}}
 .sidecard .tm b{color:#ffd45a}
+/* ---- bingkai dari kit (9-slice) ---- */
+.panel{background:none!important;border-color:transparent!important;box-shadow:none!important;isolation:isolate;backdrop-filter:none!important;}
+.panel::before{content:'';position:absolute;inset:-8px;border:22px solid transparent;border-image:url(assets/komponen/panel-dialog/bingkai-dialog.webp) 44 fill / 22px stretch;z-index:-1;pointer-events:none}
+.tile{background:none!important;border-color:transparent!important;box-shadow:none!important;isolation:isolate;}
+.tile::before{content:'';position:absolute;inset:-2px;border:18px solid transparent;border-image:url(assets/komponen/hud/kartu-kosong-ungu.webp) 40 fill / 20px stretch;z-index:-1;pointer-events:none}
+#quest{background:none!important;border-color:transparent!important;box-shadow:none!important;isolation:isolate;backdrop-filter:none!important;}
+#quest::before{content:'';position:absolute;inset:-8px;border:22px solid transparent;border-image:url(assets/komponen/panel-dialog/bingkai-dialog.webp) 44 fill / 22px stretch;z-index:-1;pointer-events:none}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>

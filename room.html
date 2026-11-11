@@ -131,6 +131,16 @@ button{font:inherit;color:inherit;border:0;background:none;padding:0;cursor:poin
 #equip,#power,#mapi{animation:inL .6s cubic-bezier(.2,.9,.2,1) both}#power{animation-delay:.08s}#mapi{animation-delay:.16s}
 #players{animation:inR .6s .1s cubic-bezier(.2,.9,.2,1) both}
 @keyframes inL{from{opacity:0;transform:translateX(-90px)}}@keyframes inR{from{opacity:0;transform:translateX(120px)}}
+/* ---- bingkai dari kit (9-slice) ---- */
+.panel{background:none!important;border-color:transparent!important;box-shadow:none!important;isolation:isolate;backdrop-filter:none!important;}
+.panel::before{content:'';position:absolute;inset:-8px;border:22px solid transparent;border-image:url(assets/komponen/panel-dialog/bingkai-dialog.webp) 44 fill / 22px stretch;z-index:-1;pointer-events:none}
+.slot{background:none!important;border-color:transparent!important;box-shadow:none!important;isolation:isolate;}
+.slot::before{content:'';position:absolute;inset:-2px;border:18px solid transparent;border-image:url(assets/komponen/hud/kartu-kosong-ungu.webp) 40 fill / 20px stretch;z-index:-1;pointer-events:none}
+.it{background:none!important;border-color:transparent!important;box-shadow:none!important;isolation:isolate;}
+.it::before{content:'';position:absolute;inset:-2px;border:18px solid transparent;border-image:url(assets/komponen/hud/kartu-kosong-ungu.webp) 40 fill / 20px stretch;z-index:-1;pointer-events:none}
+.pl:not(.empty){background:none!important;border-color:transparent!important;box-shadow:none!important;isolation:isolate;}
+.pl:not(.empty)::before{content:'';position:absolute;inset:-4px;border:18px solid transparent;border-image:url(assets/komponen/panel-dialog/baris-ranking.webp) 30 fill / 18px stretch;z-index:-1;pointer-events:none}
+.it.sel::before{border-image-source:url(assets/komponen/hud/kartu-kosong-oranye.webp)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important}}
 </style>
 </head>
