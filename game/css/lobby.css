@@ -189,8 +189,9 @@ html,body{background:linear-gradient(180deg,rgba(10,20,60,.28) 0,transparent 20%
 #vig{display:none}
 
 /* ===== gaya mengikuti referensi 5vR06g ===== */
-#koleksi{width:760px}
-#koleksi .small{width:112px}
+#koleksi{width:636px;gap:8px;padding-left:10px;padding-right:10px}
+#koleksi .small{width:auto;flex:1 1 0;min-width:0}
+#koleksi .tile .lb{font-size:19px;padding:0 0 9px}
 /* tile menu bawah: bentuk tile ungu dipotong dari referensi */
 #nav{gap:40px}
 .big{width:188px;height:136px;margin-top:40px;border-radius:0}
