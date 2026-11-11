@@ -7,6 +7,14 @@ Repo sudah dipindah GitHub ke `rohmanaa/dragonroll`.
 
 ---
 
+## Aturan Aset (WAJIB DIBACA)
+
+- **`assets/` di root repo adalah sumber utama ("air") semua aset game.** Ikon, tombol, panel, banner, panah, dan komponen UI lain diambil dari sini.
+- `game/assets/` hanya **salinan siap pakai** dari root `assets/`. Jangan diedit langsung. Kalau ada aset baru atau berubah, ubah di root lalu salin ulang ke `game/assets/`.
+- **Pakai ikon/komponen yang sudah ada di kit, jangan membuat sendiri** (tidak ada SVG/CSS buatan untuk panah, tombol, ikon, dll.). Cari dulu di `assets/komponen/` (mis. `stage-chapter/panah-chapter-kiri|kanan.webp` untuk panah carousel, `ikon-navigasi/panah-kembali.webp` untuk tombol kembali, `glyph-putih/` untuk glyph umum). Kalau memang belum ada, minta aset baru ditambahkan ke root `assets/`.
+
+---
+
 ## 1. Gambaran Umum
 
 - Game ular tangga 3D bertema voxel/Minecraft, dibuat dengan HTML + JS biasa (tanpa framework) dan Three.js (`assets/js/vendor/three.min.js`).
@@ -364,6 +372,6 @@ Semua halaman, CSS, JS, dan aset GUI berada di `game/`. Buka lewat server statis
 | `settings.html` | Grafik, suara, getar, suasana |
 | `css/` | `common.css` + satu CSS per halaman |
 | `js/` | `heroes.js` (daftar hero) + satu JS per halaman |
-| `assets/` | Kit komponen UI |
+| `assets/` | Kit komponen UI. **Root `assets/` = sumber utama**; `game/assets/` = salinan siap pakai (lihat Aturan Aset) |
 
 Belum dibuat: gameplay (tombol START/Quick Start sementara menampilkan toast "Gameplay segera hadir"), Layar Siap (kartu urutan), power-up, fase Boss (Ender Dragon / Wither), multiplayer online (butuh Supabase), serta halaman koleksi, toko, tambang, misi, profil, leaderboard, teman.
