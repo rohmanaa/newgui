@@ -22,12 +22,12 @@ const COINS=[
   {t:'Kantong Koin',coin:10000,em:120,img:'paket-gold/gold-kantong.webp',best:true}];
 const AD_REWARD=5,AD_SECONDS=3;
 const Q=new URLSearchParams(location.search);
-const TABS=['coin','emerald','chest','koleksi'];
+const TABS=['coin','emerald','chest'];
 let tab=Q.get('coin')==='1'?'coin':(TABS.includes(Q.get('tab'))?Q.get('tab'):'coin');
 
 
 /* ---- CHEST: dapat aksesori karakter (koleksi) + Coin. Kepemilikan tiruan di localStorage (di proyek utama: ItemCatalog + server).
-   Aksesori kembar -> diganti Coin sesuai kelangkaan. Peti Kayu gratis 1x per 24 jam. ---- */
+   Aksesori kembar -> diganti Coin sesuai kelangkaan. Peti Kayu: tombol Open (tonton iklan simulasi) 1x per 24 jam, atau bayar Emerald. ---- */
 const OWN_K='dragonroll:own:aksesoris',FREE_K='dragonroll:chest:free',CNT_K='dragonroll:chest:opened';
 const RAR=[['Biasa','#cfc8ea'],['Langka','#4db3e6'],['Epik','#b07cff'],['Legendaris','#ffd45a']];
 const DUP=[50,150,400,1000];                       /* Coin pengganti aksesori kembar, per kelangkaan */
@@ -53,10 +53,10 @@ const ACC=[
 ];
 /* w = bobot peluang [Biasa,Langka,Epik,Legendaris]; coin = hadiah uang acak [min,maks] */
 const CHESTS=[
-  {id:'kayu',t:'Peti Kayu',lb:'wooden',img:'paket-chest/peti-kayu.webp',price:300,w:[70,25,5,0],coin:[100,300],free:true},
-  {id:'perak',t:'Peti Perak',lb:'silver',img:'paket-chest/peti-perak.webp',price:800,w:[40,45,14,1],coin:[300,700]},
-  {id:'emas',t:'Peti Emas',lb:'golden',img:'paket-chest/peti-emas.webp',price:2000,w:[10,50,32,8],coin:[800,1800]},
-  {id:'legend',t:'Peti Legendaris',lb:'legendary',img:'paket-chest/peti-legendaris.webp',price:6000,w:[0,30,55,15],coin:[2500,5500],best:true}
+  {id:'kayu',t:'Peti Kayu',img:'paket-chest/peti-kayu.webp',price:20,w:[70,25,5,0],coin:[200,600],ad:true,tag:'POPULAR',tagc:'merah'},
+  {id:'perak',t:'Peti Perak',img:'paket-chest/peti-perak.webp',price:60,w:[40,45,14,1],coin:[600,1500]},
+  {id:'emas',t:'Peti Emas',img:'paket-chest/peti-emas.webp',price:100,w:[10,50,32,8],coin:[1500,4000],tag:'BEST',tagc:'biru'},
+  {id:'legend',t:'Peti Legendaris',img:'paket-chest/peti-legendaris.webp',price:200,w:[0,30,55,15],coin:[4000,9000]}
 ];
 const owned=()=>{const a=rd(OWN_K);return Array.isArray(a)?a:[]};
 const rnd=(a,b)=>a+Math.floor(Math.random()*(b-a+1));
@@ -68,13 +68,13 @@ function pickAcc(ch){
 const freeLeft=()=>Math.max(0,(+localStorage.getItem(FREE_K)||0)+86400e3-Date.now());
 const hm=ms=>{const m=Math.ceil(ms/60e3);return Math.floor(m/60)+'j '+String(m%60).padStart(2,'0')+'m'};
 let opening=false;
-function openChest(i){
-  if(opening)return;const ch=CHESTS[i],isFree=ch.free&&freeLeft()===0,w=wallet();
-  if(!isFree&&w.coin<ch.price){
-    ask({title:'COIN TIDAK CUKUP',text:`Kamu butuh ${fmt(ch.price-w.coin)} Coin lagi untuk ${ch.t}.`,ok:'DAPATKAN COIN',okImg:'tombol-kuning-polos',fn:()=>setTab('coin',true)});return;
+function openChest(i,viaAd){
+  if(opening)return;const ch=CHESTS[i],w=wallet();
+  if(viaAd){if(freeLeft()>0)return toast('Iklan tersedia lagi dalam '+hm(freeLeft()));return watch(()=>doOpen(i,true))}
+  if(w.emerald<ch.price){
+    ask({title:'EMERALD TIDAK CUKUP',text:`Kamu butuh ${fmt(ch.price-w.emerald)} Emerald lagi untuk ${ch.t}.`,ok:'DAPATKAN EMERALD',okImg:'tombol-kuning-polos',fn:()=>setTab('emerald')});return;
   }
-  if(isFree)return doOpen(i,true);
-  ask({title:`BUKA ${ch.t.toUpperCase()}?`,text:`${fmt(ch.price)} Coin → 1 aksesori + hadiah Coin`,ok:'BUKA',fn:()=>doOpen(i,false)});
+  ask({title:`BUKA ${ch.t.toUpperCase()}?`,text:`${fmt(ch.price)} Emerald → 1 aksesori + hadiah Coin`,ok:'BUKA',fn:()=>doOpen(i,false)});
 }
 function doOpen(i,isFree){
   const ch=CHESTS[i];opening=true;
@@ -83,7 +83,7 @@ function doOpen(i,isFree){
   let coin=rnd(ch.coin[0],ch.coin[1]);if(dup)coin+=DUP[acc.r];
   if(!dup){own.push(acc.id);wr(OWN_K,own)}
   localStorage.setItem(CNT_K,String((+localStorage.getItem(CNT_K)||0)+1));
-  addWallet({coin:coin-(isFree?0:ch.price)});
+  addWallet({coin:coin,emerald:isFree?0:-ch.price});
   /* animasi: peti bergoyang, lalu hasil muncul */
   $('#rw-chest').src=IC+ch.img;$('#rbox').className='shake';$('#rw-res').style.display='none';$('#rw').classList.add('on');
   setTimeout(()=>{
@@ -92,7 +92,7 @@ function doOpen(i,isFree){
     $('#rw-rar').textContent=RAR[acc.r][0];$('#rw-rar').style.color=RAR[acc.r][1];
     $('#rw-ico').style.setProperty('--c',RAR[acc.r][1]);
     $('#rw-tag').textContent=dup?'DUPLIKAT':'BARU!';$('#rw-tag').className=dup?'dup':'new';
-    $('#rw-sub').textContent=dup?`Aksesori sudah dimiliki → bonus +${fmt(DUP[acc.r])} Coin`:'Masuk ke koleksi aksesori kamu';
+    $('#rw-sub').textContent=dup?`Aksesori sudah dimiliki → bonus +${fmt(DUP[acc.r])} Coin`:'Aksesori baru untuk koleksimu';
     $('#rw-cv').textContent='+'+fmt(coin);
     $('#rw-res').style.display='';
   },1100);
@@ -111,16 +111,14 @@ function render(hl){
       <button class="btn buy" data-i="${i}"><img src="${IC}tombol-dan-kontrol/tombol-hijau-polos.webp" alt=""><span><img src="${IC}ikon-gem-medali/berlian-hijau.webp" alt="">${p.em}</span></button></div>`).join('');
   }else if(tab==='chest'){
     const fl=freeLeft();
-    $('#cards').innerHTML=CHESTS.map((c,i)=>{const fr=c.free&&fl===0;return `<div class="card chest">
-      ${c.best?`<img class="rib" src="${IC}banner-label/pita-badge-biru.webp" alt=""><span class="rt">BEST</span>`:''}
+    $('#cards').innerHTML=CHESTS.map((c,i)=>{
+      const gem=`<button class="btn buy blue" data-c="${i}"><img src="${IC}tombol-dan-kontrol/tombol-biru-polos.webp" alt=""><span><img src="${IC}ikon-gem-medali/berlian-hijau.webp" alt="">${fmt(c.price)}</span></button>`;
+      const ad=c.ad?`<button class="btn buy ad${fl>0?' dis':''}" data-ad="${i}"><img src="${IC}tombol-dan-kontrol/tombol-kuning-polos.webp" alt=""><span><img src="${IC}ikon-gem-medali/televisi.webp" alt="">${fl>0?`<small id="free-t">${hm(fl)}</small>`:'Open'}</span></button>`:'';
+      return `<div class="card chest${c.ad?' two':''}">
+      ${c.tag?`<img class="rib" src="${IC}banner-label/pita-badge-${c.tagc}.webp" alt=""><span class="rt">${c.tag}</span>`:''}
       <div class="nm">${c.t}</div><div class="pic"><img src="${IC}${c.img}" alt=""></div>
-      <div class="amt sm">${fmt(c.coin[0])}–${fmt(c.coin[1])} Coin<small>+ 1 aksesori karakter</small></div>
-      <button class="btn buy" data-c="${i}"><img src="${IC}tombol-dan-kontrol/${fr?'tombol-kuning-polos':'tombol-hijau-polos'}.webp" alt=""><span>${fr?'GRATIS':`<img src="${IC}hud/ikon-koin-emas.webp" alt="">${fmt(c.price)}`}</span></button>
-      ${c.free&&!fr?`<div class="cd">Gratis lagi: <b id="free-t">${hm(fl)}</b></div>`:''}</div>`}).join('');
-  }else if(tab==='koleksi'){
-    const own=owned();
-    $('#cards').innerHTML=`<div id="kol"><div class="kh">Koleksi Aksesori <b>${own.length}/${ACC.length}</b></div><div class="kg">`+
-      ACC.map(a=>{const h=own.includes(a.id);return `<div class="kc${h?' has':''}" style="--c:${RAR[a.r][1]}"><div class="ki"><img src="${IC}${a.ic}.webp" alt=""></div><div class="kn">${h?a.n:'???'}</div><div class="kr">${RAR[a.r][0]}</div></div>`}).join('')+`</div></div>`;
+      <div class="amt sm"><small>Aksesori + ${fmt(c.coin[0])}–${fmt(c.coin[1])} Coin</small></div>
+      <div class="brow">${ad}${gem}</div></div>`}).join('');
   }else{
     $('#cards').innerHTML=`<div class="card">
       <div class="nm">Tonton Iklan</div><div class="pic"><img src="${IC}ikon-gem-medali/televisi.webp" alt="" style="max-height:230px"></div>
@@ -156,16 +154,16 @@ function buy(i){
 }
 /* ---- tonton iklan (simulasi) ---- */
 let adBusy=false;
-function watch(){
+function watch(cb){
   if(adBusy)return;adBusy=true;let n=AD_SECONDS;
   $('#ad-n').textContent=n;$('#ad').classList.add('on');
   const iv=setInterval(()=>{n--;if(n>0){$('#ad-n').textContent=n;return}
     clearInterval(iv);$('#ad').classList.remove('on');adBusy=false;
-    addWallet({emerald:AD_REWARD});toast(`+${AD_REWARD} Emerald`)},1000);
+    if(cb)return cb();addWallet({emerald:AD_REWARD});toast(`+${AD_REWARD} Emerald`)},1000);
 }
 $('#cards').addEventListener('click',e=>{
   const b=e.target.closest('.buy');if(!b)return;
-  if(b.id==='watch')watch();else if(b.dataset.c!==undefined)openChest(+b.dataset.c);else buy(+b.dataset.i);
+  if(b.id==='watch')watch();else if(b.dataset.ad!==undefined)openChest(+b.dataset.ad,true);else if(b.dataset.c!==undefined)openChest(+b.dataset.c);else buy(+b.dataset.i);
 });
 
 /* ---- navigasi ---- */
