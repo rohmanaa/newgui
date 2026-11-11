@@ -68,8 +68,11 @@ function pickAcc(ch){
 const freeLeft=()=>Math.max(0,(+localStorage.getItem(FREE_K)||0)+86400e3-Date.now());
 const hm=ms=>{const m=Math.ceil(ms/60e3);return Math.floor(m/60)+'j '+String(m%60).padStart(2,'0')+'m'};
 let opening=false;
+const CHEST_MIN=10,PLAYED_K='dragonroll:stats:played';   /* syarat: main minimal 10 kali (sama dengan lobby) */
+const played=()=>Math.max(0,parseInt(localStorage.getItem(PLAYED_K),10)||0);
 function openChest(i,viaAd){
-  if(opening)return;const ch=CHESTS[i],w=wallet();
+  if(opening)return;
+  if(played()<CHEST_MIN)return toast(`Chest terbuka setelah main minimal ${CHEST_MIN} kali (${played()}/${CHEST_MIN})`);const ch=CHESTS[i],w=wallet();
   if(viaAd){if(freeLeft()>0)return toast('Iklan tersedia lagi dalam '+hm(freeLeft()));return watch(()=>doOpen(i,true))}
   if(w.emerald<ch.price){
     ask({title:'EMERALD TIDAK CUKUP',text:`Kamu butuh ${fmt(ch.price-w.emerald)} Emerald lagi untuk ${ch.t}.`,ok:'DAPATKAN EMERALD',okImg:'tombol-kuning-polos',fn:()=>setTab('emerald')});return;

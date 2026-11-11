@@ -50,11 +50,25 @@ setTimeout(()=>{PD.ready=true;render();
   /* Multiplayer.Progress.dailyLogin() dipanggil di sini pada proyek utama */
 },700);
 
+/* ---- syarat Chest: minimal main 10 kali. Hitungan di localStorage 'dragonroll:stats:played' (di proyek utama: jumlah match dari server).
+   Untuk uji coba: buka lobby.html?played=10 ---- */
+const CHEST_MIN=10,PLAYED_K='dragonroll:stats:played';
+(function(){const q=new URLSearchParams(location.search).get('played');if(/^\d+$/.test(q||''))try{localStorage.setItem(PLAYED_K,q)}catch(e){}})();
+const played=()=>{try{return Math.max(0,parseInt(localStorage.getItem(PLAYED_K),10)||0)}catch(e){return 0}};
+function chestTile(){
+  const el=document.querySelector('[data-act="chest"]');if(!el)return;
+  const n=played(),ok=n>=CHEST_MIN;
+  el.classList.toggle('soon',!ok);
+  const tag=el.querySelector('.tag');if(tag)tag.textContent=ok?'GRATIS':'🔒 '+Math.min(n,CHEST_MIN)+'/'+CHEST_MIN;
+  const b=el.querySelector('.tm b');if(b)b.textContent=ok?'Buka sekarang':'Main '+CHEST_MIN+'x dulu';
+}
+chestTile();
 /* ---- toast & navigasi ---- */
 let tt;
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('on');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('on'),1900)}
 function go(act){
   if(SOON[act]){toast(SOON[act]);return}
+  if(act==='chest'&&played()<CHEST_MIN){toast('Chest terbuka setelah main minimal '+CHEST_MIN+' kali ('+played()+'/'+CHEST_MIN+')');return}
   const url=ACT[act]; if(!url)return;
   if(!NAVIGATE){toast('→ '+url);return}
   if(!BUILT.includes(url.split('?')[0])){toast('Segera hadir');return}
