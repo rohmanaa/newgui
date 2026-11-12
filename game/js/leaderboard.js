@@ -23,9 +23,9 @@ function data(sc){
 }
 const avatar=(p,sz,fs)=>`<div class="avc" style="width:${sz}px;height:${sz}px;font-size:${fs}px;background:${p.col}">${p.name[0].toUpperCase()}</div>`;
 function drawPodium(a){
-  const order=[1,0,2],med=['medali-1','medali-2','medali-3'];
+  const order=[1,0,2];
   $('#podium').innerHTML=order.map(i=>{const p=a[i];if(!p)return'';
-    return `<div class="pd p${i+1}"><img class="md" src="${IC}ikon-gem-medali/${med[i]}.webp" alt="">${avatar(p,i===0?150:120,i===0?72:58)}<div class="pn ttl">${p.name}${p.me?' ★':''}</div><div class="ps">${fmt(p.score)}</div><div class="blk"><b>${i+1}</b></div></div>`}).join('');
+    return `<div class="pd p${i+1}">${avatar(p,i===0?150:120,i===0?72:58)}<div class="pn ttl">${p.name}${p.me?' ★':''}</div><div class="ps">${fmt(p.score)}</div><img class="ped" src="${IC}leaderboard/podium-${i+1}.webp" alt="${i+1}"></div>`}).join('');
 }
 function draw(){
   const a=data(scope);

@@ -34,6 +34,9 @@ Tiap sub-folder berisi sheet asli (PNG) + potongan komponen dengan latar transpa
 | ikon-kelas-hero/ | (dipotong dari layar penerapan +JzO2R) | 10 tombol bulat ikon kelas hero (pejuang terpilih, ahli sihir, gladiator, penyihir gelap, paladin, pemanah, penyihir, ranger, pendeta, assassin), teks nama dihapus |
 | lencana-level/ | (dipotong dari layar penerapan CyJ1Oe) | Lencana level-up bersayap, angka dan teks LEVEL dihapus (1) |
 | karakter-monster/ | (dipotong dari layar penerapan +JzO2R) | Hero Shuri pemanah, latar transparan (1). Monster/boss belum dipotong |
+| lobby/ | lobby (ikon Pet) | `pet.webp`: slime bermahkota, transparan 512 px (dipotong dari `Referensi/new gui/komponen/lobby/pet.jpg`) |
+| leaderboard/ | layar Peringkat + ikon Leaderboard lobby | `podium-1/2/3.webp` (pilar emas, kotak baja, kotak kayu; masing-masing sudah berangka) + `podium-semua.webp` (ketiganya), transparan (dari `leaderboard.jpg`) |
+| achievement/ | halaman Achievements | 9 ikon transparan 512 px dipotong dari sheet `achievment.jpg`: `ach-tangga, ular, naga, kuda, pedang, bumi, kalender, piala, buku` |
 
 ## penerapan/ (43) — contoh layar
 

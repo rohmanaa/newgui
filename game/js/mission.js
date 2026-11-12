@@ -29,22 +29,33 @@ const DAYS=[
  {t:'Dadu Emas ×1',ic:'glyph-putih/dadu.webp',cls:'dice-y'},
  {t:'2.000 Coin',ic:'ikon-item/koin-tumpuk.webp',coin:2000},
  {t:'Skin Epic Enderman',ic:'ikon-item/helm-sayap.webp'}];
+/* 15 achievement x 3 bintang: id, nama, deskripsi, target tiap bintang (sinkron dengan achievement-data.js proyek utama). Ikon: assets/komponen/achievement/ + kit. */
 const ACH=[
- {id:'win',t:'Sang Legenda',d:'Menangkan pertandingan',g:[500,1000,2000],ic:'ikon-item/piala.webp'},
- {id:'dice',t:'Raja Dadu',d:'Lempar dadu',g:[200,500,1000],ic:'glyph-putih/dadu.webp'},
- {id:'ladder',t:'Pendaki Handal',d:'Naik tangga',g:[50,150,300],ic:'ikon-item/panji-pedang.webp'},
- {id:'skill',t:'Ahli Skill',d:'Gunakan skill',g:[30,100,250],ic:'ikon-gem-medali/petir-ungu.webp'},
- {id:'dragon',t:'Pemburu Naga',d:'Pukul naga',g:[20,50,100],ic:'ikon-gem-medali/kristal-api.webp'},
- {id:'chest',t:'Pembuka Peti',d:'Buka peti',g:[10,30,60],ic:'paket-chest/peti-emas.webp'}];
-const ACH_COIN=[200,500,1000];
+ {id:'peti',t:'Penakluk Peti',d:'Buka peti',g:[10,50,200],ic:'paket-chest/peti-emas.webp'},
+ {id:'naga',t:'Penyerang Naga',d:'Serang naga',g:[3,10,30],ic:'achievement/ach-naga.webp'},
+ {id:'aktif',t:'Pemain Aktif',d:'Main sebanyak mungkin',g:[10,50,200],ic:'glyph-putih/gamepad.webp'},
+ {id:'menang',t:'Master Kemenangan',d:'Menangkan pertandingan',g:[3,50,200],ic:'achievement/ach-piala.webp'},
+ {id:'tangga',t:'Raja Tangga',d:'Naik tangga',g:[10,50,150],ic:'achievement/ach-tangga.webp'},
+ {id:'ular',t:'Penakluk Ular',d:'Terkena ular',g:[10,50,150],ic:'achievement/ach-ular.webp'},
+ {id:'skill',t:'Pengguna Skill',d:'Gunakan skill',g:[10,50,200],ic:'achievement/ach-pedang.webp'},
+ {id:'dadu',t:'Pecinta Dadu',d:'Lempar dadu',g:[50,250,1000],ic:'new-icon/dadu.webp'},
+ {id:'papan',t:'Penjelajah Papan',d:'Selesaikan pertandingan',g:[5,50,200],ic:'achievement/ach-bumi.webp'},
+ {id:'login',t:'Login Setia',d:'Login berturut-turut',g:[3,7,30],ic:'achievement/ach-kalender.webp'},
+ {id:'streak',t:'Win Streak',d:'Menang beruntun',g:[2,5,10],ic:'ikon-gem-medali/petir-emas.webp'},
+ {id:'skin',t:'Kolektor Skin',d:'Miliki skin',g:[2,10,25],ic:'achievement/ach-buku.webp'},
+ {id:'emerald',t:'Pemburu Emerald',d:'Kumpulkan Emerald',g:[10,100,500],ic:'ikon-gem-medali/berlian-hijau.webp'},
+ {id:'strategi',t:'Ahli Strategi',d:'Menang dengan skill berbeda',g:[2,5,10],ic:'achievement/ach-kuda.webp'},
+ {id:'legenda',t:'Sang Legenda',d:'Menangkan pertandingan',g:[500,1000,2000],ic:'ikon-item/mahkota.webp'}];
+const ACH_COIN=[250,750,2000];
 
 /* ---- status (demo) ---- */
 const S=Object.assign({
   tab:'daily',
   qp:{login:1,play:1,win:2},qc:{},bonus:false,
   day:3,dayDone:[1,2],
-  ap:{win:520,dice:310,ladder:12,skill:95,dragon:20,chest:4},ac:{}
+  ap:{},ac:{}
 },rd(SKEY));
+S.ap=Object.assign({peti:4,naga:3,aktif:8,menang:2,tangga:12,ular:8,skill:9,dadu:300,papan:3,login:7,streak:1,skin:1,emerald:6,strategi:1,legenda:520},S.ap); /* id baru terisi walau data lama tersimpan */
 const save=()=>wr(SKEY,S);
 const T0=new URLSearchParams(location.search).get('tab');if(['daily','hadiah','ach'].includes(T0))S.tab=T0;
 
@@ -117,11 +128,14 @@ function vAch(){
         :rewardBox(fin?'done':'',fin?'glyph-putih/centang.webp':'hud/ikon-koin-emas.webp',fin?'SELESAI':ACH_COIN[t])}
     </div>`;
   });
+  h+=`<div class="endsp" style="top:${ACH.length*150}px"></div>`;
   return h;
 }
 function render(){
   tabs();
-  $('#body').innerHTML=S.tab==='daily'?vDaily():S.tab==='hadiah'?vHadiah():vAch();
+  const bd=$('#body'),st=(render.last===S.tab)?bd.scrollTop:0;
+  bd.innerHTML=S.tab==='daily'?vDaily():S.tab==='hadiah'?vHadiah():vAch();
+  bd.scrollTop=st;render.last=S.tab;
   $('#title').textContent={daily:'Misi Harian',hadiah:'Hadiah Harian',ach:'Achievements'}[S.tab];
 }
 
